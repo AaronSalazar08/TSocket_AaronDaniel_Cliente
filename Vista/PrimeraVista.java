@@ -57,7 +57,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 botonRealizarPedido = new JButton("Hacer Pedido");
                 botonRealizarPedido.setBounds(170, 240, 160, 30);
-                botonRealizarPedido.setBackground(new Color(255, 255, 51));
+                botonRealizarPedido.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoRealizarPedido = new ImageIcon("Imagenes/porcion-de-pizza.png");
                 Image imagenRealizarPedido = iconoRealizarPedido.getImage();
                 Image imagenRealizarPedidoAjustada = imagenRealizarPedido.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
@@ -68,8 +68,8 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 botonVerPedido = new JButton("Mis Pedidos");
                 botonVerPedido.setBounds(170, 300, 160, 30);
-                botonVerPedido.setBackground(new Color(255, 255, 51));
-                ImageIcon iconoVerPedido = new ImageIcon("Imagenes/verPedido (1).png");
+                botonVerPedido.setBackground(new Color(237, 195, 0));
+                ImageIcon iconoVerPedido = new ImageIcon("Imagenes/ver.png");
                 Image imagenVerPedido = iconoVerPedido.getImage();
                 Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
                 ImageIcon iconoVerPedidoAjustada = new ImageIcon(imagenVerPedidoAjustada);
@@ -79,18 +79,18 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 botonRegistroEmpleado = new JButton("Ser Gladiador");
                 botonRegistroEmpleado.setBounds(170, 360, 160, 30);
-                botonRegistroEmpleado.setBackground(new Color(255, 255, 51));
+                botonRegistroEmpleado.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoEmpleado = new ImageIcon("Imagenes/casco-griego.png");
                 Image imagenEmpleado = iconoEmpleado.getImage();
                 Image imagenEmpleadoAjustada = imagenEmpleado.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
                 botonRegistroEmpleado.setIcon(iconoEmpleadoAjustada);
-                botonRealizarPedido.addActionListener(metodos);
+                botonRegistroEmpleado.addActionListener(metodos);
                 botonRegistroEmpleado.setBorderPainted(false);
 
                 botonSoporte = new JButton("   Soporte     ");
                 botonSoporte.setBounds(170, 420, 160, 30);
-                botonSoporte.setBackground(new Color(255, 255, 51));
+                botonSoporte.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoSoporte = new ImageIcon("Imagenes/servicio-al-cliente.png");
                 Image imagenSoporte = iconoSoporte.getImage();
                 Image imagenSoporteAjustada = imagenSoporte.getScaledInstance(30, 20, Image.SCALE_SMOOTH);

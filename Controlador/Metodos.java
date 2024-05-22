@@ -98,8 +98,9 @@ public class Metodos implements ActionListener {
 
         if(enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado){
 
-          enlaceAplicante.setVisible(true);
-          enlaceVista.dispose();
+         RegistroAplicante registroAplicante = new RegistroAplicante();
+         registroAplicante.setVisible(true);
+         enlaceVista.dispose();
 
         }
 
