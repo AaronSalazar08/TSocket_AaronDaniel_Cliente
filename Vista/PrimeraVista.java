@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import Controlador.Metodos;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -13,11 +16,11 @@ import java.awt.event.ActionListener;
 
 public class PrimeraVista extends JFrame implements ActionListener {
 
-        private JButton botonBilletera, botonRealizarPedido, botonSoporte, botonVerPedido, botonRegistroEmpleado,
+        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonVerPedido, botonRegistroEmpleado,
                         botoonApagar;
         public JPanel panelOpciones = new JPanel();
-        private ImageIcon imagen;
-        private Icon icono;
+        public ImageIcon imagen;
+        public Icon icono;
         public JLabel logo, iconoUsuario, usuario;
 
         public PrimeraVista() {
@@ -33,6 +36,8 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
         public void Elementos() {
                 // Inicializar constantes
+
+                Metodos metodos = new Metodos(this);
 
                 botonBilletera = new JButton("Billetera");
                 botonBilletera.setBounds(400, 10, 80, 40);
@@ -80,7 +85,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenEmpleadoAjustada = imagenEmpleado.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
                 botonRegistroEmpleado.setIcon(iconoEmpleadoAjustada);
-                //botonRealizarPedido.addActionListener(metodos);
+                botonRealizarPedido.addActionListener(metodos);
                 botonRegistroEmpleado.setBorderPainted(false);
 
                 botonSoporte = new JButton("   Soporte     ");

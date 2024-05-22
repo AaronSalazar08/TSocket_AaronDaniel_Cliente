@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Vista.PrimeraVista;
+import Vista.RegistroAplicante;
 import Vista.RegistroInicio;
 import Vista.RegistroPedido;
 
@@ -29,6 +30,7 @@ public class Metodos implements ActionListener {
     RegistroPedido enlacePedido ;
     RegistroInicio enlanceLogin;
     PrimeraVista enlaceVista ;
+    RegistroAplicante enlaceAplicante;
 
     
 
@@ -38,6 +40,7 @@ public class Metodos implements ActionListener {
         this.enlacePedido = enlacePedido;
         this.enlanceLogin = null;
         this.enlaceVista = null;
+        this.enlaceAplicante = null;
 
     }
 
@@ -45,6 +48,7 @@ public class Metodos implements ActionListener {
         this.enlacePedido = null;
         this.enlanceLogin = enlaceLogin;
         this.enlaceVista = null;
+        this.enlaceAplicante = null;
 
     }
 
@@ -52,6 +56,14 @@ public class Metodos implements ActionListener {
         this.enlacePedido = null;
         this.enlanceLogin = null;
         this.enlaceVista = enlaceVista;
+        this.enlaceAplicante = null;
+    }
+
+    public Metodos(RegistroAplicante enlaceAplicante) {
+        this.enlacePedido = null;
+        this.enlanceLogin = null;
+        this.enlaceVista = null;
+        this.enlaceAplicante = enlaceAplicante;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -81,6 +93,13 @@ public class Metodos implements ActionListener {
 
 
             }
+
+        }
+
+        if(enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado){
+
+          enlaceAplicante.setVisible(true);
+          enlaceVista.dispose();
 
         }
 

@@ -2,6 +2,8 @@ package Vista;
 
 import javax.swing.JFrame;
 
+import Controlador.Metodos;
+
 import java.awt.Color;
 
 import javax.swing.*;
@@ -25,6 +27,8 @@ public class RegistroAplicante extends JFrame {
     }
 
     public void Elementos (){
+
+        Metodos metodos = new Metodos(this);
 
 
     }
