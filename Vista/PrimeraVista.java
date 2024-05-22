@@ -35,7 +35,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 // Inicializar constantes
 
                 botonBilletera = new JButton("Billetera");
-                botonBilletera.setBounds(400, 10, 50, 30);
+                botonBilletera.setBounds(400, 10, 80, 40);
                 botonBilletera.addActionListener(this);
                 botonBilletera.setBackground(new Color(255, 255, 255));
                 this.PintarB(this.botonBilletera, "Imagenes\\flecha-de-billetera.png");
