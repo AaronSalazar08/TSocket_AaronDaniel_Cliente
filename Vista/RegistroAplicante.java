@@ -72,7 +72,7 @@ public class RegistroAplicante extends JFrame {
         cedula_txt.setBounds(165, 68, 100, 20);
         cedula_txt.setToolTipText("Digite su número de cédula");
 
-        residenciaLabel  = new JLabel("Residencia: ");
+        residenciaLabel = new JLabel("Residencia: ");
         residenciaLabel.setBounds(40, 90, 140, 30);
         residenciaLabel.setBackground(new Color(0, 0, 0));
 
@@ -80,8 +80,7 @@ public class RegistroAplicante extends JFrame {
         residencia_txt.setBounds(165, 98, 300, 20);
         residencia_txt.setToolTipText("Especifíque su lugar de residencia");
 
-
-        puestoLabel  = new JLabel("Puesto Preferencia: ");
+        puestoLabel = new JLabel("Puesto Preferencia: ");
         puestoLabel.setBounds(40, 120, 140, 30);
         puestoLabel.setBackground(new Color(0, 0, 0));
 
@@ -91,17 +90,15 @@ public class RegistroAplicante extends JFrame {
         puestoTrabajo.setBounds(165, 130, 120, 20);
         puestoTrabajo.setToolTipText("Seleccione su puesto de preferencia para trabajar con Pizza Roma");
 
-
-        motivoTrabajoLabel  = new JLabel("Motivo: ");
+        motivoTrabajoLabel = new JLabel("Motivo: ");
         motivoTrabajoLabel.setBounds(40, 180, 140, 30);
         motivoTrabajoLabel.setBackground(new Color(0, 0, 0));
 
         motivoTrabajo_txt = new JTextArea();
         motivoTrabajo_txt.setBounds(40, 210, 400, 200);
         motivoTrabajo_txt.setToolTipText("Cuéntanos tus razones para formar parte de nuestro equipo");
-        motivoTrabajo_txt.setBorder(BorderFactory.createCompoundBorder(motivoTrabajo_txt.getBorder(), BorderFactory.createLineBorder(Color.BLACK, 5)));
-        
-
+        motivoTrabajo_txt.setBorder(BorderFactory.createCompoundBorder(motivoTrabajo_txt.getBorder(),
+                BorderFactory.createLineBorder(Color.BLACK, 5)));
 
         panelRegistroAplicante.add(botonVolver);
         panelRegistroAplicante.add(botonEnviar);
