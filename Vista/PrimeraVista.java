@@ -24,6 +24,8 @@ public class PrimeraVista extends JFrame implements ActionListener {
         public JLabel logo, iconoUsuario, usuario;
 
         public PrimeraVista() {
+                
+                setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 this.setTitle("Pizza Roma - Menú Principal");
                 this.setSize(500, 530);
                 panelOpciones.setBackground(new Color(255, 255, 255));
@@ -49,7 +51,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 botoonApagar = new JButton("Apagar");
                 botoonApagar.setBounds(430, 440, 50, 30);
-                botoonApagar.addActionListener(this);
+                botoonApagar.addActionListener(metodos);
                 botoonApagar.setBackground(new Color(255, 255, 255));
                 this.PintarB(this.botoonApagar, "Imagenes\\apagar.png");
                 botoonApagar.setBorderPainted(false);

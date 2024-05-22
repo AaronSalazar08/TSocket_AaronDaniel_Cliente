@@ -3,6 +3,8 @@ package Controlador;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInput;
@@ -103,8 +105,27 @@ public class Metodos implements ActionListener {
          enlaceVista.dispose();
 
         }
+        
+        if(enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver){
 
+            PrimeraVista primeraVista = new PrimeraVista();
+            primeraVista.setVisible(true);
+            enlaceAplicante.dispose();
+        }
 
+        if (enlaceVista != null && e.getSource() == enlaceVista.botoonApagar) {
+
+            int confirmacion = JOptionPane.showConfirmDialog(null,
+                    "¿Deseas salir del Programa?", "confirmacion",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+
+                JOptionPane.showMessageDialog(null, "Saliendo del programa...");
+                enlaceVista.dispose();
+            }
+
+        }
 
 
     }
