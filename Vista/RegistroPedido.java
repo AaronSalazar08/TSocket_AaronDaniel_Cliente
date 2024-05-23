@@ -126,7 +126,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
         labelNombre.setForeground(new Color(237, 195, 0));
 
         labelDireccion = new JLabel("Dirección");
-        labelDireccion.setBounds(405, 120, 100, 70);
+        labelDireccion.setBounds(405, 120, 70, 70);
         Font fuente3 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         labelDireccion.setFont(fuente3);
         labelDireccion.setForeground(new Color(237, 195, 0));
@@ -138,13 +138,13 @@ public class RegistroPedido extends JFrame implements ActionListener {
         areaNombre.setBounds(405, 75, 90, 20);
 
         areaDireccion = new JTextField();
-        areaDireccion.setBounds(405, 180, 250, 20);
+        areaDireccion.setBounds(405, 180, 170, 20);
 
         
         // JButton
 
         botonCancelar = new JButton("cancelar");
-        botonCancelar.setBounds(30, 450, 80, 30);
+        botonCancelar.setBounds(30, 490, 80, 30);
         botonCancelar.addActionListener(metodos);
         botonCancelar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonCancelar, "Imagenes\\deshacer (2).png");
@@ -153,7 +153,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
 
         botonEnviar = new JButton("enviar");
-        botonEnviar.setBounds(610, 450, 80, 30);
+        botonEnviar.setBounds(475, 490, 80, 30);
         botonEnviar.addActionListener(metodos);
         botonEnviar.setBackground(new Color(255, 255, 255));
         this.PintarB(this.botonEnviar, "Imagenes\\avion-de-papel (1).png");

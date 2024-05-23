@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Vista.EstadoPedido;
+import Vista.IngresoDinero;
 import Vista.MisPedidos;
 import Vista.PrimeraVista;
 import Vista.RegistroAplicante;
@@ -37,6 +38,19 @@ public class Metodos implements ActionListener {
     RegistroAplicante enlaceAplicante;
     EstadoPedido enlaceEstadoPedido;
     MisPedidos enlaceMisPedidos;
+    IngresoDinero enlaceDinero;
+
+
+    public Metodos (IngresoDinero enlaceDinero){
+        this.enlacePedido = null;
+        this.enlanceLogin = null;
+        this.enlaceVista = null;
+        this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = null;
+        this.enlaceDinero = enlaceDinero;
+
+    }
 
     public Metodos(RegistroPedido enlacePedido) {
         this.enlacePedido = enlacePedido;
@@ -212,6 +226,40 @@ public class Metodos implements ActionListener {
             MisPedidos misPedidos = new MisPedidos();
             misPedidos.setVisible(true);
             enlaceVista.dispose();
+        }
+
+        if (enlaceVista != null && e.getSource()== enlaceVista.botonRealizarPedido){
+
+            RegistroPedido registroPedido = new RegistroPedido();
+            registroPedido.setVisible(true);
+            enlaceVista.dispose();
+
+        }
+        if (enlaceVista != null && e.getSource()== enlaceVista.botonBilletera){
+            IngresoDinero  ingresoDinero = new IngresoDinero ();
+            ingresoDinero.setVisible(true);
+            enlaceVista.dispose();
+
+
+        }if (enlacePedido!= null && e.getSource()== enlacePedido.botonCancelar ){
+            PrimeraVista vistaR = new PrimeraVista();
+            vistaR.usuario.setText(enlanceLogin.areaNombre.getText());
+            vistaR.setVisible(true);
+            enlacePedido.dispose();
+
+
+
+
+
+        }
+        if (enlaceDinero!= null && e.getSource()== enlaceDinero.botonCancelar){
+            PrimeraVista vistaA = new PrimeraVista();
+            vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
+            vistaA.setVisible(true);
+            enlaceDinero.dispose();
+
+
+
         }
 
        
