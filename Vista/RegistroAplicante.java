@@ -12,9 +12,9 @@ public class RegistroAplicante extends JFrame {
     private static final String COCINERO = "Cocinero";
     private static final String REPARTIDOR = "Repartidor";
     public JPanel panelRegistroAplicante = new JPanel();
-    public JLabel nombreLabel, cedulaLabel, puestoLabel, correolabel, residenciaLabel, motivoTrabajoLabel;
+    public JLabel nombreLabel, cedulaLabel, puestoLabel, correolabel, numeroLabel, residenciaLabel, motivoTrabajoLabel;
     public JButton botonEnviar, botonVolver;
-    public JTextField nombre_txt, cedula_txt, residencia_txt, correo_txt;
+    public JTextField nombre_txt, cedula_txt, residencia_txt, correo_txt, numero_txt;
     public JComboBox puestoTrabajo;
     public JTextArea motivoTrabajo_txt;
     public ImageIcon imagen;
@@ -80,6 +80,10 @@ public class RegistroAplicante extends JFrame {
         correo_txt = new JTextField();
         correo_txt.setBounds(165, 98, 140, 20);
         correo_txt.setToolTipText("Digite su número de cédula");
+
+        numeroLabel = new JLabel("Correo electrónico: ");
+        numeroLabel.setBounds(40, 90, 140, 30);
+        numeroLabel.setBackground(new Color(0, 0, 0));
 
 
         residenciaLabel = new JLabel("Residencia: ");
