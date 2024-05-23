@@ -14,7 +14,7 @@ public class Main {
         RegistroAplicante.setVisible(true);
          */
 
-         PrimeraVista primeraVista = new PrimeraVista();
+         RegistroPedido primeraVista = new RegistroPedido();
          primeraVista.setVisible(true);
        
 
