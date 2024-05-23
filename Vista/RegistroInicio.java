@@ -30,6 +30,7 @@ public class RegistroInicio extends JFrame implements ActionListener {
     public RegistroInicio() {
 
         setTitle("Pizza Roma - Regístrate");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(410, 420);
         panelUsuario.setBackground(new Color(255, 0, 0));
         setContentPane(panelUsuario);

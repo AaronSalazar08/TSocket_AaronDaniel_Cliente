@@ -17,8 +17,8 @@ import java.awt.event.ActionListener;
 
 public class PrimeraVista extends JFrame implements ActionListener {
 
-        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonVerPedido, botonRegistroEmpleado,
-                        botoonApagar, iconoUsuario;
+        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado,
+                        botoonApagar, iconoUsuario, botonMisPedidos;
         public JPanel panelOpciones = new JPanel();
         public ImageIcon imagen;
         public Icon icono;
@@ -70,16 +70,27 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 botonRealizarPedido.addActionListener(metodos);
                 botonRealizarPedido.setBorderPainted(false);
 
-                botonVerPedido = new JButton("Estado Pedido");
-                botonVerPedido.setBounds(170, 300, 160, 30);
-                botonVerPedido.setBackground(new Color(237, 195, 0));
+                botonMisPedidos = new JButton("Mis Pedidos");
+                botonMisPedidos.setBounds(170, 280, 160, 30);
+                botonMisPedidos.setBackground(new Color(237, 195, 0));
+                ImageIcon iconoMisPedidos = new ImageIcon("Imagenes/carrito-de-compras.png");
+                Image imagenMisPedidos = iconoMisPedidos.getImage();
+                Image  imagenMisPedidosAjustada = imagenMisPedidos.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+                ImageIcon iconoMisPedidosAjustada = new ImageIcon(imagenMisPedidosAjustada);
+                botonMisPedidos.setIcon(iconoMisPedidosAjustada);
+                botonMisPedidos.addActionListener(metodos);
+                botonMisPedidos.setBorderPainted(false);
+
+                botonEstadoPedido = new JButton("Estado Pedido");
+                botonEstadoPedido.setBounds(170, 320, 160, 30);
+                botonEstadoPedido.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoVerPedido = new ImageIcon("Imagenes/ver.png");
                 Image imagenVerPedido = iconoVerPedido.getImage();
                 Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
                 ImageIcon iconoVerPedidoAjustada = new ImageIcon(imagenVerPedidoAjustada);
-                botonVerPedido.setIcon(iconoVerPedidoAjustada);
-                botonVerPedido.addActionListener(metodos);
-                botonVerPedido.setBorderPainted(false);
+                botonEstadoPedido.setIcon(iconoVerPedidoAjustada);
+                botonEstadoPedido.addActionListener(metodos);
+                botonEstadoPedido.setBorderPainted(false);
 
                 botonRegistroEmpleado = new JButton("Ser Gladiador");
                 botonRegistroEmpleado.setBounds(170, 360, 160, 30);
@@ -93,7 +104,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 botonRegistroEmpleado.setBorderPainted(false);
 
                 botonSoporte = new JButton("   Soporte     ");
-                botonSoporte.setBounds(170, 420, 160, 30);
+                botonSoporte.setBounds(170, 400, 160, 30);
                 botonSoporte.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoSoporte = new ImageIcon("Imagenes/servicio-al-cliente.png");
                 Image imagenSoporte = iconoSoporte.getImage();
@@ -124,12 +135,13 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 panelOpciones.add(botonBilletera);
                 panelOpciones.add(logo);
                 panelOpciones.add(botonRealizarPedido);
-                panelOpciones.add(botonVerPedido);
+                panelOpciones.add(botonEstadoPedido);
                 panelOpciones.add(botonRegistroEmpleado);
                 panelOpciones.add(botonSoporte);
                 panelOpciones.add(iconoUsuario);
                 panelOpciones.add(botoonApagar);
                 panelOpciones.add(usuario);
+                panelOpciones.add(botonMisPedidos);
         }
 
         public void actionPerformed(ActionEvent e) {

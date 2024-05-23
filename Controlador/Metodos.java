@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import Vista.EstadoPedido;
+import Vista.MisPedidos;
 import Vista.PrimeraVista;
 import Vista.RegistroAplicante;
 import Vista.RegistroInicio;
@@ -35,6 +36,7 @@ public class Metodos implements ActionListener {
     PrimeraVista enlaceVista;
     RegistroAplicante enlaceAplicante;
     EstadoPedido enlaceEstadoPedido;
+    MisPedidos enlaceMisPedidos;
 
     public Metodos(RegistroPedido enlacePedido) {
         this.enlacePedido = enlacePedido;
@@ -42,6 +44,7 @@ public class Metodos implements ActionListener {
         this.enlaceVista = null;
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = null;
 
     }
 
@@ -51,6 +54,7 @@ public class Metodos implements ActionListener {
         this.enlaceVista = null;
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = null;
 
     }
 
@@ -60,6 +64,7 @@ public class Metodos implements ActionListener {
         this.enlaceVista = enlaceVista;
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = null;
     }
 
     public Metodos(RegistroAplicante enlaceAplicante) {
@@ -68,6 +73,7 @@ public class Metodos implements ActionListener {
         this.enlaceVista = null;
         this.enlaceAplicante = enlaceAplicante;
         this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = null;
     }
     public Metodos(EstadoPedido enlaceEstadoPedido) {
         this.enlacePedido = null;
@@ -75,6 +81,16 @@ public class Metodos implements ActionListener {
         this.enlaceVista = null;
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = enlaceEstadoPedido;
+        this.enlaceMisPedidos = null;
+        
+    }
+    public Metodos(MisPedidos enlaceMisPedidos) {
+        this.enlacePedido = null;
+        this.enlanceLogin = null;
+        this.enlaceVista = null;
+        this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = enlaceMisPedidos;
         
     }
 
@@ -168,7 +184,7 @@ public class Metodos implements ActionListener {
 
         }
 
-        if(enlaceVista != null && e.getSource() == enlaceVista.botonVerPedido){
+        if(enlaceVista != null && e.getSource() == enlaceVista.botonEstadoPedido){
 
             EstadoPedido estadoPedido = new EstadoPedido();
             estadoPedido.setVisible(true);
@@ -181,6 +197,21 @@ public class Metodos implements ActionListener {
             primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
             primeraVista.setVisible(true);
             enlaceEstadoPedido.dispose();
+        }
+
+        if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonVolver) {
+
+            PrimeraVista primeraVista = new PrimeraVista();
+            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
+            primeraVista.setVisible(true);
+            enlaceMisPedidos.dispose();
+        }
+
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonMisPedidos) {
+
+            MisPedidos misPedidos = new MisPedidos();
+            misPedidos.setVisible(true);
+            enlaceVista.dispose();
         }
 
        
