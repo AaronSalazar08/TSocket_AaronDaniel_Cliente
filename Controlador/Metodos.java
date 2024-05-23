@@ -109,6 +109,7 @@ public class Metodos implements ActionListener {
         if(enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver){
 
             PrimeraVista primeraVista = new PrimeraVista();
+            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
             primeraVista.setVisible(true);
             enlaceAplicante.dispose();
         }
@@ -124,6 +125,33 @@ public class Metodos implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Saliendo del programa...");
                 enlaceVista.dispose();
             }
+
+        }
+
+        if (enlaceVista != null && e.getSource() == enlaceVista.iconoUsuario) {
+
+            int confirmacion = JOptionPane.showConfirmDialog(null,
+                    "¿Deseas cerrar sesión?", "confirmacion",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+
+                JOptionPane.showMessageDialog(null, "Cerrando Sesión...");
+                RegistroInicio registroInicio = new RegistroInicio();
+                registroInicio.setVisible(true);
+                enlaceVista.dispose();
+            }
+
+        }
+
+        if (enlanceLogin != null && e.getSource() == enlanceLogin.botonEntrar) {
+
+            JOptionPane.showMessageDialog(null, "Bienvenido " + enlanceLogin.areaNombre.getText());
+
+          PrimeraVista primeraVista = new PrimeraVista();
+          primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
+          primeraVista.setVisible(true);
+          enlanceLogin.dispose();
 
         }
 

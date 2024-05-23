@@ -17,11 +17,11 @@ import java.awt.event.ActionListener;
 public class PrimeraVista extends JFrame implements ActionListener {
 
         public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonVerPedido, botonRegistroEmpleado,
-                        botoonApagar;
+                        botoonApagar, iconoUsuario;
         public JPanel panelOpciones = new JPanel();
         public ImageIcon imagen;
         public Icon icono;
-        public JLabel logo, iconoUsuario, usuario;
+        public JLabel logo, usuario;
 
         public PrimeraVista() {
                 
@@ -41,7 +41,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 Metodos metodos = new Metodos(this);
 
-                botonBilletera = new JButton("Billetera");
+                botonBilletera = new JButton();
                 botonBilletera.setBounds(400, 10, 80, 40);
                 botonBilletera.addActionListener(this);
                 botonBilletera.setBackground(new Color(255, 255, 255));
@@ -106,9 +106,17 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 logo.setBounds(150, 30, 200, 200);
                 this.Pintar(this.logo, "Imagenes\\LogoBlanco.png");
 
-                iconoUsuario = new JLabel();
+                usuario = new JLabel();
+                usuario.setBounds(55, 8, 120, 30);
+
+                iconoUsuario = new JButton();
                 iconoUsuario.setBounds(10, 5, 35, 35);
-                this.Pintar(this.iconoUsuario, "Imagenes\\gente-pic.png");
+                iconoUsuario.setBorderPainted(false);
+                iconoUsuario.setOpaque(false);
+                iconoUsuario.setBackground(Color.WHITE);
+                iconoUsuario.setToolTipText("Cerrar Sesión");
+                iconoUsuario.addActionListener(metodos);
+                this.PintarB(this.iconoUsuario, "Imagenes\\gente-pic.png");
 
                 // Agregar elementos al panel
                 panelOpciones.add(botonBilletera);
@@ -119,6 +127,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 panelOpciones.add(botonSoporte);
                 panelOpciones.add(iconoUsuario);
                 panelOpciones.add(botoonApagar);
+                panelOpciones.add(usuario);
         }
 
         public void actionPerformed(ActionEvent e) {

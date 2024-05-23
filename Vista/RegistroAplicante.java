@@ -95,9 +95,10 @@ public class RegistroAplicante extends JFrame {
         motivoTrabajoLabel.setBackground(new Color(0, 0, 0));
 
         motivoTrabajo_txt = new JTextArea();
-        motivoTrabajo_txt.setBounds(40, 210, 400, 200);
-        motivoTrabajo_txt.setToolTipText("Cuéntanos tus razones para formar parte de nuestro equipo");
-        motivoTrabajo_txt.setBorder(BorderFactory.createCompoundBorder(motivoTrabajo_txt.getBorder(),
+        JScrollPane scrollMotivoTrabajo = new JScrollPane(motivoTrabajo_txt);
+        scrollMotivoTrabajo.setBounds(40, 210, 400, 200);
+        scrollMotivoTrabajo.setToolTipText("Cuéntanos tus razones para formar parte de nuestro equipo");
+        scrollMotivoTrabajo.setBorder(BorderFactory.createCompoundBorder(motivoTrabajo_txt.getBorder(),
                 BorderFactory.createLineBorder(Color.BLACK, 5)));
 
         panelRegistroAplicante.add(botonVolver);
@@ -111,7 +112,7 @@ public class RegistroAplicante extends JFrame {
         panelRegistroAplicante.add(nombre_txt);
         panelRegistroAplicante.add(cedula_txt);
         panelRegistroAplicante.add(residencia_txt);
-        panelRegistroAplicante.add(motivoTrabajo_txt);
+        panelRegistroAplicante.add(scrollMotivoTrabajo);
 
     }
 
