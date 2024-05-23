@@ -1,5 +1,6 @@
 package Vista;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,20 +17,23 @@ import java.awt.event.ActionListener;
 
 public class PrimeraVista extends JFrame implements ActionListener {
 
-        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonVerPedido, botonRegistroEmpleado,
-                        botoonApagar;
+        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado,
+                        botoonApagar, iconoUsuario, botonMisPedidos;
         public JPanel panelOpciones = new JPanel();
         public ImageIcon imagen;
         public Icon icono;
-        public JLabel logo, iconoUsuario, usuario;
+        public JLabel logo, usuario;
 
         public PrimeraVista() {
-                this.setTitle("Pizza Roma - Menú Principal");
-                this.setSize(500, 530);
+                
+                setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                setTitle("Pizza Roma - Menú Principal");
+                setSize(500, 530);
                 panelOpciones.setBackground(new Color(255, 255, 255));
-                this.setContentPane(panelOpciones);
-                this.setLocationRelativeTo(null);
-                this.setLayout(null);
+                setContentPane(panelOpciones);
+                panelOpciones.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
+                setLocationRelativeTo(null);
+                setLayout(null);
 
                 Elementos();
         }
@@ -39,7 +43,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 Metodos metodos = new Metodos(this);
 
-                botonBilletera = new JButton("Billetera");
+                botonBilletera = new JButton();
                 botonBilletera.setBounds(400, 10, 80, 40);
                 botonBilletera.addActionListener(this);
                 botonBilletera.setBackground(new Color(255, 255, 255));
@@ -49,7 +53,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 botoonApagar = new JButton("Apagar");
                 botoonApagar.setBounds(430, 440, 50, 30);
-                botoonApagar.addActionListener(this);
+                botoonApagar.addActionListener(metodos);
                 botoonApagar.setBackground(new Color(255, 255, 255));
                 this.PintarB(this.botoonApagar, "Imagenes\\apagar.png");
                 botoonApagar.setBorderPainted(false);
@@ -63,19 +67,30 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenRealizarPedidoAjustada = imagenRealizarPedido.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoRealizarPedidoAjustada = new ImageIcon(imagenRealizarPedidoAjustada);
                 botonRealizarPedido.setIcon(iconoRealizarPedidoAjustada);
-                //botonRealizarPedido.addActionListener(metodos);
+                botonRealizarPedido.addActionListener(metodos);
                 botonRealizarPedido.setBorderPainted(false);
 
-                botonVerPedido = new JButton("Mis Pedidos");
-                botonVerPedido.setBounds(170, 300, 160, 30);
-                botonVerPedido.setBackground(new Color(237, 195, 0));
+                botonMisPedidos = new JButton("Mis Pedidos");
+                botonMisPedidos.setBounds(170, 280, 160, 30);
+                botonMisPedidos.setBackground(new Color(237, 195, 0));
+                ImageIcon iconoMisPedidos = new ImageIcon("Imagenes/carrito-de-compras.png");
+                Image imagenMisPedidos = iconoMisPedidos.getImage();
+                Image  imagenMisPedidosAjustada = imagenMisPedidos.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+                ImageIcon iconoMisPedidosAjustada = new ImageIcon(imagenMisPedidosAjustada);
+                botonMisPedidos.setIcon(iconoMisPedidosAjustada);
+                botonMisPedidos.addActionListener(metodos);
+                botonMisPedidos.setBorderPainted(false);
+
+                botonEstadoPedido = new JButton("Estado Pedido");
+                botonEstadoPedido.setBounds(170, 320, 160, 30);
+                botonEstadoPedido.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoVerPedido = new ImageIcon("Imagenes/ver.png");
                 Image imagenVerPedido = iconoVerPedido.getImage();
-                Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
+                Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
                 ImageIcon iconoVerPedidoAjustada = new ImageIcon(imagenVerPedidoAjustada);
-                botonVerPedido.setIcon(iconoVerPedidoAjustada);
-                //botonRealizarPedido.addActionListener(metodos);
-                botonVerPedido.setBorderPainted(false);
+                botonEstadoPedido.setIcon(iconoVerPedidoAjustada);
+                botonEstadoPedido.addActionListener(metodos);
+                botonEstadoPedido.setBorderPainted(false);
 
                 botonRegistroEmpleado = new JButton("Ser Gladiador");
                 botonRegistroEmpleado.setBounds(170, 360, 160, 30);
@@ -89,7 +104,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 botonRegistroEmpleado.setBorderPainted(false);
 
                 botonSoporte = new JButton("   Soporte     ");
-                botonSoporte.setBounds(170, 420, 160, 30);
+                botonSoporte.setBounds(170, 400, 160, 30);
                 botonSoporte.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoSoporte = new ImageIcon("Imagenes/servicio-al-cliente.png");
                 Image imagenSoporte = iconoSoporte.getImage();
@@ -104,19 +119,29 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 logo.setBounds(150, 30, 200, 200);
                 this.Pintar(this.logo, "Imagenes\\LogoBlanco.png");
 
-                iconoUsuario = new JLabel();
+                usuario = new JLabel();
+                usuario.setBounds(55, 8, 120, 30);
+
+                iconoUsuario = new JButton();
                 iconoUsuario.setBounds(10, 5, 35, 35);
-                this.Pintar(this.iconoUsuario, "Imagenes\\gente-pic.png");
+                iconoUsuario.setBorderPainted(false);
+                iconoUsuario.setOpaque(false);
+                iconoUsuario.setBackground(Color.WHITE);
+                iconoUsuario.setToolTipText("Cerrar Sesión");
+                iconoUsuario.addActionListener(metodos);
+                this.PintarB(this.iconoUsuario, "Imagenes\\gente-pic.png");
 
                 // Agregar elementos al panel
                 panelOpciones.add(botonBilletera);
                 panelOpciones.add(logo);
                 panelOpciones.add(botonRealizarPedido);
-                panelOpciones.add(botonVerPedido);
+                panelOpciones.add(botonEstadoPedido);
                 panelOpciones.add(botonRegistroEmpleado);
                 panelOpciones.add(botonSoporte);
                 panelOpciones.add(iconoUsuario);
                 panelOpciones.add(botoonApagar);
+                panelOpciones.add(usuario);
+                panelOpciones.add(botonMisPedidos);
         }
 
         public void actionPerformed(ActionEvent e) {

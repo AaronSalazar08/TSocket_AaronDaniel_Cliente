@@ -1,5 +1,6 @@
 package Vista;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,12 +40,14 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     public RegistroPedido() {
 
-        this.setTitle("Pizza Roma - Registro de Pedido");
-        this.setSize(720, 550);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        setTitle("Pizza Roma - Registro de Pedido");
+        setSize(600, 600);
         panelPedido.setBackground(new Color(255, 255, 255));
-        this.setContentPane(panelPedido);
-        this.setLocationRelativeTo(null);
-        this.setLayout(null);
+        setContentPane(panelPedido);
+        panelPedido.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         Elementos();
 
