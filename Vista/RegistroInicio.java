@@ -20,8 +20,7 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
     JPanel panelUsuario = new JPanel();
 
-    JLabel entrada;
-    JLabel indicacion;
+    JLabel usuarioLabel;
     public static JTextField areaNombre;
     public JButton botonEntrar;
     private ImageIcon imagen;
@@ -48,36 +47,38 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
         // JLabel
 
-        entrada = new JLabel("Registro de usuario");
-        entrada.setBounds(20, 1, 500, 70);
-        Font fuente1 = new Font("Stencil", Font.PLAIN, 14);
-        entrada.setFont(fuente1);
-        entrada.setForeground(new Color(255, 255, 51));
-
         logo = new JLabel();
-        logo.setBounds(105, 30, 200, 200);
-        this.Pintar(this.logo, "Imagenes\\PIZZA_ROMA_1_B.png");
+        logo.setBounds(80, 15, 240, 200);
+        this.Pintar(this.logo, "Imagenes\\PIZZA_ROMA_ROJO.jpg");
 
-        indicacion = new JLabel("Nombre");
-        indicacion.setBounds(130, 200, 500, 70);
-        Font fuente2 = new Font("Yu Mincho Demibold", Font.PLAIN, 14);
-        indicacion.setFont(fuente2);
-        indicacion.setForeground(new Color(255, 255, 255));
+        usuarioLabel = new JLabel("Usuario");
+        usuarioLabel.setBounds(180, 180, 500, 70);
+        Font fuente2 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
+        usuarioLabel.setFont(fuente2);
+        usuarioLabel.setForeground(new Color(255, 255, 255));
 
         // JButton
-        botonEntrar = new JButton("Entrar");
-        botonEntrar.setBounds(155, 300, 100, 30);
+        botonEntrar = new JButton(" Entrar");
+        botonEntrar.setBounds(146, 300, 120, 30);
         botonEntrar.addActionListener(metodos);
         botonEntrar.setBackground(new Color(255, 255, 255));
+        ImageIcon iconoEntrar = new ImageIcon("Imagenes/entrar-en-el-portal.png");
+        Image imagenEntrar = iconoEntrar.getImage();
+        Image imagenEntrarAjustada = imagenEntrar.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+        ImageIcon iconoEntrarAjustada = new ImageIcon(imagenEntrarAjustada);
+        botonEntrar.setIcon(iconoEntrarAjustada);
+        botonEntrar.setBorderPainted(false);
 
         // JTexfield
         areaNombre = new JTextField();
-        areaNombre.setBounds(130, 260, 150, 20);
+        areaNombre.setBounds(130, 240, 150, 20);
+        Font fuente3 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
+        areaNombre.setFont(fuente3);
         areaNombre.setToolTipText("Ingrese su nombre de usuario");
 
         // Agregar constantes al panel
-        panelUsuario.add(entrada);
-        panelUsuario.add(indicacion);
+
+        panelUsuario.add(usuarioLabel);
         panelUsuario.add(areaNombre);
         panelUsuario.add(botonEntrar);
         panelUsuario.add(logo);

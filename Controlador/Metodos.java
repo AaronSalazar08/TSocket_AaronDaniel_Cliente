@@ -29,14 +29,10 @@ public class Metodos implements ActionListener {
     DataInputStream in;
     DataOutputStream out;
 
-    RegistroPedido enlacePedido ;
+    RegistroPedido enlacePedido;
     RegistroInicio enlanceLogin;
-    PrimeraVista enlaceVista ;
+    PrimeraVista enlaceVista;
     RegistroAplicante enlaceAplicante;
-
-    
-
-    
 
     public Metodos(RegistroPedido enlacePedido) {
         this.enlacePedido = enlacePedido;
@@ -74,39 +70,34 @@ public class Metodos implements ActionListener {
 
             String nombre = enlacePedido.areaNombre.getText().trim();
 
-            try{
-              
-    
+            try {
+
                 Socket sc = new Socket(HOST, PUERTO);
-               
+
                 in = new DataInputStream(sc.getInputStream());
-               
+
                 out = new DataOutputStream(sc.getOutputStream());
                 out.writeUTF(nombre);
                 String mensaje = in.readUTF();
                 System.out.println(mensaje);
                 sc.close();
-                
-             
-            }catch(
-            IOException ex){
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        
 
+            } catch (IOException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 
             }
 
         }
 
-        if(enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado){
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado) {
 
-         RegistroAplicante registroAplicante = new RegistroAplicante();
-         registroAplicante.setVisible(true);
-         enlaceVista.dispose();
+            RegistroAplicante registroAplicante = new RegistroAplicante();
+            registroAplicante.setVisible(true);
+            enlaceVista.dispose();
 
         }
-        
-        if(enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver){
+
+        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver) {
 
             PrimeraVista primeraVista = new PrimeraVista();
             primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
@@ -146,15 +137,22 @@ public class Metodos implements ActionListener {
 
         if (enlanceLogin != null && e.getSource() == enlanceLogin.botonEntrar) {
 
-            JOptionPane.showMessageDialog(null, "Bienvenido " + enlanceLogin.areaNombre.getText());
+            String nombre = enlanceLogin.areaNombre.getText().trim();
 
-          PrimeraVista primeraVista = new PrimeraVista();
-          primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-          primeraVista.setVisible(true);
-          enlanceLogin.dispose();
+            if (nombre.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Ingrese su nombre de Usuario");
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Bienvenido " + enlanceLogin.areaNombre.getText());
+
+                PrimeraVista primeraVista = new PrimeraVista();
+                primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
+                primeraVista.setVisible(true);
+                enlanceLogin.dispose();
+
+            }
 
         }
-
 
     }
 }
