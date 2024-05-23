@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Vista.EstadoPedido;
 import Vista.PrimeraVista;
 import Vista.RegistroAplicante;
 import Vista.RegistroInicio;
@@ -33,12 +34,14 @@ public class Metodos implements ActionListener {
     RegistroInicio enlanceLogin;
     PrimeraVista enlaceVista;
     RegistroAplicante enlaceAplicante;
+    EstadoPedido enlaceEstadoPedido;
 
     public Metodos(RegistroPedido enlacePedido) {
         this.enlacePedido = enlacePedido;
         this.enlanceLogin = null;
         this.enlaceVista = null;
         this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = null;
 
     }
 
@@ -47,6 +50,7 @@ public class Metodos implements ActionListener {
         this.enlanceLogin = enlaceLogin;
         this.enlaceVista = null;
         this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = null;
 
     }
 
@@ -55,6 +59,7 @@ public class Metodos implements ActionListener {
         this.enlanceLogin = null;
         this.enlaceVista = enlaceVista;
         this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = null;
     }
 
     public Metodos(RegistroAplicante enlaceAplicante) {
@@ -62,6 +67,15 @@ public class Metodos implements ActionListener {
         this.enlanceLogin = null;
         this.enlaceVista = null;
         this.enlaceAplicante = enlaceAplicante;
+        this.enlaceEstadoPedido = null;
+    }
+    public Metodos(EstadoPedido enlaceEstadoPedido) {
+        this.enlacePedido = null;
+        this.enlanceLogin = null;
+        this.enlaceVista = null;
+        this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = enlaceEstadoPedido;
+        
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -154,5 +168,21 @@ public class Metodos implements ActionListener {
 
         }
 
+        if(enlaceVista != null && e.getSource() == enlaceVista.botonVerPedido){
+
+            EstadoPedido estadoPedido = new EstadoPedido();
+            estadoPedido.setVisible(true);
+            enlaceVista.dispose();
+        }
+
+        if (enlaceEstadoPedido != null && e.getSource() == enlaceEstadoPedido.botonVolver) {
+
+            PrimeraVista primeraVista = new PrimeraVista();
+            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
+            primeraVista.setVisible(true);
+            enlaceEstadoPedido.dispose();
+        }
+
+       
     }
 }

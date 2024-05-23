@@ -1,5 +1,6 @@
 package Vista;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,12 +27,13 @@ public class PrimeraVista extends JFrame implements ActionListener {
         public PrimeraVista() {
                 
                 setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-                this.setTitle("Pizza Roma - Menú Principal");
-                this.setSize(500, 530);
+                setTitle("Pizza Roma - Menú Principal");
+                setSize(500, 530);
                 panelOpciones.setBackground(new Color(255, 255, 255));
-                this.setContentPane(panelOpciones);
-                this.setLocationRelativeTo(null);
-                this.setLayout(null);
+                setContentPane(panelOpciones);
+                panelOpciones.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
+                setLocationRelativeTo(null);
+                setLayout(null);
 
                 Elementos();
         }
@@ -65,7 +67,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenRealizarPedidoAjustada = imagenRealizarPedido.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoRealizarPedidoAjustada = new ImageIcon(imagenRealizarPedidoAjustada);
                 botonRealizarPedido.setIcon(iconoRealizarPedidoAjustada);
-                //botonRealizarPedido.addActionListener(metodos);
+                botonRealizarPedido.addActionListener(metodos);
                 botonRealizarPedido.setBorderPainted(false);
 
                 botonVerPedido = new JButton("Estado Pedido");
@@ -76,7 +78,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
                 ImageIcon iconoVerPedidoAjustada = new ImageIcon(imagenVerPedidoAjustada);
                 botonVerPedido.setIcon(iconoVerPedidoAjustada);
-                //botonRealizarPedido.addActionListener(metodos);
+                botonVerPedido.addActionListener(metodos);
                 botonVerPedido.setBorderPainted(false);
 
                 botonRegistroEmpleado = new JButton("Ser Gladiador");

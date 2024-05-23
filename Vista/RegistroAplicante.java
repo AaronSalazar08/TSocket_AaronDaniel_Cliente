@@ -22,11 +22,12 @@ public class RegistroAplicante extends JFrame {
 
     public RegistroAplicante() {
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Registrarme como trabajador");
         setSize(600, 600);
         panelRegistroAplicante.setBackground(new Color(255, 255, 255));
         setContentPane(panelRegistroAplicante);
+        panelRegistroAplicante.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
         setLocationRelativeTo(null);
         setLayout(null);
 

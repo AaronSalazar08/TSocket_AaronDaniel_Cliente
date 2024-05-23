@@ -29,12 +29,12 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
     public RegistroInicio() {
 
-        this.setTitle("Pizza Roma - Regístrate");
-        this.setSize(410, 420);
+        setTitle("Pizza Roma - Regístrate");
+        setSize(410, 420);
         panelUsuario.setBackground(new Color(255, 0, 0));
-        this.setContentPane(panelUsuario);
-        this.setLocationRelativeTo(null);
-        this.setLayout(null);
+        setContentPane(panelUsuario);
+        setLocationRelativeTo(null);
+        setLayout(null);
 
         Elementos();
 
