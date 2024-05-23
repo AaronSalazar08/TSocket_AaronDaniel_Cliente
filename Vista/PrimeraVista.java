@@ -68,12 +68,12 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 //botonRealizarPedido.addActionListener(metodos);
                 botonRealizarPedido.setBorderPainted(false);
 
-                botonVerPedido = new JButton("Mis Pedidos");
+                botonVerPedido = new JButton("Estado Pedido");
                 botonVerPedido.setBounds(170, 300, 160, 30);
                 botonVerPedido.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoVerPedido = new ImageIcon("Imagenes/ver.png");
                 Image imagenVerPedido = iconoVerPedido.getImage();
-                Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(40, 30, Image.SCALE_SMOOTH);
+                Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
                 ImageIcon iconoVerPedidoAjustada = new ImageIcon(imagenVerPedidoAjustada);
                 botonVerPedido.setIcon(iconoVerPedidoAjustada);
                 //botonRealizarPedido.addActionListener(metodos);
