@@ -58,15 +58,16 @@ public class RegistroPedido extends JFrame implements ActionListener {
         Metodos metodos = new Metodos(this);
 
         // JRadioButton
-        SuperRoma = new JRadioButton("Pizza Super Roma - 16 slice");
+        SuperRoma = new JRadioButton("Pizza Super Roma - ₡12 500");
         SuperRoma.setBackground(new Color(255, 255, 255));
         SuperRoma.setBounds(30, 70, 230, 40);
+        
 
-        JamonQueso = new JRadioButton("Pizza Clásica Italiana - 12 slice");
+        JamonQueso = new JRadioButton("Pizza Clásica Italiana - ₡9 500");
         JamonQueso.setBackground(new Color(255, 255, 255));
         JamonQueso.setBounds(30, 160, 230, 40);
 
-        margarita = new JRadioButton("Margarita por Venecia - 12 slice");
+        margarita = new JRadioButton("Margarita por Venecia - ₡15 000");
         margarita.setBounds(30, 250, 230, 40);
         margarita.setBackground(new Color(255, 255, 255));
 
@@ -81,21 +82,24 @@ public class RegistroPedido extends JFrame implements ActionListener {
         tipoPago = new JComboBox();
         tipoPago.addItem("Efectivo");
         tipoPago.addItem("Tarjeta");
-        tipoPago.setBounds(405, 270, 70, 30);
+        tipoPago.setBounds(405, 270, 100, 30);
 
         // JLabel
 
         imagenRoma = new JLabel();
         imagenRoma.setBounds(260, 45, 80, 80);
         this.Pintar(this.imagenRoma, "Imagenes\\PizzaRomaPromo1.png");
+        imagenRoma.setToolTipText("Deliciosa Pizza Grande a la Roma de 16 pedazos acompañada con: \n" + "-2 Refrescos \n" +  "-Porcion de pan de ajo (4 rebanadas) ");
 
         imagenJamon = new JLabel();
         imagenJamon.setBounds(260,130, 80, 80);
         this.Pintar(this.imagenJamon, "Imagenes\\ClasicaItalianaPromo2.png");
+        imagenJamon.setToolTipText("Pizza Clásica Pequeña de jamón y queso de 8 pedazos acompañada por: -2 Refrescos -Spagetti con albónigas  ");
 
         imagenMargarita = new JLabel();
         imagenMargarita.setBounds(260,220, 80, 80);
         this.Pintar(this.imagenMargarita, "Imagenes\\MargaritaPorVeneciaPromo3.png");
+        imagenMargarita.setToolTipText("Exquisita Pizza Margartita Mediana con 12 pedazos acompañada por: -2 Margaritas -Postre según la cocina del Chef ");
 
 
         labelCantidad = new JLabel("Cantidad de promoción:");
@@ -120,7 +124,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
         labelPromo.setForeground(new Color(237, 195,0));
 
         labelNombre = new JLabel("Nombre:");
-        labelNombre.setBounds(405, 0, 100, 70);
+        labelNombre.setBounds(405, 15, 100, 70);
         Font fuente2 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         labelNombre.setFont(fuente2);
         labelNombre.setForeground(new Color(237, 195, 0));
