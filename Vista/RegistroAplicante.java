@@ -12,11 +12,10 @@ public class RegistroAplicante extends JFrame {
     private static final String COCINERO = "Cocinero";
     private static final String REPARTIDOR = "Repartidor";
     public JPanel panelRegistroAplicante = new JPanel();
-    public JLabel nombreLabel, cedulaLabel, puestoLabel, correolabel, numeroLabel, residenciaLabel, motivoTrabajoLabel;
+    public JLabel nombreLabel, cedulaLabel, puestoLabel, correolabel, numeroLabel, residenciaLabel;
     public JButton botonEnviar, botonVolver;
-    public JTextField nombre_txt, cedula_txt, residencia_txt, correo_txt, numero_txt;
-    public JComboBox puestoTrabajo;
-    public JTextArea motivoTrabajo_txt;
+    public JTextField nombre_txt, cedula_txt, correo_txt, numero_txt;
+    public JComboBox puestoTrabajo, provincia;
     public ImageIcon imagen;
     public Icon icono;
 
@@ -24,7 +23,7 @@ public class RegistroAplicante extends JFrame {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Registrarme como trabajador");
-        setSize(600, 600);
+        setSize(600, 450);
         panelRegistroAplicante.setBackground(new Color(255, 255, 255));
         setContentPane(panelRegistroAplicante);
         panelRegistroAplicante.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
@@ -40,7 +39,7 @@ public class RegistroAplicante extends JFrame {
         Metodos metodos = new Metodos(this);
 
         botonVolver = new JButton();
-        botonVolver.setBounds(30, 500, 80, 40);
+        botonVolver.setBounds(30, 350, 80, 40);
         botonVolver.addActionListener(metodos);
         botonVolver.setBackground(new Color(255, 255, 51));
         this.PintarB(this.botonVolver, "Imagenes\\deshacer (2).png");
@@ -49,7 +48,7 @@ public class RegistroAplicante extends JFrame {
         botonVolver.setToolTipText("Volver al menú principal");
 
         botonEnviar = new JButton();
-        botonEnviar.setBounds(460, 500, 80, 40);
+        botonEnviar.setBounds(460, 350, 80, 40);
         botonEnviar.addActionListener(metodos);
         botonEnviar.setBackground(new Color(255, 255, 51));
         this.PintarB(this.botonEnviar, "Imagenes\\avion-de-papel (1).png");
@@ -57,66 +56,62 @@ public class RegistroAplicante extends JFrame {
         botonEnviar.setOpaque(false);
         botonEnviar.setToolTipText("Enviar solicitud a Pizza Roma");
 
-        nombreLabel = new JLabel("Nombre Completo: ");
-        nombreLabel.setBounds(40, 30, 140, 30);
-        nombreLabel.setBackground(new Color(0, 0, 0));
-
-        nombre_txt = new JTextField();
-        nombre_txt.setBounds(165, 38, 200, 20);
-        nombre_txt.setToolTipText("Escriba su nombre completo ");
-
         cedulaLabel = new JLabel("Cédula: ");
-        cedulaLabel.setBounds(40, 60, 140, 30);
+        cedulaLabel.setBounds(40, 30, 140, 30);
         cedulaLabel.setBackground(new Color(0, 0, 0));
 
         cedula_txt = new JTextField();
-        cedula_txt.setBounds(165, 68, 100, 20);
+        cedula_txt.setBounds(165, 38, 140, 20);
         cedula_txt.setToolTipText("Digite su número de cédula");
 
-        numeroLabel = new JLabel("Número Telefónico: ");
-        numeroLabel.setBounds(40, 90, 140, 30);
-        numeroLabel.setBackground(new Color(0, 0, 0));
+        nombreLabel = new JLabel("Nombre Completo: ");
+        nombreLabel.setBounds(40, 60, 140, 30);
+        nombreLabel.setBackground(new Color(0, 0, 0));
 
-        numero_txt = new JTextField();
-        numero_txt.setBounds(165, 98, 100, 20);
-        numero_txt.setToolTipText("Digite su número telefónico de contacto");
+        nombre_txt = new JTextField();
+        nombre_txt.setBounds(165, 68, 200, 20);
+        nombre_txt.setToolTipText("Escriba su nombre completo ");
 
         correolabel = new JLabel("Correo electrónico: ");
-        correolabel.setBounds(40, 120, 140, 30);
+        correolabel.setBounds(40, 90, 140, 30);
         correolabel.setBackground(new Color(0, 0, 0));
 
         correo_txt = new JTextField();
-        correo_txt.setBounds(165, 128, 140, 20);
+        correo_txt.setBounds(165, 98, 200, 20);
         correo_txt.setToolTipText("Digite correo electrónico");
 
-        residenciaLabel = new JLabel("Residencia: ");
-        residenciaLabel.setBounds(40, 150, 140, 30);
-        residenciaLabel.setBackground(new Color(0, 0, 0));
+        numeroLabel = new JLabel("Número Telefónico: ");
+        numeroLabel.setBounds(40, 120, 140, 30);
+        numeroLabel.setBackground(new Color(0, 0, 0));
 
-        residencia_txt = new JTextField();
-        residencia_txt.setBounds(165, 158, 300, 20);
-        residencia_txt.setToolTipText("Especifíque su lugar de residencia");
+        numero_txt = new JTextField();
+        numero_txt.setBounds(165, 128, 100, 20);
+        numero_txt.setToolTipText("Digite su número telefónico de contacto");
 
         puestoLabel = new JLabel("Puesto Preferencia: ");
-        puestoLabel.setBounds(40, 180, 140, 30);
+        puestoLabel.setBounds(40, 150, 140, 30);
         puestoLabel.setBackground(new Color(0, 0, 0));
 
         puestoTrabajo = new JComboBox<>();
         puestoTrabajo.addItem(REPARTIDOR);
         puestoTrabajo.addItem(COCINERO);
-        puestoTrabajo.setBounds(165, 190, 120, 20);
+        puestoTrabajo.setBounds(165, 158, 120, 20);
         puestoTrabajo.setToolTipText("Seleccione su puesto de preferencia para trabajar con Pizza Roma");
 
-        motivoTrabajoLabel = new JLabel("Motivo: ");
-        motivoTrabajoLabel.setBounds(40, 240, 140, 30);
-        motivoTrabajoLabel.setBackground(new Color(0, 0, 0));
+        residenciaLabel = new JLabel("Provincia: ");
+        residenciaLabel.setBounds(40, 210, 140, 30);
+        residenciaLabel.setBackground(new Color(0, 0, 0));
 
-        motivoTrabajo_txt = new JTextArea();
-        JScrollPane scrollMotivoTrabajo = new JScrollPane(motivoTrabajo_txt);
-        scrollMotivoTrabajo.setBounds(40, 270, 400, 200);
-        scrollMotivoTrabajo.setToolTipText("Cuéntanos tus razones para formar parte de nuestro equipo");
-        scrollMotivoTrabajo.setBorder(BorderFactory.createCompoundBorder(motivoTrabajo_txt.getBorder(),
-                BorderFactory.createLineBorder(Color.BLACK, 5)));
+        provincia = new JComboBox();
+        provincia.setBounds(165, 215, 200, 20);
+        provincia.setToolTipText("Especifíque su lugar de residencia");
+        provincia.addItem("San José");
+        provincia.addItem("Alajuela");
+        provincia.addItem("Cartago");
+        provincia.addItem("Heredia");
+        provincia.addItem("Guanacaste");
+        provincia.addItem("Puntarenas");
+        provincia.addItem("Limón");
 
         panelRegistroAplicante.add(botonVolver);
         panelRegistroAplicante.add(botonEnviar);
@@ -124,12 +119,10 @@ public class RegistroAplicante extends JFrame {
         panelRegistroAplicante.add(cedulaLabel);
         panelRegistroAplicante.add(residenciaLabel);
         panelRegistroAplicante.add(puestoLabel);
-        panelRegistroAplicante.add(motivoTrabajoLabel);
         panelRegistroAplicante.add(puestoTrabajo);
         panelRegistroAplicante.add(nombre_txt);
         panelRegistroAplicante.add(cedula_txt);
-        panelRegistroAplicante.add(residencia_txt);
-        panelRegistroAplicante.add(scrollMotivoTrabajo);
+        panelRegistroAplicante.add(provincia);
         panelRegistroAplicante.add(correolabel);
         panelRegistroAplicante.add(correo_txt);
         panelRegistroAplicante.add(numeroLabel);
