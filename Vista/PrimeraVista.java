@@ -111,7 +111,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenSoporteAjustada = imagenSoporte.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoSoporteAjustada = new ImageIcon(imagenSoporteAjustada);
                 botonSoporte.setIcon(iconoSoporteAjustada);
-                //botonRealizarPedido.addActionListener(metodos);
+                botonSoporte.addActionListener(metodos);
                 botonSoporte.setBorderPainted(false);
 
                 // JLabel
