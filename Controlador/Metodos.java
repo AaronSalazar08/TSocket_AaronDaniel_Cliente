@@ -430,6 +430,44 @@ public class Metodos implements ActionListener {
 
         }
 
+        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar) {
+
+            String entradaNombre = enlaceAplicante.nombre_txt.getText().trim();
+            String entradaCedula = enlaceAplicante.cedula_txt.getText().trim();
+            String entradaCorreo = enlaceAplicante.correo_txt.getText().trim();
+            String entradaTelefono = enlaceAplicante.numero_txt.getText().trim();
+            String puesto = String.valueOf(enlaceAplicante.puestoTrabajo.getSelectedItem());
+            String provincia = String.valueOf(enlaceAplicante.provincia.getSelectedItem());
+
+            if (entradaNombre.isEmpty() || entradaCedula.isEmpty() || entradaCorreo.isEmpty()
+                    || entradaTelefono.isEmpty()) {
+
+                JOptionPane.showMessageDialog(null,
+                        "Por favor, especifíca tus datos para poder atender tu solicitud de la mejor manera");
+            } else if (!entradaNombre.isEmpty() && !entradaCedula.isEmpty() && !entradaCorreo.isEmpty()
+                    && !entradaTelefono.isEmpty()) {
+
+                int telefono;
+                try {
+
+                    telefono = Integer.parseInt(entradaTelefono);
+
+                    GuardarAplicante(entradaCedula, entradaNombre, entradaCorreo, puesto,
+                            provincia, telefono);
+                    EnviarAplicante();
+                    JOptionPane.showMessageDialog(null, "Solicitud realizada con éxito");
+                    PrimeraVista primeraVista = new PrimeraVista();
+                    primeraVista.setVisible(true);
+                    enlacePedido.dispose();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+                }
+            }
+
+        }
+
         if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonMostrar) {
 
             MostrarPedidos();
@@ -467,68 +505,84 @@ public class Metodos implements ActionListener {
         }
     }
 
-    public void mostrarTemporal() {
-
-        for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
-
-            Pedido pedidos = Main.listaPedidos.get(contador);
-
-            enlaceMisPedidos.misPedidos.append("Nombre: " + pedidos.getNombre() + "\n");
-            enlaceMisPedidos.misPedidos.append("Promocion: " + pedidos.getPromocion() + "\n");
-            enlaceMisPedidos.misPedidos.append("Cantidad: " + pedidos.getCantidadPromocon() + "\n");
-            enlaceMisPedidos.misPedidos.append("Metodo de Pago: " + pedidos.getMetodoPago() + "\n");
-            enlaceMisPedidos.misPedidos.append("Direccion: " + pedidos.getDireccion() + "\n"
-                    + "---------------------------------------------------------------------------------");
-
-        }
-
-    }
-
     public void EnviarPedido() throws UnknownHostException, IOException, ClassNotFoundException {
 
-       
-            try {
+        try {
 
-                Socket socket = new Socket(HOST, PUERTO);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                outputStream.writeObject(Main.listaPedidos);
-    
-                
+            Socket socket = new Socket(HOST, PUERTO);
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            outputStream.writeObject(Main.listaPedidos);
 
-                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-                Object objetoRecibido = inputStream.readObject();
-
-
-                if (objetoRecibido instanceof ArrayList<?>) {
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+            Object objetoRecibido = inputStream.readObject();
+                  
+            
+            if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
                 ArrayList<Pedido> listaPedidosRecibidos = (ArrayList<Pedido>) objetoRecibido;
                 StringBuilder mensaje = new StringBuilder("Pedidos recibidos:\n");
                 for (Pedido pedido : listaPedidosRecibidos) {
                     mensaje.append(pedido.toString()).append("\n");
                 }
-                JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos",
+                        JOptionPane.INFORMATION_MESSAGE);
 
                 outputStream.close();
                 socket.close();
-                
+
             } else {
                 // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
-                JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
-    
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void EnviarAplicante() throws UnknownHostException, IOException, ClassNotFoundException {
+
+        try {
+
+            Socket socket = new Socket(HOST, PUERTO);
+            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            outputStream.writeObject(Main.listaPedidos);
+
+            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+            Object objetoRecibido = inputStream.readObject();
+
+            if (objetoRecibido instanceof ArrayList<?>) {
+                // Muestra un JOptionPane con el contenido del ArrayList
+                ArrayList<Aplicante> listaPAplicantes = (ArrayList<Aplicante>) objetoRecibido;
+                StringBuilder mensaje = new StringBuilder("Solicitud recibida:\n");
+                for (Aplicante aplicante : listaPAplicantes) {
+                    mensaje.append(aplicante.toString()).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Solicitud Recibida",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                outputStream.close();
+                socket.close();
+
+            } else {
+                // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
+                JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
-
-       
-        
-       
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
