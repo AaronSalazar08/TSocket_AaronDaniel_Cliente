@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import Vista.EstadoPedido;
 import Vista.IngresoDinero;
 import Vista.MisPedidos;
+import Vista.Noticias;
 import Vista.PrimeraVista;
 import Vista.RegistroAplicante;
 import Vista.RegistroInicio;
@@ -27,7 +28,7 @@ import Vista.VistaSoporte;
 
 public class Metodos implements ActionListener {
 
-    public final String HOST = "192.168.86.55";
+    public final String HOST = "192.168.86.74";
 
     final int PUERTO = 5000;
     DataInputStream in;
@@ -40,6 +41,7 @@ public class Metodos implements ActionListener {
     EstadoPedido enlaceEstadoPedido;
     MisPedidos enlaceMisPedidos;
     IngresoDinero enlaceDinero;
+    Noticias enlaceNoticias;
     VistaSoporte enlaceSoporte;
 
 
@@ -63,8 +65,8 @@ public class Metodos implements ActionListener {
         this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = null;
         this.enlaceDinero = enlaceDinero;
-        
-
+        this.enlaceNoticias = null;
+        this.enlaceSoporte = null;
 
     }
 
@@ -75,7 +77,9 @@ public class Metodos implements ActionListener {
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = null;
-       
+        this.enlaceNoticias = null;
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
 
     }
 
@@ -86,7 +90,9 @@ public class Metodos implements ActionListener {
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = null;
-        
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
+        this.enlaceNoticias = null;
 
     }
 
@@ -97,7 +103,9 @@ public class Metodos implements ActionListener {
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = null;
-        
+        this.enlaceNoticias = null;
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
     }
 
     public Metodos(RegistroAplicante enlaceAplicante) {
@@ -107,16 +115,26 @@ public class Metodos implements ActionListener {
         this.enlaceAplicante = enlaceAplicante;
         this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = null;
-       
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
+        this.enlaceNoticias = null;
     }
+
     public Metodos(EstadoPedido enlaceEstadoPedido) {
+
+        this.enlaceNoticias = null;
         this.enlacePedido = null;
-        this.enlanceLogin = null;
         this.enlaceVista = null;
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = enlaceEstadoPedido;
         this.enlaceMisPedidos = null;
-       
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
+        
+
+    
+        
+
         
     }
     public Metodos(MisPedidos enlaceMisPedidos) {
@@ -126,7 +144,23 @@ public class Metodos implements ActionListener {
         this.enlaceAplicante = null;
         this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = enlaceMisPedidos;
-       
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
+        this.enlaceNoticias = null;
+        
+    }
+
+    public Metodos(Noticias enlaceNoticias) {
+        this.enlacePedido = null;
+        this.enlanceLogin = null;
+        this.enlaceVista = null;
+        this.enlaceAplicante = null;
+        this.enlaceEstadoPedido = null;
+        this.enlaceMisPedidos = null;
+        this.enlaceNoticias = enlaceNoticias;
+        this.enlaceDinero = null;
+        this.enlaceSoporte = null;
+
         
     }
 
@@ -296,6 +330,24 @@ public class Metodos implements ActionListener {
 
         }
        
+
+        if (enlaceVista!= null && e.getSource()== enlaceVista.botonNoticias){
+
+            Noticias noticias = new Noticias();
+            noticias.setVisible(true);
+            enlaceVista.dispose();
+
+
+
+        }
+
+        if (enlaceNoticias != null && e.getSource() == enlaceNoticias.botonVolver) {
+
+            PrimeraVista primeraVista = new PrimeraVista();
+            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
+            primeraVista.setVisible(true);
+            enlaceNoticias.dispose();
+        }
 
        
     }
