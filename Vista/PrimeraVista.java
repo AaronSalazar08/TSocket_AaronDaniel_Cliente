@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 public class PrimeraVista extends JFrame implements ActionListener {
 
         public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado,
-                        botoonApagar, iconoUsuario, botonMisPedidos;
+                        botoonApagar, iconoUsuario, botonMisPedidos, botonNoticias;
         public JPanel panelOpciones = new JPanel();
         public ImageIcon imagen;
         public Icon icono;
@@ -114,6 +114,20 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 //botonRealizarPedido.addActionListener(metodos);
                 botonSoporte.setBorderPainted(false);
 
+                botonNoticias = new JButton();
+                botonNoticias.setBounds(10, 50, 35, 35);
+                botonNoticias.setBackground(new Color(255, 255, 255));
+                botonNoticias.setBorderPainted(false);
+                botonNoticias.setOpaque(false);
+                botonNoticias.setToolTipText("Noticias Pizza Roma");
+                ImageIcon iconoNoticias = new ImageIcon("Imagenes/periodico.png");
+                Image imagenNoticias = iconoNoticias.getImage();
+                Image imagenNoticiasAjustada = imagenNoticias.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+                ImageIcon iconoNoticiasAjustada = new ImageIcon(imagenNoticiasAjustada);
+                botonNoticias.setIcon(iconoNoticiasAjustada);
+                botonNoticias.addActionListener(metodos);
+                botonNoticias.setBorderPainted(false);
+
                 // JLabel
                 logo = new JLabel();
                 logo.setBounds(150, 30, 200, 200);
@@ -142,6 +156,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 panelOpciones.add(botoonApagar);
                 panelOpciones.add(usuario);
                 panelOpciones.add(botonMisPedidos);
+                panelOpciones.add(botonNoticias);
         }
 
         public void actionPerformed(ActionEvent e) {
