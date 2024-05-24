@@ -44,8 +44,7 @@ public class Metodos implements ActionListener {
     Noticias enlaceNoticias;
     VistaSoporte enlaceSoporte;
 
-
-    public Metodos (VistaSoporte enlaceSoporte){
+    public Metodos(VistaSoporte enlaceSoporte) {
         this.enlacePedido = null;
         this.enlanceLogin = null;
         this.enlaceVista = null;
@@ -57,7 +56,7 @@ public class Metodos implements ActionListener {
 
     }
 
-    public Metodos (IngresoDinero enlaceDinero){
+    public Metodos(IngresoDinero enlaceDinero) {
         this.enlacePedido = null;
         this.enlanceLogin = null;
         this.enlaceVista = null;
@@ -130,13 +129,9 @@ public class Metodos implements ActionListener {
         this.enlaceMisPedidos = null;
         this.enlaceDinero = null;
         this.enlaceSoporte = null;
-        
 
-    
-        
-
-        
     }
+
     public Metodos(MisPedidos enlaceMisPedidos) {
         this.enlacePedido = null;
         this.enlanceLogin = null;
@@ -147,7 +142,7 @@ public class Metodos implements ActionListener {
         this.enlaceDinero = null;
         this.enlaceSoporte = null;
         this.enlaceNoticias = null;
-        
+
     }
 
     public Metodos(Noticias enlaceNoticias) {
@@ -161,7 +156,6 @@ public class Metodos implements ActionListener {
         this.enlaceDinero = null;
         this.enlaceSoporte = null;
 
-        
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -169,6 +163,10 @@ public class Metodos implements ActionListener {
         if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
 
             String nombre = enlacePedido.areaNombre.getText().trim();
+            
+
+
+            
 
             try {
 
@@ -196,6 +194,31 @@ public class Metodos implements ActionListener {
             enlaceVista.dispose();
 
         }
+
+
+
+        //nombre_txt, cedula_txt, correo_txt, numero_txt
+        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar){
+
+            String nombreAplicante = enlaceAplicante.nombre_txt.getText().trim();
+             String cedulaAplicante = enlaceAplicante.cedula_txt.getText().trim();
+             String correoAplicante = enlaceAplicante.correo_txt.getText().trim();
+             String numero = enlaceAplicante.numero_txt.getText().trim();
+
+             if (nombreAplicante.isEmpty() || cedulaAplicante.isEmpty() || correoAplicante.isEmpty() || numero.isEmpty()){
+
+                JOptionPane.showMessageDialog(null, "Debes de rellenar todos los espacios");
+             }
+             
+
+
+
+
+
+
+
+        }
+
 
         if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver) {
 
@@ -254,7 +277,7 @@ public class Metodos implements ActionListener {
 
         }
 
-        if(enlaceVista != null && e.getSource() == enlaceVista.botonEstadoPedido){
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonEstadoPedido) {
 
             EstadoPedido estadoPedido = new EstadoPedido();
             estadoPedido.setVisible(true);
@@ -284,60 +307,52 @@ public class Metodos implements ActionListener {
             enlaceVista.dispose();
         }
 
-        if (enlaceVista != null && e.getSource()== enlaceVista.botonRealizarPedido){
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonRealizarPedido) {
 
             RegistroPedido registroPedido = new RegistroPedido();
             registroPedido.setVisible(true);
             enlaceVista.dispose();
 
         }
-        if (enlaceVista != null && e.getSource()== enlaceVista.botonBilletera){
-            IngresoDinero  ingresoDinero = new IngresoDinero ();
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonBilletera) {
+            IngresoDinero ingresoDinero = new IngresoDinero();
             ingresoDinero.setVisible(true);
             enlaceVista.dispose();
 
-
-        }if (enlacePedido!= null && e.getSource()== enlacePedido.botonCancelar ){
+        }
+        if (enlacePedido != null && e.getSource() == enlacePedido.botonCancelar) {
             PrimeraVista vistaR = new PrimeraVista();
             vistaR.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaR.setVisible(true);
             enlacePedido.dispose();
 
-
-
-
-
         }
-        if (enlaceDinero!= null && e.getSource()== enlaceDinero.botonCancelar){
+        if (enlaceDinero != null && e.getSource() == enlaceDinero.botonCancelar) {
             PrimeraVista vistaA = new PrimeraVista();
             vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaA.setVisible(true);
             enlaceDinero.dispose();
 
         }
-        if (enlaceVista!= null && e.getSource()== enlaceVista.botonSoporte){
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonSoporte) {
             VistaSoporte enlaceSoporte = new VistaSoporte();
             enlaceSoporte.setVisible(true);
             enlaceVista.dispose();
-            
 
         }
-        if (enlaceSoporte!= null && e.getSource()== enlaceSoporte.botonCancelar){
+        if (enlaceSoporte != null && e.getSource() == enlaceSoporte.botonCancelar) {
             PrimeraVista vistaA = new PrimeraVista();
             vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaA.setVisible(true);
             enlaceSoporte.dispose();
 
         }
-       
 
-        if (enlaceVista!= null && e.getSource()== enlaceVista.botonNoticias){
+        if (enlaceVista != null && e.getSource() == enlaceVista.botonNoticias) {
 
             Noticias noticias = new Noticias();
             noticias.setVisible(true);
             enlaceVista.dispose();
-
-
 
         }
 
@@ -349,6 +364,5 @@ public class Metodos implements ActionListener {
             enlaceNoticias.dispose();
         }
 
-       
     }
 }
