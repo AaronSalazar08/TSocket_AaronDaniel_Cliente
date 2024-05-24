@@ -31,23 +31,21 @@ import Vista.VistaSoporte;
 
 public class Metodos implements ActionListener {
 
-    private static final String PIZZA_SUPER_ROMA_₡12_500 = null;
-
     public final String HOST = "192.168.86.74";
 
     final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
 
-    RegistroPedido enlacePedido;
-    RegistroInicio enlanceLogin;
-    PrimeraVista enlaceVista;
-    RegistroAplicante enlaceAplicante;
-    EstadoPedido enlaceEstadoPedido;
-    MisPedidos enlaceMisPedidos;
-    IngresoDinero enlaceDinero;
-    Noticias enlaceNoticias;
-    VistaSoporte enlaceSoporte;
+    private RegistroPedido enlacePedido;
+    private RegistroInicio enlanceLogin;
+    private PrimeraVista enlaceVista;
+    private RegistroAplicante enlaceAplicante;
+    private EstadoPedido enlaceEstadoPedido;
+    private MisPedidos enlaceMisPedidos;
+    private IngresoDinero enlaceDinero;
+    private Noticias enlaceNoticias;
+    private VistaSoporte enlaceSoporte;
 
     public Metodos(VistaSoporte enlaceSoporte) {
         this.enlacePedido = null;
@@ -75,6 +73,7 @@ public class Metodos implements ActionListener {
     }
 
     public Metodos(RegistroPedido enlacePedido) {
+
         this.enlacePedido = enlacePedido;
         this.enlanceLogin = null;
         this.enlaceVista = null;
@@ -165,33 +164,34 @@ public class Metodos implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        /*if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
-
-            String nombre = enlacePedido.areaNombre.getText().trim();
-            
-
-
-            
-
-            try {
-
-                Socket sc = new Socket(HOST, PUERTO);
-
-                in = new DataInputStream(sc.getInputStream());
-
-                out = new DataOutputStream(sc.getOutputStream());
-                out.writeUTF(nombre);
-                String mensaje = in.readUTF();
-                System.out.println(mensaje);
-                sc.close();
-
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-
-            }
-
-        } */
-        
+        /*
+         * if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
+         * 
+         * String nombre = enlacePedido.areaNombre.getText().trim();
+         * 
+         * 
+         * 
+         * 
+         * 
+         * try {
+         * 
+         * Socket sc = new Socket(HOST, PUERTO);
+         * 
+         * in = new DataInputStream(sc.getInputStream());
+         * 
+         * out = new DataOutputStream(sc.getOutputStream());
+         * out.writeUTF(nombre);
+         * String mensaje = in.readUTF();
+         * System.out.println(mensaje);
+         * sc.close();
+         * 
+         * } catch (IOException ex) {
+         * Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+         * 
+         * }
+         * 
+         * }
+         */
 
         if (enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado) {
 
@@ -201,30 +201,21 @@ public class Metodos implements ActionListener {
 
         }
 
-
-
-        //nombre_txt, cedula_txt, correo_txt, numero_txt
-        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar){
+        // nombre_txt, cedula_txt, correo_txt, numero_txt
+        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar) {
 
             String nombreAplicante = enlaceAplicante.nombre_txt.getText().trim();
-             String cedulaAplicante = enlaceAplicante.cedula_txt.getText().trim();
-             String correoAplicante = enlaceAplicante.correo_txt.getText().trim();
-             String numero = enlaceAplicante.numero_txt.getText().trim();
+            String cedulaAplicante = enlaceAplicante.cedula_txt.getText().trim();
+            String correoAplicante = enlaceAplicante.correo_txt.getText().trim();
+            String numero = enlaceAplicante.numero_txt.getText().trim();
 
-             if (nombreAplicante.isEmpty() || cedulaAplicante.isEmpty() || correoAplicante.isEmpty() || numero.isEmpty()){
+            if (nombreAplicante.isEmpty() || cedulaAplicante.isEmpty() || correoAplicante.isEmpty()
+                    || numero.isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "Debes de rellenar todos los espacios");
-             }
-             
-
-
-
-
-
-
+            }
 
         }
-
 
         if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver) {
 
@@ -370,52 +361,123 @@ public class Metodos implements ActionListener {
             enlaceNoticias.dispose();
         }
 
-        if(enlacePedido != null && e.getSource() == enlacePedido.botonEnviar){
+        if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
 
             boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
             boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
             boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
             String entradaNombre = enlacePedido.areaNombre.getText().trim();
-            String entradaDirecion = enlacePedido.areaDireccion.getText().trim();
-            String cantidadSeleccionda = (String) enlacePedido.cantidadPromo.getSelectedItem();
+            String entradaDireccion = enlacePedido.areaDireccion.getText().trim();
+            String cantidadSeleccionda = String.valueOf(enlacePedido.cantidadPromo.getSelectedItem());
             String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
 
-            if(entradaNombre.isEmpty() && entradaDirecion.isEmpty()){
+            if (entradaNombre.isEmpty() && entradaDireccion.isEmpty()) {
 
-                JOptionPane.showMessageDialog(null, "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
-            }
-            else {
+                JOptionPane.showMessageDialog(null,
+                        "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
+            } else if (!entradaNombre.isEmpty() && !entradaDireccion.isEmpty()) {
 
                 try {
 
-                    if(enlacePedido.SuperRoma.isSelected()){
-
-                        String promocion1 = enlacePedido.SuperRoma.isSelected() ? PIZZA_SUPER_ROMA_₡12_500 : PIZZA_SUPER_ROMA_₡12_500;
-
-                        GuardarPedido( promocion1, entradaNombre,  entradaDirecion, metodoPagoSeleccionado, cantidadSeleccionda);
-
+                    if (entradaPromocion1) {
+                        String promocion1 = "Pizza Super Roma - ₡12 500";
+                        GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                                cantidadSeleccionda);
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                        PrimeraVista primeraVista = new PrimeraVista();
+                        primeraVista.setVisible(true);
+                        enlacePedido.dispose();
+
+                      
 
                     }
-                    
+
+                    // Puedes añadir más condiciones para las otras promociones
+                    if (entradaPromocion2) {
+                        String promocion2 = "Pizza Clásica Italiana - ₡9 500"; // Ejemplo de otra promoción
+                        GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                                cantidadSeleccionda);
+                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                        PrimeraVista primeraVista = new PrimeraVista();
+                        primeraVista.setVisible(true);
+                        enlacePedido.dispose();
+
+                       
+
+                    }
+
+                    if (entradaPromocion3) {
+                        String promocion3 = "Margarita por Venecia - ₡15 000"; // Ejemplo de otra promoción
+                        GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                                cantidadSeleccionda);
+                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                        PrimeraVista primeraVista = new PrimeraVista();
+                        primeraVista.setVisible(true);
+                        enlacePedido.dispose();
+                    }
+
                 } catch (Exception ex) {
-                    
+                    ex.printStackTrace();
+
                 }
             }
 
         }
 
-       
+        if(enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonMostrar){
+
+
+            MostrarPedidos();
+
+        }
+
     }
 
-    //MetodoS para guardar elementos al arrayList
-    public void GuardarAplicante (String cedula, String nombre, String correo, String postulacion, String provincia, int numero){
+    // MetodoS para guardar elementos al arrayList
+    public void GuardarAplicante(String cedula, String nombre, String correo, String postulacion, String provincia,
+            int numero) {
 
         Main.listaAplicantes.add(new Aplicante(cedula, nombre, correo, postulacion, provincia, numero));
     }
 
-    public void GuardarPedido (String promocion, String nombre, String direccion, String metodoPago, String cantidadSeleccionda){
+    public void GuardarPedido(String promocion, String nombre, String direccion, String metodoPago,
+            String cantidadSeleccionda) {
 
         Main.listaPedidos.add(new Pedido(promocion, nombre, direccion, metodoPago, cantidadSeleccionda));
     }
+
+    public void MostrarPedidos() {
+
+        for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
+
+            Pedido pedidos = Main.listaPedidos.get(contador);
+
+            enlaceMisPedidos.misPedidos.append("\nNombre: " + pedidos.getNombre() + "\n");
+            enlaceMisPedidos.misPedidos.append("Promocion: " + pedidos.getPromocion() + "\n");
+            enlaceMisPedidos.misPedidos.append("Cantidad: " + pedidos.getCantidadPromocon() + "\n");
+            enlaceMisPedidos.misPedidos.append("Metodo de Pago: " + pedidos.getMetodoPago() + "\n");
+            enlaceMisPedidos.misPedidos.append("Direccion: " + pedidos.getDireccion() + "\n"
+                    + "---------------------------------------------------------------------------------\n");
+
+        }
+    }
+
+    public void mostrarTemporal (){
+
+        for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
+
+            Pedido pedidos = Main.listaPedidos.get(contador);
+
+            enlaceMisPedidos.misPedidos.append("Nombre: " + pedidos.getNombre() + "\n");
+            enlaceMisPedidos.misPedidos.append("Promocion: " + pedidos.getPromocion() + "\n");
+            enlaceMisPedidos.misPedidos.append("Cantidad: " + pedidos.getCantidadPromocon() + "\n");
+            enlaceMisPedidos.misPedidos.append("Metodo de Pago: " + pedidos.getMetodoPago() + "\n");
+            enlaceMisPedidos.misPedidos.append("Direccion: " + pedidos.getDireccion() + "\n"
+                    + "---------------------------------------------------------------------------------");
+
+        }
+
+        
+    }
+
 }
