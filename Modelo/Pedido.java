@@ -72,8 +72,8 @@ public class Pedido implements Serializable{
 
     @Override
     public String toString() {
-        return "Pedido [promocion=" + promocion + ", nombre=" + nombre + ", direccion=" + direccion + ", metodoPago="
-                + metodoPago + ", cantidadPromocion=" + cantidadPromocion + "]";
+        return "Pedido\n Promocion: " + promocion + "\nDireccion: " + direccion + "\nNombre: " + nombre
+        + "\nMetodoPago: " + metodoPago + "\nCantidad de Promocion: " + cantidadPromocion;
     }
 
     

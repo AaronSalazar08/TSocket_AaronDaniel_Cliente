@@ -19,6 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -483,7 +484,7 @@ public class Metodos implements ActionListener {
 
     }
 
-    public void EnviarPedido() throws UnknownHostException, IOException {
+    public void EnviarPedido() throws UnknownHostException, IOException, ClassNotFoundException {
 
        
             try {
@@ -492,11 +493,36 @@ public class Metodos implements ActionListener {
                 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
                 outputStream.writeObject(Main.listaPedidos);
     
+                
+
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+                Object objetoRecibido = inputStream.readObject();
+
+
+                if (objetoRecibido instanceof ArrayList<?>) {
+                // Muestra un JOptionPane con el contenido del ArrayList
+                ArrayList<Pedido> listaPedidosRecibidos = (ArrayList<Pedido>) objetoRecibido;
+                StringBuilder mensaje = new StringBuilder("Pedidos recibidos:\n");
+                for (Pedido pedido : listaPedidosRecibidos) {
+                    mensaje.append(pedido.toString()).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos", JOptionPane.INFORMATION_MESSAGE);
+
                 outputStream.close();
                 socket.close();
+                
+            } else {
+                // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
+                JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
     
-            } catch (IOException exception) {
-                exception.printStackTrace();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
 
 
