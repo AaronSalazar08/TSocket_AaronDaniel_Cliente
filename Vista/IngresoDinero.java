@@ -23,7 +23,7 @@ public class IngresoDinero extends JFrame {
     public JButton botonCancelar, botonAceptar;
     JLabel indicacionDinero, indicacionTarjeta, titulo, colon;
     public JTextField areaDinero;
-    public JPasswordField areaTarjeta;
+    public JTextField areaTarjeta;
     private ImageIcon imagen;
     private Icon icono;
 
@@ -75,7 +75,7 @@ public class IngresoDinero extends JFrame {
 
         botonAceptar = new JButton();
         botonAceptar.setBounds(305, 305, 50, 30);
-        // botonCancelar.addActionListener(metodos);
+         botonAceptar.addActionListener(metodos);
         botonAceptar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\billetera.png");
         botonAceptar.setBorderPainted(false);
@@ -92,7 +92,7 @@ public class IngresoDinero extends JFrame {
         colon.setBounds(130, 194, 20, 20);
         this.Pintar(this.colon, "Imagenes\\signo-de-colon.png");
 
-        areaTarjeta = new JPasswordField();
+        areaTarjeta = new JTextField();
         areaTarjeta.setBounds(140, 84, 130, 20);
         areaTarjeta.setToolTipText("Digite el número de su tarjeta");
 
