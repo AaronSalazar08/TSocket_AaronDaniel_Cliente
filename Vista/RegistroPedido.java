@@ -1,6 +1,7 @@
 package Vista;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +29,9 @@ import java.awt.Image;
 
 public class RegistroPedido extends JFrame implements ActionListener {
 
+    private static final String MARGARITA_POR_VENECIA_₡15_000 = "Margarita por Venecia - ₡15 000";
+    private static final String PIZZA_SUPER_ROMA_₡12_500 = "Pizza Super Roma - ₡12 500";
+    private static final String PIZZA_CLÁSICA_ITALIANA_₡9_500 = "Pizza Clásica Italiana - ₡9 500";
     public JTextField areaNombre, areaDireccion;
     public JComboBox tipoPago, tipoPromocion, cantidadPromo;
     public JButton botonEnviar, botonCancelar;
@@ -58,19 +62,26 @@ public class RegistroPedido extends JFrame implements ActionListener {
         Metodos metodos = new Metodos(this);
 
         // JRadioButton
-        SuperRoma = new JRadioButton("Pizza Super Roma - ₡12 500");
+        SuperRoma = new JRadioButton(PIZZA_SUPER_ROMA_₡12_500);
         SuperRoma.setBackground(new Color(255, 255, 255));
         SuperRoma.setBounds(30, 70, 230, 40);
+        SuperRoma.setToolTipText("Deliciosa Pizza Grande a la Roma de 16 pedazos acompañada con: \n" + "-2 Refrescos \n" +  "-Porcion de pan de ajo (4 rebanadas) ");
         
 
-        JamonQueso = new JRadioButton("Pizza Clásica Italiana - ₡9 500");
+        JamonQueso = new JRadioButton(PIZZA_CLÁSICA_ITALIANA_₡9_500);
         JamonQueso.setBackground(new Color(255, 255, 255));
         JamonQueso.setBounds(30, 160, 230, 40);
+        JamonQueso.setToolTipText("Pizza Clásica Pequeña de jamón y queso de 8 pedazos acompañada por: -2 Refrescos -Spagetti con albónigas  ");
 
-        margarita = new JRadioButton("Margarita por Venecia - ₡15 000");
+        margarita = new JRadioButton(MARGARITA_POR_VENECIA_₡15_000);
         margarita.setBounds(30, 250, 230, 40);
         margarita.setBackground(new Color(255, 255, 255));
+        margarita.setToolTipText("Exquisita Pizza Margartita Mediana con 12 pedazos acompañada por: -2 Margaritas -Postre según la cocina del Chef ");
 
+        ButtonGroup grupoRadio = new ButtonGroup();
+        grupoRadio.add(SuperRoma);
+        grupoRadio.add(JamonQueso);
+        grupoRadio.add(margarita);
         // JComboBox
 
         cantidadPromo = new JComboBox();
@@ -89,17 +100,17 @@ public class RegistroPedido extends JFrame implements ActionListener {
         imagenRoma = new JLabel();
         imagenRoma.setBounds(260, 45, 80, 80);
         this.Pintar(this.imagenRoma, "Imagenes\\PizzaRomaPromo1.png");
-        imagenRoma.setToolTipText("Deliciosa Pizza Grande a la Roma de 16 pedazos acompañada con: \n" + "-2 Refrescos \n" +  "-Porcion de pan de ajo (4 rebanadas) ");
+       
 
         imagenJamon = new JLabel();
         imagenJamon.setBounds(260,130, 80, 80);
         this.Pintar(this.imagenJamon, "Imagenes\\ClasicaItalianaPromo2.png");
-        imagenJamon.setToolTipText("Pizza Clásica Pequeña de jamón y queso de 8 pedazos acompañada por: -2 Refrescos -Spagetti con albónigas  ");
+        
 
         imagenMargarita = new JLabel();
         imagenMargarita.setBounds(260,220, 80, 80);
         this.Pintar(this.imagenMargarita, "Imagenes\\MargaritaPorVeneciaPromo3.png");
-        imagenMargarita.setToolTipText("Exquisita Pizza Margartita Mediana con 12 pedazos acompañada por: -2 Margaritas -Postre según la cocina del Chef ");
+        
 
 
         labelCantidad = new JLabel("Cantidad de promoción:");
@@ -140,9 +151,11 @@ public class RegistroPedido extends JFrame implements ActionListener {
         // JTexfield
         areaNombre = new JTextField();
         areaNombre.setBounds(405, 75, 90, 20);
+        areaNombre.setToolTipText("Digita tu nombre");
 
         areaDireccion = new JTextField();
         areaDireccion.setBounds(405, 180, 170, 20);
+        areaDireccion.setToolTipText("Dános tu dirección para entregarte tu pedido a la puerta de tu casa");
 
         
         // JButton

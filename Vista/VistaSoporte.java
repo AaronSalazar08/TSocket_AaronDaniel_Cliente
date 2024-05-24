@@ -28,7 +28,7 @@ public class VistaSoporte extends JFrame {
     public VistaSoporte() {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        setTitle("Pizza Roma - Menú Principal");
+        setTitle("Pizza Roma - Soporte al Cliente");
         setSize(500, 530);
         panelSoporte.setBackground(new Color(255, 255, 255));
         setContentPane(panelSoporte);
@@ -54,7 +54,7 @@ public class VistaSoporte extends JFrame {
         titulo.setFont(fuente1);
         titulo.setForeground(new Color(237, 195, 0));
 
-        indicacion = new JLabel("¿Escribe como podemos ayudarte?");
+        indicacion = new JLabel("¿Cómo podemos ayudarte?");
         indicacion.setBounds(20, 20, 300, 70);
         Font fuente3 = new Font("Yu Mincho Demibold", Font.BOLD, 12);
         indicacion.setFont(fuente3);

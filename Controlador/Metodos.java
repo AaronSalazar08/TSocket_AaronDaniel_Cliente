@@ -5,6 +5,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import Modelo.Aplicante;
+import Modelo.Pedido;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInput;
@@ -27,6 +30,8 @@ import Vista.RegistroPedido;
 import Vista.VistaSoporte;
 
 public class Metodos implements ActionListener {
+
+    private static final String PIZZA_SUPER_ROMA_₡12_500 = null;
 
     public final String HOST = "192.168.86.74";
 
@@ -160,7 +165,7 @@ public class Metodos implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
+        /*if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
 
             String nombre = enlacePedido.areaNombre.getText().trim();
             
@@ -185,7 +190,8 @@ public class Metodos implements ActionListener {
 
             }
 
-        }
+        } */
+        
 
         if (enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado) {
 
@@ -364,5 +370,52 @@ public class Metodos implements ActionListener {
             enlaceNoticias.dispose();
         }
 
+        if(enlacePedido != null && e.getSource() == enlacePedido.botonEnviar){
+
+            boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
+            boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
+            boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
+            String entradaNombre = enlacePedido.areaNombre.getText().trim();
+            String entradaDirecion = enlacePedido.areaDireccion.getText().trim();
+            String cantidadSeleccionda = (String) enlacePedido.cantidadPromo.getSelectedItem();
+            String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
+
+            if(entradaNombre.isEmpty() && entradaDirecion.isEmpty()){
+
+                JOptionPane.showMessageDialog(null, "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
+            }
+            else {
+
+                try {
+
+                    if(enlacePedido.SuperRoma.isSelected()){
+
+                        String promocion1 = enlacePedido.SuperRoma.isSelected() ? PIZZA_SUPER_ROMA_₡12_500 : PIZZA_SUPER_ROMA_₡12_500;
+
+                        GuardarPedido( promocion1, entradaNombre,  entradaDirecion, metodoPagoSeleccionado, cantidadSeleccionda);
+
+                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+
+                    }
+                    
+                } catch (Exception ex) {
+                    
+                }
+            }
+
+        }
+
+       
+    }
+
+    //MetodoS para guardar elementos al arrayList
+    public void GuardarAplicante (String cedula, String nombre, String correo, String postulacion, String provincia, int numero){
+
+        Main.listaAplicantes.add(new Aplicante(cedula, nombre, correo, postulacion, provincia, numero));
+    }
+
+    public void GuardarPedido (String promocion, String nombre, String direccion, String metodoPago, String cantidadSeleccionda){
+
+        Main.listaPedidos.add(new Pedido(promocion, nombre, direccion, metodoPago, cantidadSeleccionda));
     }
 }
