@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class Pedido implements Serializable{
 
+    private static final long serialVersionUID = -2396901459028578006L;
+
+
     protected String promocion, nombre, direccion, metodoPago, cantidadPromocion;
     
 
@@ -64,6 +67,13 @@ public class Pedido implements Serializable{
 
     public void setCantidadPromocon(String cantidadPromocion) {
         this.cantidadPromocion = cantidadPromocion;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Pedido [promocion=" + promocion + ", nombre=" + nombre + ", direccion=" + direccion + ", metodoPago="
+                + metodoPago + ", cantidadPromocion=" + cantidadPromocion + "]";
     }
 
     

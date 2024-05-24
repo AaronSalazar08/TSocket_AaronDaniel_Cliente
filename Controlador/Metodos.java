@@ -15,7 +15,10 @@ import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,6 +39,9 @@ public class Metodos implements ActionListener {
     final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
+
+    ObjectOutputStream objectOutputStream;
+    ObjectInputStream objectInputStream;
 
     private RegistroPedido enlacePedido;
     private RegistroInicio enlanceLogin;
@@ -383,12 +389,11 @@ public class Metodos implements ActionListener {
                         String promocion1 = "Pizza Super Roma - ₡12 500";
                         GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
                                 cantidadSeleccionda);
+                        EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
                         PrimeraVista primeraVista = new PrimeraVista();
                         primeraVista.setVisible(true);
                         enlacePedido.dispose();
-
-                      
 
                     }
 
@@ -397,12 +402,10 @@ public class Metodos implements ActionListener {
                         String promocion2 = "Pizza Clásica Italiana - ₡9 500"; // Ejemplo de otra promoción
                         GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
                                 cantidadSeleccionda);
+                        EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
                         PrimeraVista primeraVista = new PrimeraVista();
-                        primeraVista.setVisible(true);
                         enlacePedido.dispose();
-
-                       
 
                     }
 
@@ -410,7 +413,9 @@ public class Metodos implements ActionListener {
                         String promocion3 = "Margarita por Venecia - ₡15 000"; // Ejemplo de otra promoción
                         GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
                                 cantidadSeleccionda);
+                        EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+
                         PrimeraVista primeraVista = new PrimeraVista();
                         primeraVista.setVisible(true);
                         enlacePedido.dispose();
@@ -424,8 +429,7 @@ public class Metodos implements ActionListener {
 
         }
 
-        if(enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonMostrar){
-
+        if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonMostrar) {
 
             MostrarPedidos();
 
@@ -462,7 +466,7 @@ public class Metodos implements ActionListener {
         }
     }
 
-    public void mostrarTemporal (){
+    public void mostrarTemporal() {
 
         for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
 
@@ -477,7 +481,29 @@ public class Metodos implements ActionListener {
 
         }
 
+    }
+
+    public void EnviarPedido() throws UnknownHostException, IOException {
+
+       
+            try {
+
+                Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                outputStream.writeObject(Main.listaPedidos);
+    
+                outputStream.close();
+                socket.close();
+    
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+
+
+       
         
+       
+
     }
 
 }
