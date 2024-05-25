@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Aplicante implements Serializable{
 
-    
+    private static final long serialVersionUID = 8799656478674716631L;
+
     protected String cedula, nombre, correo, postulacion, provincia;
     protected int numero;
 
