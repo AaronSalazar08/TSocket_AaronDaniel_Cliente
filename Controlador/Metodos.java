@@ -37,7 +37,7 @@ public class Metodos implements ActionListener {
 
     public final String HOST = "192.168.86.74";
 
-    final int PUERTO = 5000;
+    public final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
 
@@ -324,6 +324,11 @@ public class Metodos implements ActionListener {
 
         }
 
+        if (enlaceSoporte != null && e.getSource() == enlaceSoporte.botonAceptar) {
+           
+            EnvarMensaje();
+        }
+
         if (enlaceVista != null && e.getSource() == enlaceVista.botonNoticias) {
 
             Noticias noticias = new Noticias();
@@ -570,6 +575,40 @@ public class Metodos implements ActionListener {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             JOptionPane.showMessageDialog(null, "Error al leer el objeto recibido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
+    }
+
+    public void EnvarMensaje() {
+
+        try (Socket socket = new Socket(HOST, PUERTO);
+                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
+                DataInputStream inputStream = new DataInputStream(socket.getInputStream())) {
+
+            String mensaje = enlaceSoporte.areaReporte.getText();
+
+            
+            outputStream.writeUTF(mensaje);
+            JOptionPane.showMessageDialog(null, "Mensaje enviado");
+            
+
+            
+            String mensajeRecibido = inputStream.readUTF();
+            enlaceSoporte.areaRespuesta.append(mensajeRecibido);
+
+            socket.shutdownOutput();
+            socket.shutdownInput();
+            socket.close();
+
+        } catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la comunicación con el servidor.",
+                    "Error",
                     JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }

@@ -87,7 +87,7 @@ public class VistaSoporte extends JFrame {
 
         botonAceptar = new JButton("Depositar");
         botonAceptar.setBounds(430, 440, 40, 30);
-        // botonCancelar.addActionListener(metodos);
+        botonAceptar.addActionListener(metodos);
         botonAceptar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
         botonAceptar.setBorderPainted(false);
