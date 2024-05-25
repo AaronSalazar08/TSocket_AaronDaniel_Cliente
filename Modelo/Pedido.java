@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Pedido implements Serializable{
 
-    private static final long serialVersionUID = -2396901459028578006L;
+    
 
 
     protected String promocion, nombre, direccion, metodoPago, cantidadPromocion;

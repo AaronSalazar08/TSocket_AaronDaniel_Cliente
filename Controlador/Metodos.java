@@ -171,35 +171,6 @@ public class Metodos implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
 
-        /*
-         * if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
-         * 
-         * String nombre = enlacePedido.areaNombre.getText().trim();
-         * 
-         * 
-         * 
-         * 
-         * 
-         * try {
-         * 
-         * Socket sc = new Socket(HOST, PUERTO);
-         * 
-         * in = new DataInputStream(sc.getInputStream());
-         * 
-         * out = new DataOutputStream(sc.getOutputStream());
-         * out.writeUTF(nombre);
-         * String mensaje = in.readUTF();
-         * System.out.println(mensaje);
-         * sc.close();
-         * 
-         * } catch (IOException ex) {
-         * Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-         * 
-         * }
-         * 
-         * }
-         */
-
         if (enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado) {
 
             RegistroAplicante registroAplicante = new RegistroAplicante();
@@ -241,6 +212,7 @@ public class Metodos implements ActionListener {
             if (confirmacion == JOptionPane.YES_OPTION) {
 
                 JOptionPane.showMessageDialog(null, "Saliendo del programa...");
+
                 enlaceVista.dispose();
             }
 
@@ -458,10 +430,11 @@ public class Metodos implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Solicitud realizada con éxito");
                     PrimeraVista primeraVista = new PrimeraVista();
                     primeraVista.setVisible(true);
-                    enlacePedido.dispose();
+                    enlaceAplicante.setVisible(false);
 
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                } catch (NumberFormatException ex) {
+
+                    JOptionPane.showMessageDialog(null, "Numero invalido");
 
                 }
             }
@@ -505,18 +478,18 @@ public class Metodos implements ActionListener {
         }
     }
 
-    public void EnviarPedido() throws UnknownHostException, IOException, ClassNotFoundException {
+    public void EnviarPedido() {
+        try (Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
 
-        try {
-
-            Socket socket = new Socket(HOST, PUERTO);
-            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+            // Enviar el objeto
             outputStream.writeObject(Main.listaPedidos);
+            outputStream.flush();
 
-            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+            // Recibir el objeto de respuesta
             Object objetoRecibido = inputStream.readObject();
-                  
-            
+
             if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
                 ArrayList<Pedido> listaPedidosRecibidos = (ArrayList<Pedido>) objetoRecibido;
@@ -527,48 +500,54 @@ public class Metodos implements ActionListener {
                 JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos",
                         JOptionPane.INFORMATION_MESSAGE);
 
-                outputStream.close();
-                socket.close();
-
             } else {
                 // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
                 JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
 
+            socket.shutdownOutput();
+            socket.shutdownInput();
+            socket.close();
+
         } catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la comunicación con el servidor.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el objeto recibido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-
     }
 
-    public void EnviarAplicante() throws UnknownHostException, IOException, ClassNotFoundException {
+    public void EnviarAplicante() {
 
-        try {
+        try (Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
 
-            Socket socket = new Socket(HOST, PUERTO);
-            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-            outputStream.writeObject(Main.listaPedidos);
+            // Enviar el objeto
+            outputStream.writeObject(Main.listaAplicantes);
+            outputStream.flush();
 
-            ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+            // Recibir el objeto de respuesta
             Object objetoRecibido = inputStream.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
-                ArrayList<Aplicante> listaPAplicantes = (ArrayList<Aplicante>) objetoRecibido;
-                StringBuilder mensaje = new StringBuilder("Solicitud recibida:\n");
-                for (Aplicante aplicante : listaPAplicantes) {
+                ArrayList<Aplicante> listaAplicantes = (ArrayList<Aplicante>) objetoRecibido;
+                StringBuilder mensaje = new StringBuilder("Aplicante recibidos:\n");
+                for (Aplicante aplicante : listaAplicantes) {
                     mensaje.append(aplicante.toString()).append("\n");
                 }
-                JOptionPane.showMessageDialog(null, mensaje.toString(), "Solicitud Recibida",
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos",
                         JOptionPane.INFORMATION_MESSAGE);
-
-                outputStream.close();
-                socket.close();
 
             } else {
                 // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
@@ -576,11 +555,22 @@ public class Metodos implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
 
+            socket.shutdownOutput();
+            socket.shutdownInput();
+            socket.close();
+
         } catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la comunicación con el servidor.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el objeto recibido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
 
