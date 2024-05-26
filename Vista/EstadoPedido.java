@@ -3,12 +3,14 @@ package Vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import Controlador.Metodos;
 
-public class EstadoPedido extends JFrame {
+public class EstadoPedido extends JFrame implements ActionListener {
 
     public JPanel panelEstadoPedido = new JPanel();
     public JButton botonConsultar, botonVolver;
@@ -18,6 +20,13 @@ public class EstadoPedido extends JFrame {
     public JTextField numeroFactura_txt;
     public ImageIcon imagen;
     public Icon icono;
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
 
     public EstadoPedido() {
 
@@ -30,12 +39,8 @@ public class EstadoPedido extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-    }
 
-    public void Elementos() {
-
-        Metodos metodos = new Metodos(this);
+        
 
         // JLabel
         numeroFacturaLabel = new JLabel("Número Factura: ");
@@ -51,7 +56,7 @@ public class EstadoPedido extends JFrame {
         // JButton
         botonVolver = new JButton();
         botonVolver.setBounds(30, 400, 80, 40);
-        botonVolver.addActionListener(metodos);
+        botonVolver.addActionListener(this);
         botonVolver.setBackground(new Color(255, 255, 51));
         this.PintarB(this.botonVolver, "Imagenes\\deshacer (2).png");
         botonVolver.setBorderPainted(false);
@@ -60,7 +65,7 @@ public class EstadoPedido extends JFrame {
 
         botonConsultar = new JButton();
         botonConsultar.setBounds(240, 30, 60, 30);
-        botonConsultar.addActionListener(metodos);
+        botonConsultar.addActionListener(this);
         botonConsultar.setBackground(new Color(237, 195, 0));
         ImageIcon iconoConsultar = new ImageIcon("Imagenes/busqueda.png");
         Image imagenConsultar = iconoConsultar.getImage();
@@ -108,5 +113,14 @@ public class EstadoPedido extends JFrame {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del metodo Pintar
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+        if(e.getSource() == botonVolver){
+
+            metodos.estadoAprincipal();
+        }
+    }
 
 }

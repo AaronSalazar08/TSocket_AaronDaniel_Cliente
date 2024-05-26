@@ -15,9 +15,11 @@ import Controlador.Metodos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Image;
 
-public class VistaSoporte extends JFrame {
+public class VistaSoporte extends JFrame implements ActionListener {
 
     JPanel panelSoporte = new JPanel();
     JLabel titulo, indicacion, respuesta;
@@ -26,6 +28,13 @@ public class VistaSoporte extends JFrame {
     public JScrollPane scrollReporte, scrollRespuesta;
     private ImageIcon imagen;
     private Icon icono;
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
 
     public VistaSoporte() {
 
@@ -38,14 +47,8 @@ public class VistaSoporte extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-
-    }
-
-    public void Elementos() {
-
-        // Llamada al metodo
-        Metodos metodos = new Metodos(this);
+       
+       
 
         // Inicializar variables
 
@@ -85,7 +88,7 @@ public class VistaSoporte extends JFrame {
         // Jbutton
         botonCancelar = new JButton("atras");
         botonCancelar.setBounds(20, 440, 40, 30);
-        botonCancelar.addActionListener(metodos);
+        botonCancelar.addActionListener(this);
         botonCancelar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonCancelar, "Imagenes\\deshacer (2).png");
         botonCancelar.setBorderPainted(false);
@@ -93,7 +96,7 @@ public class VistaSoporte extends JFrame {
 
         botonAceptar = new JButton("Depositar");
         botonAceptar.setBounds(430, 440, 40, 30);
-        botonAceptar.addActionListener(metodos);
+        botonAceptar.addActionListener(this);
         botonAceptar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
         botonAceptar.setBorderPainted(false);
@@ -101,7 +104,7 @@ public class VistaSoporte extends JFrame {
 
         botonRefrescar = new JButton("Depositar");
         botonRefrescar.setBounds(380, 440, 40, 30);
-        botonRefrescar.addActionListener(metodos);
+        botonRefrescar.addActionListener(this);
         botonRefrescar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
         botonRefrescar.setBorderPainted(false);
@@ -131,5 +134,27 @@ public class VistaSoporte extends JFrame {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del metodo
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if(e.getSource() == botonCancelar){
+
+        metodos.buzonAprincipal();
+        metodos.desconectar();
+      }
+
+      if(e.getSource() == botonAceptar){
+
+        metodos.enviarMensaje();
+      }
+
+      if(e.getSource() == botonRefrescar){
+
+        metodos.recibirMensaje();
+      }
+
+
+
+    }
 
 }

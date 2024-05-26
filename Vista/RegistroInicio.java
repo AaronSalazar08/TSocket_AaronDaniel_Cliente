@@ -27,6 +27,13 @@ public class RegistroInicio extends JFrame implements ActionListener {
     private Icon icono;
     JLabel logo;
 
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
+
     public RegistroInicio() {
 
         setTitle("Pizza Roma - Regístrate");
@@ -37,13 +44,8 @@ public class RegistroInicio extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-
-    }
-
-    public void Elementos() {
-
-        Metodos metodos = new Metodos(this);
+      
+      
         // Inicializar constantes
 
         // JLabel
@@ -61,7 +63,7 @@ public class RegistroInicio extends JFrame implements ActionListener {
         // JButton
         botonEntrar = new JButton(" Entrar");
         botonEntrar.setBounds(146, 300, 120, 30);
-        botonEntrar.addActionListener(metodos);
+        botonEntrar.addActionListener(this);
         botonEntrar.setBackground(new Color(255, 255, 255));
         ImageIcon iconoEntrar = new ImageIcon("Imagenes/entrar-en-el-portal.png");
         Image imagenEntrar = iconoEntrar.getImage();
@@ -86,9 +88,6 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-
-    }
 
     private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los Labels
         this.imagen = new ImageIcon(ruta);
@@ -100,5 +99,15 @@ public class RegistroInicio extends JFrame implements ActionListener {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del metodo Pintarel m
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+        if(e.getSource() == botonEntrar){
+
+            metodos.loginAprincipal();
+        }
+    }
 
 }

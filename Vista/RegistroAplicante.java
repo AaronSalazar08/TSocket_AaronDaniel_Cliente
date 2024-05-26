@@ -4,10 +4,12 @@ import Controlador.Metodos;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class RegistroAplicante extends JFrame {
+public class RegistroAplicante extends JFrame implements ActionListener{
 
     private static final String COCINERO = "Cocinero";
     private static final String REPARTIDOR = "Repartidor";
@@ -18,6 +20,13 @@ public class RegistroAplicante extends JFrame {
     public JComboBox puestoTrabajo, provincia;
     public ImageIcon imagen;
     public Icon icono;
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
 
     public RegistroAplicante() {
 
@@ -30,17 +39,13 @@ public class RegistroAplicante extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
+     
 
-    }
-
-    public void Elementos() {
-
-        Metodos metodos = new Metodos(this);
+       
 
         botonVolver = new JButton();
         botonVolver.setBounds(30, 350, 80, 40);
-        botonVolver.addActionListener(metodos);
+        botonVolver.addActionListener(this);
         botonVolver.setBackground(new Color(255, 255, 51));
         this.PintarB(this.botonVolver, "Imagenes\\deshacer (2).png");
         botonVolver.setBorderPainted(false);
@@ -49,7 +54,7 @@ public class RegistroAplicante extends JFrame {
 
         botonEnviar = new JButton();
         botonEnviar.setBounds(460, 350, 80, 40);
-        botonEnviar.addActionListener(metodos);
+        botonEnviar.addActionListener(this);
         botonEnviar.setBackground(new Color(255, 255, 51));
         this.PintarB(this.botonEnviar, "Imagenes\\avion-de-papel (1).png");
         botonEnviar.setBorderPainted(false);
@@ -141,5 +146,19 @@ public class RegistroAplicante extends JFrame {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del metodo Pintar
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(e.getSource() == botonVolver){
+
+            metodos.solicitudesAprincipal();
+        }
+
+        if(e.getSource() == botonEnviar){
+
+            metodos.EnviarAplicanteServer();
+        }
+    }
 
 }

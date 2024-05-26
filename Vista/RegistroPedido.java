@@ -42,6 +42,13 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     public JPanel panelPedido = new JPanel();
 
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
+
     public RegistroPedido() {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -53,13 +60,8 @@ public class RegistroPedido extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-
-    }
-
-    public void Elementos() {
-        // Llamada del metodo
-        Metodos metodos = new Metodos(this);
+    
+      
 
         // JRadioButton
         SuperRoma = new JRadioButton(PIZZA_SUPER_ROMA_₡12_500);
@@ -162,7 +164,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
         botonCancelar = new JButton("cancelar");
         botonCancelar.setBounds(30, 490, 80, 30);
-        botonCancelar.addActionListener(metodos);
+        botonCancelar.addActionListener(this);
         botonCancelar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonCancelar, "Imagenes\\deshacer (2).png");
         botonCancelar.setBorderPainted(false);
@@ -171,7 +173,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
         botonEnviar = new JButton("enviar");
         botonEnviar.setBounds(475, 490, 80, 30);
-        botonEnviar.addActionListener(metodos);
+        botonEnviar.addActionListener(this);
         botonEnviar.setBackground(new Color(255, 255, 255));
         this.PintarB(this.botonEnviar, "Imagenes\\avion-de-papel (1).png");
         botonEnviar.setBorderPainted(false);
@@ -201,10 +203,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
+    
     private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
         // Labels
         this.imagen = new ImageIcon(ruta);
@@ -227,5 +226,20 @@ this.imagen.getImage().getScaledInstance(
 lbl.setIcon(this.icono);
 this.repaint();
 }// Fin del metodo Pintar
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+        if(e.getSource() == botonCancelar){
+
+            metodos.pedidosAprincipal();
+        }
+
+        if(e.getSource() == botonEnviar){
+
+            metodos.EnviarPedidoServer();
+        }
+    }
 
 }

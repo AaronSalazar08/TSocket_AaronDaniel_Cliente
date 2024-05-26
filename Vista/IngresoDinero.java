@@ -14,10 +14,12 @@ import Controlador.Metodos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Image;
 import javax.swing.Icon;
 
-public class IngresoDinero extends JFrame {
+public class IngresoDinero extends JFrame implements ActionListener{
 
     public JPanel panelDinero = new JPanel();
     public JButton botonCancelar, botonAceptar;
@@ -27,6 +29,12 @@ public class IngresoDinero extends JFrame {
     private ImageIcon imagen;
     private Icon icono;
 
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
     public IngresoDinero() {
         setTitle("Pizza Roma - Ingreso de Dinero");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -35,13 +43,7 @@ public class IngresoDinero extends JFrame {
         setContentPane(panelDinero);
         setLocationRelativeTo(null);
         setLayout(null);
-        Elementos();
-
-    }
-
-    public void Elementos() {
-        Metodos metodos = new Metodos(this);
-        // Inicializar constantes
+     
 
         // JLabel
         titulo = new JLabel("Billetera Digital:");
@@ -66,7 +68,7 @@ public class IngresoDinero extends JFrame {
 
         botonCancelar = new JButton();
         botonCancelar.setBounds(30, 305, 50, 30);
-        botonCancelar.addActionListener(metodos);
+        botonCancelar.addActionListener(this);
         botonCancelar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonCancelar, "Imagenes\\deshacer (2).png");
         botonCancelar.setBorderPainted(false);
@@ -75,7 +77,7 @@ public class IngresoDinero extends JFrame {
 
         botonAceptar = new JButton();
         botonAceptar.setBounds(305, 305, 50, 30);
-        // botonCancelar.addActionListener(metodos);
+        botonCancelar.addActionListener(this);
         botonAceptar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\billetera.png");
         botonAceptar.setBorderPainted(false);
@@ -132,5 +134,14 @@ public class IngresoDinero extends JFrame {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del metodo Pintar
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+        if(e.getSource() == botonCancelar){
+
+            metodos.dineroAprincipal();
+        }
+    }
 
 }

@@ -24,6 +24,13 @@ public class PrimeraVista extends JFrame implements ActionListener {
         public Icon icono;
         public JLabel logo, usuario;
 
+        public void setMetodos(Metodos metodos) {
+                this.metodos = metodos;
+            }
+        
+            public static Metodos metodos;
+        
+
         public PrimeraVista() {
                 
                 setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -35,17 +42,13 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 setLocationRelativeTo(null);
                 setLayout(null);
 
-                Elementos();
-        }
+            
 
-        public void Elementos() {
-                // Inicializar constantes
-
-                Metodos metodos = new Metodos(this);
+            
 
                 botonBilletera = new JButton();
                 botonBilletera.setBounds(390, 10, 60, 40);
-                botonBilletera.addActionListener(metodos);
+                botonBilletera.addActionListener(this);
                 botonBilletera.setBackground(new Color(255, 255, 255));
                 this.PintarB(this.botonBilletera, "Imagenes\\tarjetaInicio.png");
                 botonBilletera.setBorderPainted(false);
@@ -53,7 +56,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
                 botoonApagar = new JButton("Apagar");
                 botoonApagar.setBounds(430, 440, 50, 30);
-                botoonApagar.addActionListener(metodos);
+                botoonApagar.addActionListener(this);
                 botoonApagar.setBackground(new Color(255, 255, 255));
                 this.PintarB(this.botoonApagar, "Imagenes\\apagar.png");
                 botoonApagar.setBorderPainted(false);
@@ -67,7 +70,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenRealizarPedidoAjustada = imagenRealizarPedido.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoRealizarPedidoAjustada = new ImageIcon(imagenRealizarPedidoAjustada);
                 botonRealizarPedido.setIcon(iconoRealizarPedidoAjustada);
-                botonRealizarPedido.addActionListener(metodos);
+                botonRealizarPedido.addActionListener(this);
                 botonRealizarPedido.setBorderPainted(false);
 
                 botonMisPedidos = new JButton("Mis Pedidos");
@@ -78,7 +81,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image  imagenMisPedidosAjustada = imagenMisPedidos.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoMisPedidosAjustada = new ImageIcon(imagenMisPedidosAjustada);
                 botonMisPedidos.setIcon(iconoMisPedidosAjustada);
-                botonMisPedidos.addActionListener(metodos);
+                botonMisPedidos.addActionListener(this);
                 botonMisPedidos.setBorderPainted(false);
 
                 botonEstadoPedido = new JButton("Estado Pedido");
@@ -89,7 +92,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenVerPedidoAjustada = imagenVerPedido.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
                 ImageIcon iconoVerPedidoAjustada = new ImageIcon(imagenVerPedidoAjustada);
                 botonEstadoPedido.setIcon(iconoVerPedidoAjustada);
-                botonEstadoPedido.addActionListener(metodos);
+                botonEstadoPedido.addActionListener(this);
                 botonEstadoPedido.setBorderPainted(false);
 
                 botonRegistroEmpleado = new JButton("Ser Gladiador");
@@ -100,7 +103,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenEmpleadoAjustada = imagenEmpleado.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoEmpleadoAjustada = new ImageIcon(imagenEmpleadoAjustada);
                 botonRegistroEmpleado.setIcon(iconoEmpleadoAjustada);
-                botonRegistroEmpleado.addActionListener(metodos);
+                botonRegistroEmpleado.addActionListener(this);
                 botonRegistroEmpleado.setBorderPainted(false);
 
                 botonSoporte = new JButton("   Soporte     ");
@@ -111,7 +114,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenSoporteAjustada = imagenSoporte.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoSoporteAjustada = new ImageIcon(imagenSoporteAjustada);
                 botonSoporte.setIcon(iconoSoporteAjustada);
-                botonSoporte.addActionListener(metodos);
+                botonSoporte.addActionListener(this);
                 botonSoporte.setBorderPainted(false);
 
                 botonNoticias = new JButton();
@@ -125,7 +128,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Image imagenNoticiasAjustada = imagenNoticias.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoNoticiasAjustada = new ImageIcon(imagenNoticiasAjustada);
                 botonNoticias.setIcon(iconoNoticiasAjustada);
-                botonNoticias.addActionListener(metodos);
+                botonNoticias.addActionListener(this);
                 botonNoticias.setBorderPainted(false);
 
                 // JLabel
@@ -142,7 +145,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 iconoUsuario.setOpaque(false);
                 iconoUsuario.setBackground(Color.WHITE);
                 iconoUsuario.setToolTipText("Cerrar Sesión");
-                iconoUsuario.addActionListener(metodos);
+                iconoUsuario.addActionListener(this);
                 this.PintarB(this.iconoUsuario, "Imagenes\\gente-pic.png");
 
                 // Agregar elementos al panel
@@ -159,10 +162,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 panelOpciones.add(botonNoticias);
         }
 
-        public void actionPerformed(ActionEvent e) {
-
-        }
-
+     
         private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
                                                        // Labels
                 this.imagen = new ImageIcon(ruta);
@@ -186,5 +186,47 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 lbl.setIcon(this.icono);
                 this.repaint();
         }// Fin del metodo Pintar
+
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+               if(e.getSource() == botonRealizarPedido){
+
+                metodos.principalApedidos();
+               }
+               if(e.getSource() == botonEstadoPedido){
+
+                metodos.principalAEstado();
+               }
+               if(e.getSource() == botonMisPedidos){
+
+                metodos.principalAmispedidos();
+               }
+               if(e.getSource() == botonRegistroEmpleado){
+
+                metodos.principalAsolicitudes();
+               }
+               if(e.getSource() == botonSoporte){
+
+                metodos.principalAbuzon();
+                metodos.conectar();
+               }
+               if(e.getSource() == botonNoticias){
+
+                metodos.principalAnoticias();
+               }
+               if(e.getSource() == botonBilletera){
+
+                metodos.principalAdinero();
+               }
+               if(e.getSource() == botoonApagar){
+
+                metodos.CerrarPrograma();
+               }
+               if(e.getSource() == iconoUsuario){
+
+                metodos.CerrarSesion();
+               }
+        }
 
 }
