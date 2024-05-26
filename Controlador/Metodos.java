@@ -511,9 +511,7 @@ public class Metodos implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
 
-            socket.shutdownOutput();
-            socket.shutdownInput();
-            socket.close();
+            
 
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
@@ -560,9 +558,8 @@ public class Metodos implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
 
-            socket.shutdownOutput();
-            socket.shutdownInput();
-            socket.close();
+           
+           
 
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
@@ -594,13 +591,12 @@ public class Metodos implements ActionListener {
             JOptionPane.showMessageDialog(null, "Mensaje enviado");
             
 
-            
-            String mensajeRecibido = inputStream.readUTF();
-            enlaceSoporte.areaRespuesta.append(mensajeRecibido);
+            /*  String mensajeRecibido = inputStream.readUTF();
+            enlaceSoporte.areaRespuesta.append(mensajeRecibido); */
+          
 
-            socket.shutdownOutput();
-            socket.shutdownInput();
-            socket.close();
+           
+           
 
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
