@@ -179,21 +179,6 @@ public class Metodos implements ActionListener {
 
         }
 
-        // nombre_txt, cedula_txt, correo_txt, numero_txt
-        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar) {
-
-            String nombreAplicante = enlaceAplicante.nombre_txt.getText().trim();
-            String cedulaAplicante = enlaceAplicante.cedula_txt.getText().trim();
-            String correoAplicante = enlaceAplicante.correo_txt.getText().trim();
-            String numero = enlaceAplicante.numero_txt.getText().trim();
-
-            if (nombreAplicante.isEmpty() || cedulaAplicante.isEmpty() || correoAplicante.isEmpty()
-                    || numero.isEmpty()) {
-
-                JOptionPane.showMessageDialog(null, "Debes de rellenar todos los espacios");
-            }
-
-        }
 
         if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver) {
 
@@ -247,7 +232,7 @@ public class Metodos implements ActionListener {
                 PrimeraVista primeraVista = new PrimeraVista();
                 primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
                 primeraVista.setVisible(true);
-                enlanceLogin.dispose();
+                enlanceLogin.setVisible(false);
 
             }
 
@@ -257,7 +242,7 @@ public class Metodos implements ActionListener {
 
             EstadoPedido estadoPedido = new EstadoPedido();
             estadoPedido.setVisible(true);
-            enlaceVista.dispose();
+            enlaceVista.setVisible(false);
         }
 
         if (enlaceEstadoPedido != null && e.getSource() == enlaceEstadoPedido.botonVolver) {
@@ -265,7 +250,7 @@ public class Metodos implements ActionListener {
             PrimeraVista primeraVista = new PrimeraVista();
             primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
             primeraVista.setVisible(true);
-            enlaceEstadoPedido.dispose();
+            enlaceEstadoPedido.setVisible(false);
         }
 
         if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonVolver) {
@@ -273,54 +258,54 @@ public class Metodos implements ActionListener {
             PrimeraVista primeraVista = new PrimeraVista();
             primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
             primeraVista.setVisible(true);
-            enlaceMisPedidos.dispose();
+            enlaceMisPedidos.setVisible(false);
         }
 
         if (enlaceVista != null && e.getSource() == enlaceVista.botonMisPedidos) {
 
             MisPedidos misPedidos = new MisPedidos();
             misPedidos.setVisible(true);
-            enlaceVista.dispose();
+            enlaceVista.setVisible(false);
         }
 
         if (enlaceVista != null && e.getSource() == enlaceVista.botonRealizarPedido) {
 
             RegistroPedido registroPedido = new RegistroPedido();
             registroPedido.setVisible(true);
-            enlaceVista.dispose();
+            enlaceVista.setVisible(false);
 
         }
         if (enlaceVista != null && e.getSource() == enlaceVista.botonBilletera) {
             IngresoDinero ingresoDinero = new IngresoDinero();
             ingresoDinero.setVisible(true);
-            enlaceVista.dispose();
+            enlaceVista.setVisible(false);
 
         }
         if (enlacePedido != null && e.getSource() == enlacePedido.botonCancelar) {
             PrimeraVista vistaR = new PrimeraVista();
             vistaR.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaR.setVisible(true);
-            enlacePedido.dispose();
+            enlacePedido.setVisible(false);
 
         }
         if (enlaceDinero != null && e.getSource() == enlaceDinero.botonCancelar) {
             PrimeraVista vistaA = new PrimeraVista();
             vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaA.setVisible(true);
-            enlaceDinero.dispose();
+            enlaceDinero.setVisible(false);
 
         }
         if (enlaceVista != null && e.getSource() == enlaceVista.botonSoporte) {
             VistaSoporte enlaceSoporte = new VistaSoporte();
             enlaceSoporte.setVisible(true);
-            enlaceVista.dispose();
+            enlaceVista.setVisible(false);
 
         }
         if (enlaceSoporte != null && e.getSource() == enlaceSoporte.botonCancelar) {
             PrimeraVista vistaA = new PrimeraVista();
             vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaA.setVisible(true);
-            enlaceSoporte.dispose();
+            enlaceSoporte.setVisible(false);
 
         }
 
@@ -333,7 +318,7 @@ public class Metodos implements ActionListener {
 
             Noticias noticias = new Noticias();
             noticias.setVisible(true);
-            enlaceVista.dispose();
+            enlaceVista.setVisible(false);;
 
         }
 
@@ -342,7 +327,7 @@ public class Metodos implements ActionListener {
             PrimeraVista primeraVista = new PrimeraVista();
             primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
             primeraVista.setVisible(true);
-            enlaceNoticias.dispose();
+            enlaceNoticias.setVisible(false);
         }
 
         if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
@@ -371,6 +356,7 @@ public class Metodos implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
                         PrimeraVista primeraVista = new PrimeraVista();
                         primeraVista.setVisible(true);
+                        primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
                         enlacePedido.dispose();
 
                     }
@@ -383,7 +369,9 @@ public class Metodos implements ActionListener {
                         EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
                         PrimeraVista primeraVista = new PrimeraVista();
-                        enlacePedido.dispose();
+                        primeraVista.setVisible(true);
+                        primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
+                        enlacePedido.dispose();;
 
                     }
 
@@ -394,8 +382,10 @@ public class Metodos implements ActionListener {
                         EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
 
+                        
                         PrimeraVista primeraVista = new PrimeraVista();
                         primeraVista.setVisible(true);
+                        primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
                         enlacePedido.dispose();
                     }
 
