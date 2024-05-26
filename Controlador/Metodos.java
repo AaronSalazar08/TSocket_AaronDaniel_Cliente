@@ -14,6 +14,7 @@ import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -131,8 +132,9 @@ public class Metodos{
 
     public void principalAbuzon() {
 
-        enlaceVista.setVisible(false);
+        
         enlaceSoporte.setVisible(true);
+        enlaceVista.setVisible(false);
     }
 
     public void buzonAprincipal() {
@@ -176,11 +178,11 @@ public class Metodos{
         } else {
 
             JOptionPane.showMessageDialog(null, "Bienvenido " + enlanceLogin.areaNombre.getText());
-
-            PrimeraVista primeraVista = new PrimeraVista();
-            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-            primeraVista.setVisible(true);
-            enlanceLogin.setVisible(false);
+            
+           enlanceLogin.setVisible(false);
+           enlaceVista.setVisible(true);
+           enlaceVista.usuario.setText(nombre);
+          
 
         }
 
@@ -195,8 +197,7 @@ public class Metodos{
         if (confirmacion == JOptionPane.YES_OPTION) {
 
             JOptionPane.showMessageDialog(null, "Cerrando Sesión...");
-            RegistroInicio registroInicio = new RegistroInicio();
-            registroInicio.setVisible(true);
+            enlanceLogin.setVisible(true);
             enlaceVista.dispose();
         }
     }
@@ -225,10 +226,9 @@ public class Metodos{
                             cantidadSeleccionda);
                     EnviarPedido();
                     JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
-                    PrimeraVista primeraVista = new PrimeraVista();
-                    primeraVista.setVisible(true);
-                    primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-                    enlacePedido.dispose();
+                   
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
 
                 }
 
@@ -239,11 +239,9 @@ public class Metodos{
                             cantidadSeleccionda);
                     EnviarPedido();
                     JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
-                    PrimeraVista primeraVista = new PrimeraVista();
-                    primeraVista.setVisible(true);
-                    primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-                    enlacePedido.dispose();
-                    ;
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
+                    
 
                 }
 
@@ -254,10 +252,8 @@ public class Metodos{
                     EnviarPedido();
                     JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
 
-                    PrimeraVista primeraVista = new PrimeraVista();
-                    primeraVista.setVisible(true);
-                    primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-                    enlacePedido.dispose();
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
                 }
 
             } catch (Exception ex) {
@@ -294,8 +290,7 @@ public class Metodos{
                         provincia, telefono);
                 EnviarAplicante();
                 JOptionPane.showMessageDialog(null, "Solicitud realizada con éxito");
-                PrimeraVista primeraVista = new PrimeraVista();
-                primeraVista.setVisible(true);
+                enlaceVista.setVisible(true);
                 enlaceAplicante.setVisible(false);
 
             } catch (NumberFormatException ex) {

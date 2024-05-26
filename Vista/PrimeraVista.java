@@ -208,8 +208,9 @@ public class PrimeraVista extends JFrame implements ActionListener {
                }
                if(e.getSource() == botonSoporte){
 
-                metodos.principalAbuzon();
                 metodos.conectar();
+                metodos.principalAbuzon();
+               
                }
                if(e.getSource() == botonNoticias){
 
