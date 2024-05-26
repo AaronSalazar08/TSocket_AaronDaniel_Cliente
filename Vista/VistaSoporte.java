@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Controlador.Metodos;
@@ -20,8 +21,9 @@ public class VistaSoporte extends JFrame {
 
     JPanel panelSoporte = new JPanel();
     JLabel titulo, indicacion, respuesta;
-    public JButton botonCancelar, botonAceptar;
+    public JButton botonCancelar, botonAceptar, botonRefrescar;
     public JTextArea areaReporte, areaRespuesta;
+    public JScrollPane scrollReporte, scrollRespuesta;
     private ImageIcon imagen;
     private Icon icono;
 
@@ -68,13 +70,17 @@ public class VistaSoporte extends JFrame {
 
         // JTexArea
         areaReporte = new JTextArea();
-        areaReporte.setBounds(60, 80, 375, 150);
-        areaReporte.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
+        areaReporte.setEditable(true);
+        scrollReporte = new JScrollPane(areaReporte);
+        scrollReporte.setBounds(60, 80, 375, 150);
+        scrollReporte.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
 
         areaRespuesta = new JTextArea();
-        areaRespuesta.setBounds(60, 280, 375, 150);
-        areaRespuesta.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
         areaRespuesta.setEditable(false);
+        scrollRespuesta = new JScrollPane(areaRespuesta);
+        scrollRespuesta.setBounds(60, 280, 375, 150);
+        scrollRespuesta.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
+        
 
         // Jbutton
         botonCancelar = new JButton("atras");
@@ -93,15 +99,24 @@ public class VistaSoporte extends JFrame {
         botonAceptar.setBorderPainted(false);
         botonAceptar.setOpaque(false);
 
+        botonRefrescar = new JButton("Depositar");
+        botonRefrescar.setBounds(380, 440, 40, 30);
+        botonRefrescar.addActionListener(metodos);
+        botonRefrescar.setBackground(new Color(255, 255, 0));
+        this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
+        botonRefrescar.setBorderPainted(false);
+        botonRefrescar.setOpaque(false);
+
         // Añadir elementos al panel
 
         panelSoporte.add(indicacion);
         panelSoporte.add(titulo);
-        panelSoporte.add(areaReporte);
-        panelSoporte.add(areaRespuesta);
+        panelSoporte.add(scrollReporte);
+        panelSoporte.add(scrollRespuesta);
         panelSoporte.add(respuesta);
         panelSoporte.add(botonCancelar);
         panelSoporte.add(botonAceptar);
+        panelSoporte.add(botonRefrescar);
 
     }
 

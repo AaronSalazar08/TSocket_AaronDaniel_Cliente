@@ -40,6 +40,7 @@ public class Metodos implements ActionListener {
     public final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
+    private Socket socket;
 
     ObjectOutputStream objectOutputStream;
     ObjectInputStream objectInputStream;
@@ -179,7 +180,6 @@ public class Metodos implements ActionListener {
 
         }
 
-
         if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver) {
 
             PrimeraVista primeraVista = new PrimeraVista();
@@ -296,9 +296,10 @@ public class Metodos implements ActionListener {
 
         }
         if (enlaceVista != null && e.getSource() == enlaceVista.botonSoporte) {
-            VistaSoporte enlaceSoporte = new VistaSoporte();
+           
             enlaceSoporte.setVisible(true);
             enlaceVista.setVisible(false);
+            conectar();
 
         }
         if (enlaceSoporte != null && e.getSource() == enlaceSoporte.botonCancelar) {
@@ -306,19 +307,26 @@ public class Metodos implements ActionListener {
             vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
             vistaA.setVisible(true);
             enlaceSoporte.setVisible(false);
+            desconectar();
 
         }
 
         if (enlaceSoporte != null && e.getSource() == enlaceSoporte.botonAceptar) {
-           
-            EnvarMensaje();
+
+            enviarMensaje();
+        }
+
+        if(enlaceSoporte != null && e.getSource() == enlaceSoporte.botonRefrescar){
+
+            recibirMensaje();
         }
 
         if (enlaceVista != null && e.getSource() == enlaceVista.botonNoticias) {
 
             Noticias noticias = new Noticias();
             noticias.setVisible(true);
-            enlaceVista.setVisible(false);;
+            enlaceVista.setVisible(false);
+            ;
 
         }
 
@@ -371,7 +379,8 @@ public class Metodos implements ActionListener {
                         PrimeraVista primeraVista = new PrimeraVista();
                         primeraVista.setVisible(true);
                         primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-                        enlacePedido.dispose();;
+                        enlacePedido.dispose();
+                        ;
 
                     }
 
@@ -382,7 +391,6 @@ public class Metodos implements ActionListener {
                         EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
 
-                        
                         PrimeraVista primeraVista = new PrimeraVista();
                         primeraVista.setVisible(true);
                         primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
@@ -501,8 +509,6 @@ public class Metodos implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
 
-            
-
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -548,9 +554,6 @@ public class Metodos implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
 
-           
-           
-
         } catch (UnknownHostException e) {
             JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -568,37 +571,63 @@ public class Metodos implements ActionListener {
 
     }
 
-    public void EnvarMensaje() {
-
-        try (Socket socket = new Socket(HOST, PUERTO);
-                DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
-                DataInputStream inputStream = new DataInputStream(socket.getInputStream())) {
-
-            String mensaje = enlaceSoporte.areaReporte.getText();
-
-            
-            outputStream.writeUTF(mensaje);
-            JOptionPane.showMessageDialog(null, "Mensaje enviado");
-            
-
-            /*  String mensajeRecibido = inputStream.readUTF();
-            enlaceSoporte.areaRespuesta.append(mensajeRecibido); */
-          
-
-           
-           
-
-        } catch (UnknownHostException e) {
-            JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+    public void enviarMensaje() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                String mensaje = enlaceSoporte.areaReporte.getText();
+                out.writeUTF(mensaje);
+                JOptionPane.showMessageDialog(null, "Mensaje enviado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay conexión establecida.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la comunicación con el servidor.",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante el envío del mensaje.", "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
-
     }
+
+
+    public void recibirMensaje() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                String mensajeRecibido = in.readUTF();
+                enlaceSoporte.areaRespuesta.append(mensajeRecibido);
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay conexión establecida.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la recepción del mensaje.", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    public void conectar() {
+        if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
+            try {
+                socket = new Socket(HOST, PUERTO);
+                out = new DataOutputStream(socket.getOutputStream());
+                in = new DataInputStream(socket.getInputStream());
+                JOptionPane.showMessageDialog(null, "Cliente conectado con el Servidor");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente ya está conectado con el servidor.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+
+    public void desconectar() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+                JOptionPane.showMessageDialog(null,"Cliente desconcectado del servidor");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
