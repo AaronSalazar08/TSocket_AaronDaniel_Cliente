@@ -4,10 +4,15 @@ import java.io.Serializable;
 
 public class Pedido implements Serializable{
 
+    private static final long serialVersionUID = -2396901459028578006L;
+
+
     protected String promocion, nombre, direccion, metodoPago, cantidadPromocion;
     
 
     
+    //Creacion de metodo constructor con parametros 
+
     public Pedido(String promocion, String nombre, String direccion, String metodoPago, String cantidadPromocion) {
         this.promocion = promocion;
         this.nombre = nombre;
@@ -15,6 +20,8 @@ public class Pedido implements Serializable{
         this.metodoPago = metodoPago;
         this.cantidadPromocion = cantidadPromocion;
     }
+
+    //Creación de Setters y Getters 
 
 
     public String getPromocion() {
@@ -64,6 +71,15 @@ public class Pedido implements Serializable{
 
     public void setCantidadPromocon(String cantidadPromocion) {
         this.cantidadPromocion = cantidadPromocion;
+    }
+
+
+
+    //Creacion de metodo toString para poder mostrar en la factura 
+    @Override
+    public String toString() {
+        return "Pedido [promocion=" + promocion + ", nombre=" + nombre + ", direccion=" + direccion + ", metodoPago="
+                + metodoPago + ", cantidadPromocion=" + cantidadPromocion + "]";
     }
 
     

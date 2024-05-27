@@ -8,6 +8,7 @@ public class Aplicante implements Serializable{
     protected int numero;
 
     
+    //Creacion de metodo constructor con parametros 
     public Aplicante(String cedula, String nombre, String correo, String postulacion, String provincia, int numero) {
         this.cedula = cedula;
         this.nombre = nombre;
@@ -16,6 +17,8 @@ public class Aplicante implements Serializable{
         this.provincia = provincia;
         this.numero = numero;
     }
+
+    //Creacion de setters y getters
 
 
     public String getCedula() {

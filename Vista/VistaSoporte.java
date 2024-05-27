@@ -20,12 +20,16 @@ public class VistaSoporte extends JFrame {
 
     JPanel panelSoporte = new JPanel();
     JLabel titulo, indicacion, respuesta;
-    public JButton botonCancelar, botonAceptar;
-    public JTextArea areaReporte, areaRespuesta;
-    private ImageIcon imagen;
+
+    public JButton botonCancelar, botonAceptar;//Botones para poder salir de la ventana y enviar la solicitud
+    public JTextArea areaReporte, areaRespuesta; //TextArea para el enviar y recibir reportes a partir del cliente y el servidor
+
+    //Atributos para poder colocar imagenes sobre JLabel y JButton
+    private ImageIcon imagen;   
     private Icon icono;
 
     public VistaSoporte() {
+        //Inicializando JPanel
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Soporte al Cliente");
@@ -40,12 +44,13 @@ public class VistaSoporte extends JFrame {
 
     }
 
+    //Metodo para inicializar e invocar las constantes en el JPanel 
     public void Elementos() {
 
-        // Llamada al metodo
+        // Llamada al metodo para la funcionalidad de los botones 
         Metodos metodos = new Metodos(this);
 
-        // Inicializar variables
+        // Inicializar constantes
 
         // JLabel
         titulo = new JLabel("Soporte:");
@@ -87,7 +92,7 @@ public class VistaSoporte extends JFrame {
 
         botonAceptar = new JButton("Depositar");
         botonAceptar.setBounds(430, 440, 40, 30);
-        // botonCancelar.addActionListener(metodos);
+        botonAceptar.addActionListener(metodos);
         botonAceptar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
         botonAceptar.setBorderPainted(false);
@@ -105,8 +110,9 @@ public class VistaSoporte extends JFrame {
 
     }
 
-    private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-        // Labels
+    //Metodo para agregar imagenes a JButtons
+
+    private void PintarB(JButton lbl, String ruta) { 
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(

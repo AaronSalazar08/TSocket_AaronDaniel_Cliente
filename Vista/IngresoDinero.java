@@ -20,14 +20,17 @@ import javax.swing.Icon;
 public class IngresoDinero extends JFrame {
 
     public JPanel panelDinero = new JPanel();
-    public JButton botonCancelar, botonAceptar;
+
+    public JButton botonCancelar, botonAceptar;//JButtons para regresar al menu prinicpal y aceptar acción
     JLabel indicacionDinero, indicacionTarjeta, titulo, colon;
-    public JTextField areaDinero;
-    public JTextField areaTarjeta;
+    public JTextField areaDinero; // JTexfield para ingresar el dinero a tener
+    public JTextField areaTarjeta; // JTexfield para ingresar la tarjeta a utilizar 
+    //Atributos para poner imagines a constantes 
     private ImageIcon imagen;
     private Icon icono;
 
     public IngresoDinero() {
+        //Inicializar JPanel 
         setTitle("Pizza Roma - Ingreso de Dinero");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(410, 400);
@@ -40,6 +43,7 @@ public class IngresoDinero extends JFrame {
     }
 
     public void Elementos() {
+        //Metodo para las funciones de los botones
         Metodos metodos = new Metodos(this);
         // Inicializar constantes
 
@@ -109,20 +113,10 @@ public class IngresoDinero extends JFrame {
 
     }
 
-    private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-        // Labels
-        this.imagen = new ImageIcon(ruta);
-        this.icono = new ImageIcon(
-                this.imagen.getImage().getScaledInstance(
-                        lbl.getWidth(),
-                        lbl.getHeight(),
-                        Image.SCALE_DEFAULT));
-        lbl.setIcon(this.icono);
-        this.repaint();
-    }// Fin del meto
 
-    private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-        // Labels
+    //Metodo para poner imagines a JButtons
+
+    private void PintarB(JButton lbl, String ruta) { 
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -131,6 +125,19 @@ public class IngresoDinero extends JFrame {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
-    }// Fin del metodo Pintar
+    }
+
+    //Metodo para poner imagines a JLabel
+
+    private void Pintar(JLabel lbl, String ruta) { 
+        this.imagen = new ImageIcon(ruta);
+        this.icono = new ImageIcon(
+                this.imagen.getImage().getScaledInstance(
+                        lbl.getWidth(),
+                        lbl.getHeight(),
+                        Image.SCALE_DEFAULT));
+        lbl.setIcon(this.icono);
+        this.repaint();
+    }
 
 }

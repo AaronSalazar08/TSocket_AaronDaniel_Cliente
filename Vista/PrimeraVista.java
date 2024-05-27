@@ -17,14 +17,19 @@ import java.awt.event.ActionListener;
 
 public class PrimeraVista extends JFrame implements ActionListener {
 
-        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado,
-                        botoonApagar, iconoUsuario, botonMisPedidos, botonNoticias;
+        //JButton para seleccionar las funciones del menú
+
+        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado, botoonApagar, iconoUsuario, botonMisPedidos, botonNoticias;
+                       
         public JPanel panelOpciones = new JPanel();
         public ImageIcon imagen;
+
+        //Atributos para lograr poner imagenes a constantes 
         public Icon icono;
         public JLabel logo, usuario;
 
         public PrimeraVista() {
+                //Inicializando JPanel
                 
                 setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 setTitle("Pizza Roma - Menú Principal");
@@ -38,10 +43,17 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 Elementos();
         }
 
-        public void Elementos() {
-                // Inicializar constantes
+        //Metodo para inicializar e invocar constantes al JPanel 
 
+        public void Elementos() {
+               
+                //Metodo para las funciones de las constantes 
                 Metodos metodos = new Metodos(this);
+
+                 // Inicializar constantes
+
+
+                 //JButton
 
                 botonBilletera = new JButton();
                 botonBilletera.setBounds(390, 10, 60, 40);
@@ -163,8 +175,8 @@ public class PrimeraVista extends JFrame implements ActionListener {
 
         }
 
-        private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-                                                       // Labels
+        //Metodo para poner imagines a JLabel
+        private void Pintar(JLabel lbl, String ruta) { 
                 this.imagen = new ImageIcon(ruta);
                 this.icono = new ImageIcon(
                                 this.imagen.getImage().getScaledInstance(
@@ -173,10 +185,10 @@ public class PrimeraVista extends JFrame implements ActionListener {
                                                 Image.SCALE_DEFAULT));
                 lbl.setIcon(this.icono);
                 this.repaint();
-        }// Fin del metodo Pintar
 
-        private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-                                                         // Labels
+        //Metodo para poner imagines a JButton
+        }
+        private void PintarB(JButton lbl, String ruta) { 
                 this.imagen = new ImageIcon(ruta);
                 this.icono = new ImageIcon(
                                 this.imagen.getImage().getScaledInstance(
@@ -185,6 +197,6 @@ public class PrimeraVista extends JFrame implements ActionListener {
                                                 Image.SCALE_DEFAULT));
                 lbl.setIcon(this.icono);
                 this.repaint();
-        }// Fin del metodo Pintar
+        }
 
 }

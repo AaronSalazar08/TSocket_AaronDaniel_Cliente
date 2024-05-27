@@ -15,7 +15,10 @@ import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,23 +34,24 @@ import Vista.VistaSoporte;
 
 public class Metodos implements ActionListener {
 
-    private static final String PIZZA_SUPER_ROMA_₡12_500 = null;
-
     public final String HOST = "192.168.86.74";
 
     final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
 
-    RegistroPedido enlacePedido;
-    RegistroInicio enlanceLogin;
-    PrimeraVista enlaceVista;
-    RegistroAplicante enlaceAplicante;
-    EstadoPedido enlaceEstadoPedido;
-    MisPedidos enlaceMisPedidos;
-    IngresoDinero enlaceDinero;
-    Noticias enlaceNoticias;
-    VistaSoporte enlaceSoporte;
+    ObjectOutputStream objectOutputStream;
+    ObjectInputStream objectInputStream;
+
+    private RegistroPedido enlacePedido;
+    private RegistroInicio enlanceLogin;
+    private PrimeraVista enlaceVista;
+    private RegistroAplicante enlaceAplicante;
+    private EstadoPedido enlaceEstadoPedido;
+    private MisPedidos enlaceMisPedidos;
+    private IngresoDinero enlaceDinero;
+    private Noticias enlaceNoticias;
+    private VistaSoporte enlaceSoporte;
 
     public Metodos(VistaSoporte enlaceSoporte) {
         this.enlacePedido = null;
@@ -75,6 +79,7 @@ public class Metodos implements ActionListener {
     }
 
     public Metodos(RegistroPedido enlacePedido) {
+
         this.enlacePedido = enlacePedido;
         this.enlanceLogin = null;
         this.enlaceVista = null;
@@ -202,6 +207,7 @@ public class Metodos implements ActionListener {
 
         }
 
+        // nombre_txt, cedula_txt, correo_txt, numero_txt
         if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar) {
 
             String nombreAplicante = enlaceAplicante.nombre_txt.getText().trim();
@@ -213,10 +219,6 @@ public class Metodos implements ActionListener {
                     || numero.isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "Debes de rellenar todos los espacios");
-
-            } else if (!nombreAplicante.isEmpty() || !cedulaAplicante.isEmpty() || !correoAplicante.isEmpty()
-                    || !numero.isEmpty()) {
-
             }
 
         }
@@ -379,40 +381,71 @@ public class Metodos implements ActionListener {
             boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
             boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
             String entradaNombre = enlacePedido.areaNombre.getText().trim();
-            String entradaDirecion = enlacePedido.areaDireccion.getText().trim();
-            String cantidadSeleccionda = (String) enlacePedido.cantidadPromo.getSelectedItem();
+            String entradaDireccion = enlacePedido.areaDireccion.getText().trim();
+            String cantidadSeleccionda = String.valueOf(enlacePedido.cantidadPromo.getSelectedItem());
             String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
 
-            if (entradaNombre.isEmpty() && entradaDirecion.isEmpty()) {
+            if (entradaNombre.isEmpty() && entradaDireccion.isEmpty()) {
 
                 JOptionPane.showMessageDialog(null,
                         "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
-            } else {
+            } else if (!entradaNombre.isEmpty() && !entradaDireccion.isEmpty()) {
 
                 try {
 
-                    if (enlacePedido.SuperRoma.isSelected()) {
-
-                        String promocion1 = enlacePedido.SuperRoma.isSelected() ? PIZZA_SUPER_ROMA_₡12_500
-                                : PIZZA_SUPER_ROMA_₡12_500;
-
-                        GuardarPedido(promocion1, entradaNombre, entradaDirecion, metodoPagoSeleccionado,
+                    if (entradaPromocion1) {
+                        String promocion1 = "Pizza Super Roma - ₡12 500";
+                        GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
                                 cantidadSeleccionda);
-
+                        EnviarPedido();
                         JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                        PrimeraVista primeraVista = new PrimeraVista();
+                        primeraVista.setVisible(true);
+                        enlacePedido.dispose();
 
                     }
 
+                    // Puedes añadir más condiciones para las otras promociones
+                    if (entradaPromocion2) {
+                        String promocion2 = "Pizza Clásica Italiana - ₡9 500"; // Ejemplo de otra promoción
+                        GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                                cantidadSeleccionda);
+                        EnviarPedido();
+                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                        PrimeraVista primeraVista = new PrimeraVista();
+                        enlacePedido.dispose();
+
+                    }
+
+                    if (entradaPromocion3) {
+                        String promocion3 = "Margarita por Venecia - ₡15 000"; // Ejemplo de otra promoción
+                        GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                                cantidadSeleccionda);
+                        EnviarPedido();
+                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+
+                        PrimeraVista primeraVista = new PrimeraVista();
+                        primeraVista.setVisible(true);
+                        enlacePedido.dispose();
+                    }
+
                 } catch (Exception ex) {
+                    ex.printStackTrace();
 
                 }
             }
 
         }
 
+        if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonMostrar) {
+
+            MostrarPedidos();
+
+        }
+
     }
 
-    // Metodos para guardar elementos al arrayList
+    // MetodoS para guardar elementos al arrayList
     public void GuardarAplicante(String cedula, String nombre, String correo, String postulacion, String provincia,
             int numero) {
 
@@ -424,4 +457,61 @@ public class Metodos implements ActionListener {
 
         Main.listaPedidos.add(new Pedido(promocion, nombre, direccion, metodoPago, cantidadSeleccionda));
     }
+
+    public void MostrarPedidos() {
+
+        for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
+
+            Pedido pedidos = Main.listaPedidos.get(contador);
+
+            enlaceMisPedidos.misPedidos.append("\nNombre: " + pedidos.getNombre() + "\n");
+            enlaceMisPedidos.misPedidos.append("Promocion: " + pedidos.getPromocion() + "\n");
+            enlaceMisPedidos.misPedidos.append("Cantidad: " + pedidos.getCantidadPromocon() + "\n");
+            enlaceMisPedidos.misPedidos.append("Metodo de Pago: " + pedidos.getMetodoPago() + "\n");
+            enlaceMisPedidos.misPedidos.append("Direccion: " + pedidos.getDireccion() + "\n"
+                    + "---------------------------------------------------------------------------------\n");
+
+        }
+    }
+
+    public void mostrarTemporal() {
+
+        for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
+
+            Pedido pedidos = Main.listaPedidos.get(contador);
+
+            enlaceMisPedidos.misPedidos.append("Nombre: " + pedidos.getNombre() + "\n");
+            enlaceMisPedidos.misPedidos.append("Promocion: " + pedidos.getPromocion() + "\n");
+            enlaceMisPedidos.misPedidos.append("Cantidad: " + pedidos.getCantidadPromocon() + "\n");
+            enlaceMisPedidos.misPedidos.append("Metodo de Pago: " + pedidos.getMetodoPago() + "\n");
+            enlaceMisPedidos.misPedidos.append("Direccion: " + pedidos.getDireccion() + "\n"
+                    + "---------------------------------------------------------------------------------");
+
+        }
+
+    }
+
+    public void EnviarPedido() throws UnknownHostException, IOException {
+
+       
+            try {
+
+                Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                outputStream.writeObject(Main.listaPedidos);
+    
+                outputStream.close();
+                socket.close();
+    
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+
+
+       
+        
+       
+
+    }
+
 }

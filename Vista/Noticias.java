@@ -11,9 +11,9 @@ import Controlador.Metodos;
 public class Noticias extends JFrame {
 
     public JPanel panelNoticias = new JPanel();
-    public JButton botonVolver;
-    public JTextArea noticias;
-    public JScrollPane scrollNoticias;
+    public JButton botonVolver;//JButton para regresar al menú principal
+    public JTextArea noticias; //JTextArea para mostrar las noticias dadas por el servidor 
+    public JScrollPane scrollNoticias; //Scroll para poder deslizarse por el TextArea
     public JLabel noticiasLabel;
     public ImageIcon imagen;
     public Icon icono;
@@ -21,6 +21,8 @@ public class Noticias extends JFrame {
     
 
     public Noticias () {
+        //Inicializando JPanel
+
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Noticias");
@@ -33,10 +35,14 @@ public class Noticias extends JFrame {
 
         Elementos();
     }
-
+    
+    //Metodo para poder inicializar e invocar las costantes al JPanel
     public void Elementos() {
+        //Llamada del metodo para las funcionalidad de las constantes 
 
         Metodos metodos = new Metodos (this);
+
+        //Inicializando constantes 
 
         // JButton
         botonVolver = new JButton();
@@ -70,8 +76,9 @@ public class Noticias extends JFrame {
 
     }
 
-    private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
-        // Labels
+    //Metodo para poner imagenes a JButtons
+
+    private void PintarB(JButton lbl, String ruta) { 
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -80,8 +87,7 @@ public class Noticias extends JFrame {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
-    }// Fin del metodo Pintar
-
+    }
 
 
 }
