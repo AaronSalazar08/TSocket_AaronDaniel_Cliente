@@ -13,12 +13,12 @@ import Controlador.Metodos;
 public class EstadoPedido extends JFrame implements ActionListener {
 
     public JPanel panelEstadoPedido = new JPanel();
-    public JButton botonConsultar, botonVolver;//JButtons para consultar pedido y regresar al menú principal 
-    public JTextArea estadoPedido; //JTexArea para poder visualizar el estado del pedido del usario
+    public JButton botonConsultar, botonVolver;// JButtons para consultar pedido y regresar al menú principal
+    public JTextArea estadoPedido; // JTexArea para poder visualizar el estado del pedido del usario
     public JScrollPane scrollEstadoPedido;
     public JLabel numeroFacturaLabel, estadoPedidoLabel;
     public JTextField numeroFactura_txt;
-    //Atributos para poder asignarle imagenes a las constantes 
+    // Atributos para poder asignarle imagenes a las constantes
     public ImageIcon imagen;
     public Icon icono;
 
@@ -28,9 +28,8 @@ public class EstadoPedido extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
-
     public EstadoPedido() {
-        //Inicializando JPanel
+        // Inicializando JPanel
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Estado de mi Pedido");
@@ -41,10 +40,7 @@ public class EstadoPedido extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
 
-
-        
-
-        //Inicializar constantes 
+        // Inicializar constantes
 
         // JLabel
         numeroFacturaLabel = new JLabel("Número Factura: ");
@@ -86,21 +82,22 @@ public class EstadoPedido extends JFrame implements ActionListener {
         Font fuente4 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         numeroFactura_txt.setFont(fuente4);
 
-        //JTextArea
-       
+        // JTextArea
+
         estadoPedido = new JTextArea();
         Font fuente5 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         estadoPedido.setFont(fuente5);
         estadoPedido.setEditable(false);
 
-         // JScrollPane
+        // JScrollPane
         scrollEstadoPedido = new JScrollPane(estadoPedido);
         scrollEstadoPedido.setBounds(40, 150, 300, 200);
-        scrollEstadoPedido.setToolTipText("Aquí tendrás toda la información que necesitas\n saber sobre el estado de tu pedido");
-        scrollEstadoPedido.setBorder(BorderFactory.createCompoundBorder(scrollEstadoPedido.getBorder(),BorderFactory.createLineBorder(Color.BLACK, 5)));
-        
+        scrollEstadoPedido
+                .setToolTipText("Aquí tendrás toda la información que necesitas\n saber sobre el estado de tu pedido");
+        scrollEstadoPedido.setBorder(BorderFactory.createCompoundBorder(scrollEstadoPedido.getBorder(),
+                BorderFactory.createLineBorder(Color.BLACK, 5)));
 
-        //Añadir elementos al panel
+        // Añadir elementos al panel
 
         panelEstadoPedido.add(numeroFacturaLabel);
         panelEstadoPedido.add(estadoPedidoLabel);
@@ -111,9 +108,9 @@ public class EstadoPedido extends JFrame implements ActionListener {
 
     }
 
-    //Metodo para poner imagenes a JButton
+    // Metodo para poner imagenes a JButton
 
-    private void PintarB(JButton lbl, String ruta) { 
+    private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -124,10 +121,13 @@ public class EstadoPedido extends JFrame implements ActionListener {
         this.repaint();
     }
 
+    // Este metodo se vera reflejado en todas las clases de Vista pues en cada una
+    // de ellas se implementa la interfaz ActionListener que permite el evento de un
+    // elemento grafico
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        if(e.getSource() == botonVolver){
+
+        if (e.getSource() == botonVolver) {
 
             metodos.estadoAprincipal();
         }
