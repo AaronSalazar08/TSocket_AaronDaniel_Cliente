@@ -31,6 +31,13 @@ public class RegistroInicio extends JFrame implements ActionListener {
     //Constante para insertar el logo de la Pizzeria
     JLabel logo;
 
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
+
     public RegistroInicio() {
         //Inicializando JPanel
 
@@ -42,15 +49,8 @@ public class RegistroInicio extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-
-    }
-
-    //Metodo para inicializar e invocar constantes al JPanel
-    public void Elementos() {
-        //Llamda del metodo para la funcionalidad de los botones
-
-        Metodos metodos = new Metodos(this);
+      
+      
         // Inicializar constantes
 
         // JLabel
@@ -68,7 +68,7 @@ public class RegistroInicio extends JFrame implements ActionListener {
         // JButton
         botonEntrar = new JButton(" Entrar");
         botonEntrar.setBounds(146, 300, 120, 30);
-        botonEntrar.addActionListener(metodos);
+        botonEntrar.addActionListener(this);
         botonEntrar.setBackground(new Color(255, 255, 255));
         ImageIcon iconoEntrar = new ImageIcon("Imagenes/entrar-en-el-portal.png");
         Image imagenEntrar = iconoEntrar.getImage();
@@ -93,9 +93,6 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-
-    }
 
     //Metoodo para poner imagines a JLabel
 
@@ -108,6 +105,16 @@ public class RegistroInicio extends JFrame implements ActionListener {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+        if(e.getSource() == botonEntrar){
+
+            metodos.loginAprincipal();
+        }
     }
 
 }

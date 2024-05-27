@@ -14,11 +14,13 @@ import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,13 +34,14 @@ import Vista.RegistroInicio;
 import Vista.RegistroPedido;
 import Vista.VistaSoporte;
 
-public class Metodos implements ActionListener {
+public class Metodos{
 
     public final String HOST = "192.168.86.74";
 
-    final int PUERTO = 5000;
+    public final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
+    private Socket socket;
 
     ObjectOutputStream objectOutputStream;
     ObjectInputStream objectInputStream;
@@ -53,396 +56,249 @@ public class Metodos implements ActionListener {
     private Noticias enlaceNoticias;
     private VistaSoporte enlaceSoporte;
 
-    public Metodos(VistaSoporte enlaceSoporte) {
-        this.enlacePedido = null;
-        this.enlanceLogin = null;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = enlaceSoporte;
-
-    }
-
-    public Metodos(IngresoDinero enlaceDinero) {
-        this.enlacePedido = null;
-        this.enlanceLogin = null;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
-        this.enlaceDinero = enlaceDinero;
-        this.enlaceNoticias = null;
-        this.enlaceSoporte = null;
-
-    }
-
-    public Metodos(RegistroPedido enlacePedido) {
-
+    public Metodos(RegistroPedido enlacePedido, RegistroInicio enlanceLogin, PrimeraVista enlaceVista,
+            RegistroAplicante enlaceAplicante, EstadoPedido enlaceEstadoPedido, MisPedidos enlaceMisPedidos,
+            IngresoDinero enlaceDinero, Noticias enlaceNoticias, VistaSoporte enlaceSoporte) {
         this.enlacePedido = enlacePedido;
-        this.enlanceLogin = null;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
-        this.enlaceNoticias = null;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-
-    }
-
-    public Metodos(RegistroInicio enlaceLogin) {
-        this.enlacePedido = null;
-        this.enlanceLogin = enlaceLogin;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-        this.enlaceNoticias = null;
-
-    }
-
-    public Metodos(PrimeraVista enlaceVista) {
-        this.enlacePedido = null;
-        this.enlanceLogin = null;
+        this.enlanceLogin = enlanceLogin;
         this.enlaceVista = enlaceVista;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
-        this.enlaceNoticias = null;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-    }
-
-    public Metodos(RegistroAplicante enlaceAplicante) {
-        this.enlacePedido = null;
-        this.enlanceLogin = null;
-        this.enlaceVista = null;
         this.enlaceAplicante = enlaceAplicante;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-        this.enlaceNoticias = null;
-    }
-
-    public Metodos(EstadoPedido enlaceEstadoPedido) {
-
-        this.enlaceNoticias = null;
-        this.enlacePedido = null;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
         this.enlaceEstadoPedido = enlaceEstadoPedido;
-        this.enlaceMisPedidos = null;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-
-    }
-
-    public Metodos(MisPedidos enlaceMisPedidos) {
-        this.enlacePedido = null;
-        this.enlanceLogin = null;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
         this.enlaceMisPedidos = enlaceMisPedidos;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-        this.enlaceNoticias = null;
-
-    }
-
-    public Metodos(Noticias enlaceNoticias) {
-        this.enlacePedido = null;
-        this.enlanceLogin = null;
-        this.enlaceVista = null;
-        this.enlaceAplicante = null;
-        this.enlaceEstadoPedido = null;
-        this.enlaceMisPedidos = null;
+        this.enlaceDinero = enlaceDinero;
         this.enlaceNoticias = enlaceNoticias;
-        this.enlaceDinero = null;
-        this.enlaceSoporte = null;
-
+        this.enlaceSoporte = enlaceSoporte;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void principalApedidos() {
 
-        /*
-         * if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
-         * 
-         * String nombre = enlacePedido.areaNombre.getText().trim();
-         * 
-         * 
-         * 
-         * 
-         * 
-         * try {
-         * 
-         * Socket sc = new Socket(HOST, PUERTO);
-         * 
-         * in = new DataInputStream(sc.getInputStream());
-         * 
-         * out = new DataOutputStream(sc.getOutputStream());
-         * out.writeUTF(nombre);
-         * String mensaje = in.readUTF();
-         * System.out.println(mensaje);
-         * sc.close();
-         * 
-         * } catch (IOException ex) {
-         * Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-         * 
-         * }
-         * 
-         * }
-         */
+        enlacePedido.setVisible(true);
+        enlaceVista.setVisible(false);
+    }
 
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonRegistroEmpleado) {
+    public void pedidosAprincipal() {
 
-            RegistroAplicante registroAplicante = new RegistroAplicante();
-            registroAplicante.setVisible(true);
-            enlaceVista.dispose();
+        enlaceVista.setVisible(true);
+        enlacePedido.setVisible(false);
+    }
 
-        }
+    public void principalAmispedidos() {
 
-        // nombre_txt, cedula_txt, correo_txt, numero_txt
-        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonEnviar) {
+        enlaceMisPedidos.setVisible(true);
+        enlaceVista.setVisible(false);
+    }
 
-            String nombreAplicante = enlaceAplicante.nombre_txt.getText().trim();
-            String cedulaAplicante = enlaceAplicante.cedula_txt.getText().trim();
-            String correoAplicante = enlaceAplicante.correo_txt.getText().trim();
-            String numero = enlaceAplicante.numero_txt.getText().trim();
+    public void mispedidosAprincipal() {
 
-            if (nombreAplicante.isEmpty() || cedulaAplicante.isEmpty() || correoAplicante.isEmpty()
-                    || numero.isEmpty()) {
+        enlaceVista.setVisible(true);
+        enlaceMisPedidos.setVisible(false);
+    }
 
-                JOptionPane.showMessageDialog(null, "Debes de rellenar todos los espacios");
-            }
+    public void principalAEstado() {
 
-        }
+        enlaceVista.setVisible(false);
+        enlaceEstadoPedido.setVisible(true);
+    }
 
-        if (enlaceAplicante != null && e.getSource() == enlaceAplicante.botonVolver) {
+    public void estadoAprincipal() {
 
-            PrimeraVista primeraVista = new PrimeraVista();
-            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-            primeraVista.setVisible(true);
-            enlaceAplicante.dispose();
-        }
+        enlaceEstadoPedido.setVisible(false);
+        enlaceVista.setVisible(true);
+    }
 
-        if (enlaceVista != null && e.getSource() == enlaceVista.botoonApagar) {
+    public void principalAnoticias() {
 
-            int confirmacion = JOptionPane.showConfirmDialog(null,
-                    "¿Deseas salir del Programa?", "confirmacion",
-                    JOptionPane.YES_NO_OPTION);
+        enlaceVista.setVisible(false);
+        enlaceNoticias.setVisible(true);
+    }
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
+    public void noticiasAprincipal() {
 
-                JOptionPane.showMessageDialog(null, "Saliendo del programa...");
-                enlaceVista.dispose();
-            }
+        enlaceNoticias.setVisible(false);
+        enlaceVista.setVisible(true);
+    }
 
-        }
+    public void principalAsolicitudes() {
 
-        if (enlaceVista != null && e.getSource() == enlaceVista.iconoUsuario) {
+        enlaceVista.setVisible(false);
+        enlaceAplicante.setVisible(true);
+    }
 
-            int confirmacion = JOptionPane.showConfirmDialog(null,
-                    "¿Deseas cerrar sesión?", "confirmacion",
-                    JOptionPane.YES_NO_OPTION);
+    public void solicitudesAprincipal() {
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
+        enlaceAplicante.setVisible(false);
+        enlaceVista.setVisible(true);
+    }
 
-                JOptionPane.showMessageDialog(null, "Cerrando Sesión...");
-                RegistroInicio registroInicio = new RegistroInicio();
-                registroInicio.setVisible(true);
-                enlaceVista.dispose();
-            }
+    public void principalAbuzon() {
 
-        }
+        
+        enlaceSoporte.setVisible(true);
+        enlaceVista.setVisible(false);
+    }
 
-        if (enlanceLogin != null && e.getSource() == enlanceLogin.botonEntrar) {
+    public void buzonAprincipal() {
 
-            String nombre = enlanceLogin.areaNombre.getText().trim();
+        enlaceSoporte.setVisible(false);
+        enlaceVista.setVisible(true);
+    }
 
-            if (nombre.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ingrese su nombre de Usuario");
-            } else {
+    public void principalAdinero() {
 
-                JOptionPane.showMessageDialog(null, "Bienvenido " + enlanceLogin.areaNombre.getText());
+        enlaceVista.setVisible(false);
+        enlaceDinero.setVisible(true);
+    }
 
-                PrimeraVista primeraVista = new PrimeraVista();
-                primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-                primeraVista.setVisible(true);
-                enlanceLogin.dispose();
+    public void dineroAprincipal() {
 
-            }
+        enlaceDinero.setVisible(false);
+        enlaceVista.setVisible(true);
+    }
 
-        }
+    public void CerrarPrograma() {
 
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonEstadoPedido) {
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Deseas salir del Programa?", "confirmacion",
+                JOptionPane.YES_NO_OPTION);
 
-            EstadoPedido estadoPedido = new EstadoPedido();
-            estadoPedido.setVisible(true);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            JOptionPane.showMessageDialog(null, "Saliendo del programa...");
+
             enlaceVista.dispose();
         }
+    }
 
-        if (enlaceEstadoPedido != null && e.getSource() == enlaceEstadoPedido.botonVolver) {
+    public void loginAprincipal() {
 
-            PrimeraVista primeraVista = new PrimeraVista();
-            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-            primeraVista.setVisible(true);
-            enlaceEstadoPedido.dispose();
-        }
+        String nombre = enlanceLogin.areaNombre.getText().trim();
 
-        if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonVolver) {
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese su nombre de Usuario");
+        } else {
 
-            PrimeraVista primeraVista = new PrimeraVista();
-            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-            primeraVista.setVisible(true);
-            enlaceMisPedidos.dispose();
-        }
-
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonMisPedidos) {
-
-            MisPedidos misPedidos = new MisPedidos();
-            misPedidos.setVisible(true);
-            enlaceVista.dispose();
-        }
-
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonRealizarPedido) {
-
-            RegistroPedido registroPedido = new RegistroPedido();
-            registroPedido.setVisible(true);
-            enlaceVista.dispose();
-
-        }
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonBilletera) {
-            IngresoDinero ingresoDinero = new IngresoDinero();
-            ingresoDinero.setVisible(true);
-            enlaceVista.dispose();
-
-        }
-        if (enlacePedido != null && e.getSource() == enlacePedido.botonCancelar) {
-            PrimeraVista vistaR = new PrimeraVista();
-            vistaR.usuario.setText(enlanceLogin.areaNombre.getText());
-            vistaR.setVisible(true);
-            enlacePedido.dispose();
-
-        }
-        if (enlaceDinero != null && e.getSource() == enlaceDinero.botonCancelar) {
-            PrimeraVista vistaA = new PrimeraVista();
-            vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
-            vistaA.setVisible(true);
-            enlaceDinero.dispose();
-
-        }
-
-        if (enlaceDinero != null && e.getSource() == enlaceDinero.botonAceptar) {
-
+            JOptionPane.showMessageDialog(null, "Bienvenido " + enlanceLogin.areaNombre.getText());
             
+           enlanceLogin.setVisible(false);
+           enlaceVista.setVisible(true);
+           enlaceVista.usuario.setText(nombre);
+          
+
+        }
 
     }
 
+    public void CerrarSesion() {
 
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonSoporte) {
-            VistaSoporte enlaceSoporte = new VistaSoporte();
-            enlaceSoporte.setVisible(true);
+        int confirmacion = JOptionPane.showConfirmDialog(null,
+                "¿Deseas cerrar sesión?", "confirmacion",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            JOptionPane.showMessageDialog(null, "Cerrando Sesión...");
+            enlanceLogin.setVisible(true);
             enlaceVista.dispose();
-
         }
-        if (enlaceSoporte != null && e.getSource() == enlaceSoporte.botonCancelar) {
-            PrimeraVista vistaA = new PrimeraVista();
-            vistaA.usuario.setText(enlanceLogin.areaNombre.getText());
-            vistaA.setVisible(true);
-            enlaceSoporte.dispose();
+    }
 
-        }
+    public void EnviarPedidoServer() {
 
-        if (enlaceVista != null && e.getSource() == enlaceVista.botonNoticias) {
+        boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
+        boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
+        boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
+        String entradaNombre = enlacePedido.areaNombre.getText().trim();
+        String entradaDireccion = enlacePedido.areaDireccion.getText().trim();
+        String cantidadSeleccionda = String.valueOf(enlacePedido.cantidadPromo.getSelectedItem());
+        String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
 
-            Noticias noticias = new Noticias();
-            noticias.setVisible(true);
-            enlaceVista.dispose();
+        if (entradaNombre.isEmpty() && entradaDireccion.isEmpty()) {
 
-        }
+            JOptionPane.showMessageDialog(null,
+                    "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
+        } else if (!entradaNombre.isEmpty() && !entradaDireccion.isEmpty()) {
 
-        if (enlaceNoticias != null && e.getSource() == enlaceNoticias.botonVolver) {
+            try {
 
-            PrimeraVista primeraVista = new PrimeraVista();
-            primeraVista.usuario.setText(enlanceLogin.areaNombre.getText());
-            primeraVista.setVisible(true);
-            enlaceNoticias.dispose();
-        }
-
-        if (enlacePedido != null && e.getSource() == enlacePedido.botonEnviar) {
-
-            boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
-            boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
-            boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
-            String entradaNombre = enlacePedido.areaNombre.getText().trim();
-            String entradaDireccion = enlacePedido.areaDireccion.getText().trim();
-            String cantidadSeleccionda = String.valueOf(enlacePedido.cantidadPromo.getSelectedItem());
-            String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
-
-            if (entradaNombre.isEmpty() && entradaDireccion.isEmpty()) {
-
-                JOptionPane.showMessageDialog(null,
-                        "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
-            } else if (!entradaNombre.isEmpty() && !entradaDireccion.isEmpty()) {
-
-                try {
-
-                    if (entradaPromocion1) {
-                        String promocion1 = "Pizza Super Roma - ₡12 500";
-                        GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
-                                cantidadSeleccionda);
-                        EnviarPedido();
-                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
-                        PrimeraVista primeraVista = new PrimeraVista();
-                        primeraVista.setVisible(true);
-                        enlacePedido.dispose();
-
-                    }
-
-                    // Puedes añadir más condiciones para las otras promociones
-                    if (entradaPromocion2) {
-                        String promocion2 = "Pizza Clásica Italiana - ₡9 500"; // Ejemplo de otra promoción
-                        GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
-                                cantidadSeleccionda);
-                        EnviarPedido();
-                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
-                        PrimeraVista primeraVista = new PrimeraVista();
-                        enlacePedido.dispose();
-
-                    }
-
-                    if (entradaPromocion3) {
-                        String promocion3 = "Margarita por Venecia - ₡15 000"; // Ejemplo de otra promoción
-                        GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
-                                cantidadSeleccionda);
-                        EnviarPedido();
-                        JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
-
-                        PrimeraVista primeraVista = new PrimeraVista();
-                        primeraVista.setVisible(true);
-                        enlacePedido.dispose();
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                if (entradaPromocion1) {
+                    String promocion1 = "Pizza Super Roma - ₡12 500";
+                    GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                            cantidadSeleccionda);
+                    EnviarPedido();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                   
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
 
                 }
+
+                // Puedes añadir más condiciones para las otras promociones
+                if (entradaPromocion2) {
+                    String promocion2 = "Pizza Clásica Italiana - ₡9 500"; // Ejemplo de otra promoción
+                    GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                            cantidadSeleccionda);
+                    EnviarPedido();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
+                    
+
+                }
+
+                if (entradaPromocion3) {
+                    String promocion3 = "Margarita por Venecia - ₡15 000"; // Ejemplo de otra promoción
+                    GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                            cantidadSeleccionda);
+                    EnviarPedido();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
             }
 
         }
+    }
 
-        if (enlaceMisPedidos != null && e.getSource() == enlaceMisPedidos.botonMostrar) {
+    public void EnviarAplicanteServer() {
 
-            MostrarPedidos();
+        String entradaNombre = enlaceAplicante.nombre_txt.getText().trim();
+        String entradaCedula = enlaceAplicante.cedula_txt.getText().trim();
+        String entradaCorreo = enlaceAplicante.correo_txt.getText().trim();
+        String entradaTelefono = enlaceAplicante.numero_txt.getText().trim();
+        String puesto = String.valueOf(enlaceAplicante.puestoTrabajo.getSelectedItem());
+        String provincia = String.valueOf(enlaceAplicante.provincia.getSelectedItem());
 
+        if (entradaNombre.isEmpty() || entradaCedula.isEmpty() || entradaCorreo.isEmpty()
+                || entradaTelefono.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null,
+                    "Por favor, especifíca tus datos para poder atender tu solicitud de la mejor manera");
+        } else if (!entradaNombre.isEmpty() && !entradaCedula.isEmpty() && !entradaCorreo.isEmpty()
+                && !entradaTelefono.isEmpty()) {
+
+            int telefono;
+            try {
+
+                telefono = Integer.parseInt(entradaTelefono);
+
+                GuardarAplicante(entradaCedula, entradaNombre, entradaCorreo, puesto,
+                        provincia, telefono);
+                EnviarAplicante();
+                JOptionPane.showMessageDialog(null, "Solicitud realizada con éxito");
+                enlaceVista.setVisible(true);
+                enlaceAplicante.setVisible(false);
+
+            } catch (NumberFormatException ex) {
+
+                JOptionPane.showMessageDialog(null, "Numero invalido");
+
+            }
         }
-
     }
 
     // MetodoS para guardar elementos al arrayList
@@ -474,44 +330,154 @@ public class Metodos implements ActionListener {
         }
     }
 
-    public void mostrarTemporal() {
+    public void EnviarPedido() {
+        try (Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
 
-        for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
+            // Enviar el objeto
+            outputStream.writeObject(Main.listaPedidos);
+            outputStream.flush();
 
-            Pedido pedidos = Main.listaPedidos.get(contador);
+            // Recibir el objeto de respuesta
+            Object objetoRecibido = inputStream.readObject();
 
-            enlaceMisPedidos.misPedidos.append("Nombre: " + pedidos.getNombre() + "\n");
-            enlaceMisPedidos.misPedidos.append("Promocion: " + pedidos.getPromocion() + "\n");
-            enlaceMisPedidos.misPedidos.append("Cantidad: " + pedidos.getCantidadPromocon() + "\n");
-            enlaceMisPedidos.misPedidos.append("Metodo de Pago: " + pedidos.getMetodoPago() + "\n");
-            enlaceMisPedidos.misPedidos.append("Direccion: " + pedidos.getDireccion() + "\n"
-                    + "---------------------------------------------------------------------------------");
+            if (objetoRecibido instanceof ArrayList<?>) {
+                // Muestra un JOptionPane con el contenido del ArrayList
+                ArrayList<Pedido> listaPedidosRecibidos = (ArrayList<Pedido>) objetoRecibido;
+                StringBuilder mensaje = new StringBuilder("Pedidos recibidos:\n");
+                for (Pedido pedido : listaPedidosRecibidos) {
+                    mensaje.append(pedido.toString()).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos",
+                        JOptionPane.INFORMATION_MESSAGE);
 
+            } else {
+                // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
+                JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la comunicación con el servidor.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el objeto recibido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    public void EnviarAplicante() {
+
+        try (Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
+
+            // Enviar el objeto
+            outputStream.writeObject(Main.listaAplicantes);
+            outputStream.flush();
+
+            // Recibir el objeto de respuesta
+            Object objetoRecibido = inputStream.readObject();
+
+            if (objetoRecibido instanceof ArrayList<?>) {
+                // Muestra un JOptionPane con el contenido del ArrayList
+                ArrayList<Aplicante> listaAplicantes = (ArrayList<Aplicante>) objetoRecibido;
+                StringBuilder mensaje = new StringBuilder("Aplicante recibidos:\n");
+                for (Aplicante aplicante : listaAplicantes) {
+                    mensaje.append(aplicante.toString()).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, mensaje.toString(), "Pedidos Recibidos",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+                // Si el objeto no es un ArrayList<Pedido>, muestra un mensaje de error
+                JOptionPane.showMessageDialog(null, "El objeto recibido no es un ArrayList<Pedido>", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (UnknownHostException e) {
+            JOptionPane.showMessageDialog(null, "Error de conexión: Host desconocido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la comunicación con el servidor.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Error al leer el objeto recibido.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
 
     }
 
-    public void EnviarPedido() throws UnknownHostException, IOException {
-
-       
-            try {
-
-                Socket socket = new Socket(HOST, PUERTO);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                outputStream.writeObject(Main.listaPedidos);
-    
-                outputStream.close();
-                socket.close();
-    
-            } catch (IOException exception) {
-                exception.printStackTrace();
+    public void enviarMensaje() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                String mensaje = enlaceSoporte.areaReporte.getText();
+                out.writeUTF(mensaje);
+                JOptionPane.showMessageDialog(null, "Mensaje enviado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay conexión establecida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante el envío del mensaje.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
+    public void recibirMensaje() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                String mensajeRecibido = in.readUTF();
+                enlaceSoporte.areaRespuesta.append(mensajeRecibido);
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay conexión establecida.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error de entrada/salida durante la recepción del mensaje.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
-       
-        
-       
+    public void conectar() {
+        if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
+            try {
+                socket = new Socket(HOST, PUERTO);
+                out = new DataOutputStream(socket.getOutputStream());
+                in = new DataInputStream(socket.getInputStream());
+                JOptionPane.showMessageDialog(null, "Cliente conectado con el Servidor");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente ya está conectado con el servidor.", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
+    public void desconectar() {
+        try {
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+                JOptionPane.showMessageDialog(null, "Cliente desconcectado del servidor");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

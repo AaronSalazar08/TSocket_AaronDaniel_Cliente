@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Controlador.Metodos;
@@ -14,19 +15,26 @@ import Controlador.Metodos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Image;
 
-public class VistaSoporte extends JFrame {
+public class VistaSoporte extends JFrame implements ActionListener {
 
     JPanel panelSoporte = new JPanel();
     JLabel titulo, indicacion, respuesta;
-
-    public JButton botonCancelar, botonAceptar;//Botones para poder salir de la ventana y enviar la solicitud
-    public JTextArea areaReporte, areaRespuesta; //TextArea para el enviar y recibir reportes a partir del cliente y el servidor
-
-    //Atributos para poder colocar imagenes sobre JLabel y JButton
-    private ImageIcon imagen;   
+    public JButton botonCancelar, botonAceptar, botonRefrescar;
+    public JTextArea areaReporte, areaRespuesta;
+    public JScrollPane scrollReporte, scrollRespuesta;
+    private ImageIcon imagen;
     private Icon icono;
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
 
     public VistaSoporte() {
         //Inicializando JPanel
@@ -40,15 +48,8 @@ public class VistaSoporte extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-
-    }
-
-    //Metodo para inicializar e invocar las constantes en el JPanel 
-    public void Elementos() {
-
-        // Llamada al metodo para la funcionalidad de los botones 
-        Metodos metodos = new Metodos(this);
+       
+       
 
         // Inicializar constantes
 
@@ -73,18 +74,22 @@ public class VistaSoporte extends JFrame {
 
         // JTexArea
         areaReporte = new JTextArea();
-        areaReporte.setBounds(60, 80, 375, 150);
-        areaReporte.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
+        areaReporte.setEditable(true);
+        scrollReporte = new JScrollPane(areaReporte);
+        scrollReporte.setBounds(60, 80, 375, 150);
+        scrollReporte.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
 
         areaRespuesta = new JTextArea();
-        areaRespuesta.setBounds(60, 280, 375, 150);
-        areaRespuesta.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
         areaRespuesta.setEditable(false);
+        scrollRespuesta = new JScrollPane(areaRespuesta);
+        scrollRespuesta.setBounds(60, 280, 375, 150);
+        scrollRespuesta.setBorder(BorderFactory.createLineBorder(new Color(237, 195, 0), 4));
+        
 
         // Jbutton
         botonCancelar = new JButton("atras");
         botonCancelar.setBounds(20, 440, 40, 30);
-        botonCancelar.addActionListener(metodos);
+        botonCancelar.addActionListener(this);
         botonCancelar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonCancelar, "Imagenes\\deshacer (2).png");
         botonCancelar.setBorderPainted(false);
@@ -92,21 +97,30 @@ public class VistaSoporte extends JFrame {
 
         botonAceptar = new JButton("Depositar");
         botonAceptar.setBounds(430, 440, 40, 30);
-        botonAceptar.addActionListener(metodos);
+        botonAceptar.addActionListener(this);
         botonAceptar.setBackground(new Color(255, 255, 0));
         this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
         botonAceptar.setBorderPainted(false);
         botonAceptar.setOpaque(false);
 
+        botonRefrescar = new JButton("Depositar");
+        botonRefrescar.setBounds(380, 440, 40, 30);
+        botonRefrescar.addActionListener(this);
+        botonRefrescar.setBackground(new Color(255, 255, 0));
+        this.PintarB(this.botonAceptar, "Imagenes\\avion-de-papel (1).png");
+        botonRefrescar.setBorderPainted(false);
+        botonRefrescar.setOpaque(false);
+
         // Añadir elementos al panel
 
         panelSoporte.add(indicacion);
         panelSoporte.add(titulo);
-        panelSoporte.add(areaReporte);
-        panelSoporte.add(areaRespuesta);
+        panelSoporte.add(scrollReporte);
+        panelSoporte.add(scrollRespuesta);
         panelSoporte.add(respuesta);
         panelSoporte.add(botonCancelar);
         panelSoporte.add(botonAceptar);
+        panelSoporte.add(botonRefrescar);
 
     }
 
@@ -122,5 +136,27 @@ public class VistaSoporte extends JFrame {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del metodo
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if(e.getSource() == botonCancelar){
+
+        metodos.buzonAprincipal();
+        metodos.desconectar();
+      }
+
+      if(e.getSource() == botonAceptar){
+
+        metodos.enviarMensaje();
+      }
+
+      if(e.getSource() == botonRefrescar){
+
+        metodos.recibirMensaje();
+      }
+
+
+
+    }
 
 }

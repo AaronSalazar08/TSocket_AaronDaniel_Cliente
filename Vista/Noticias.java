@@ -3,12 +3,14 @@ package Vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import Controlador.Metodos;
 
-public class Noticias extends JFrame {
+public class Noticias extends JFrame implements ActionListener {
 
     public JPanel panelNoticias = new JPanel();
     public JButton botonVolver;//JButton para regresar al menú principal
@@ -18,6 +20,13 @@ public class Noticias extends JFrame {
     public ImageIcon imagen;
     public Icon icono;
     Font fuente = new Font("Yu Mincho Demibold", Font.BOLD, 14);
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
     
 
     public Noticias () {
@@ -33,21 +42,15 @@ public class Noticias extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-    }
-    
-    //Metodo para poder inicializar e invocar las costantes al JPanel
-    public void Elementos() {
-        //Llamada del metodo para las funcionalidad de las constantes 
-
-        Metodos metodos = new Metodos (this);
+     
+      
 
         //Inicializando constantes 
 
         // JButton
         botonVolver = new JButton();
         botonVolver.setBounds(40, 300, 60, 30);
-        botonVolver.addActionListener(metodos);
+        botonVolver.addActionListener(this);
         botonVolver.setBackground(new Color(237, 195, 0));
         this.PintarB(this.botonVolver, "Imagenes\\deshacer (2).png");
         botonVolver.setBorderPainted(false);
@@ -87,7 +90,17 @@ public class Noticias extends JFrame {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
+    }// Fin del metodo Pintar
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       
+        if(e.getSource() == botonVolver){
+
+            metodos.noticiasAprincipal();
+        }
     }
+
 
 
 }

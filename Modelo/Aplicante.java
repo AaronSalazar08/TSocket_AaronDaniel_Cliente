@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class Aplicante implements Serializable{
 
+    private static final long serialVersionUID = 8799656478674716631L;
+
     protected String cedula, nombre, correo, postulacion, provincia;
     protected int numero;
 
@@ -79,6 +81,15 @@ public class Aplicante implements Serializable{
     public void setNumero(int numero) {
         this.numero = numero;
     }
+
+
+    @Override
+    public String toString() {
+        return "Aplicante: \nCedula: " + cedula + "\nNombre: " + nombre + "\nCorreo: " + correo + "\nPostula: "
+                + postulacion + "\nProvincia: " + provincia + "\nNumero: " + numero + "";
+    }
+
+    
 
 
 

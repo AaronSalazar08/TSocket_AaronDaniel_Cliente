@@ -3,12 +3,14 @@ package Vista;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 import Controlador.Metodos;
 
-public class MisPedidos extends JFrame {
+public class MisPedidos extends JFrame implements ActionListener {
 
     public JPanel panelMisPedidos = new JPanel();
 
@@ -21,6 +23,13 @@ public class MisPedidos extends JFrame {
     public ImageIcon imagen;
     public Icon icono;
     Font fuente = new Font("Yu Mincho Demibold", Font.BOLD, 14);
+
+    public void setMetodos(Metodos metodos) {
+        this.metodos = metodos;
+    }
+
+    public static Metodos metodos;
+
     
 
     public MisPedidos() {
@@ -36,14 +45,8 @@ public class MisPedidos extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        Elementos();
-    }
-
-
-    //Metodo para inicializar e invocar costantes 
-    public void Elementos() {
-        //Metodo para las funciones de los botones
-        Metodos metodos = new Metodos (this);
+     
+       
 
         //Inicializando constantes 
 
@@ -51,7 +54,7 @@ public class MisPedidos extends JFrame {
         // JButton
         botonVolver = new JButton();
         botonVolver.setBounds(40, 300, 60, 30);
-        botonVolver.addActionListener(metodos);
+        botonVolver.addActionListener(this);
         botonVolver.setBackground(new Color(237, 195, 0));
         this.PintarB(this.botonVolver, "Imagenes\\deshacer (2).png");
         botonVolver.setBorderPainted(false);
@@ -60,7 +63,7 @@ public class MisPedidos extends JFrame {
 
         botonMostrar = new JButton();
         botonMostrar.setBounds(350, 300, 60, 30);
-        botonMostrar.addActionListener(metodos);
+        botonMostrar.addActionListener(this);
         botonMostrar.setBackground(new Color(237, 195, 0));
         this.PintarB(this.botonMostrar, "Imagenes\\mostrar.png");
          botonMostrar.setBorderPainted(false);
@@ -101,6 +104,14 @@ public class MisPedidos extends JFrame {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       if(e.getSource() == botonVolver){
+        metodos.mispedidosAprincipal();
+        
+       }
     }
 
 }

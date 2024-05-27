@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 public class Pedido implements Serializable{
 
-    private static final long serialVersionUID = -2396901459028578006L;
-
+    private static final long serialVersionUID =  8799656478674716632L;
 
     protected String promocion, nombre, direccion, metodoPago, cantidadPromocion;
     
@@ -78,8 +77,8 @@ public class Pedido implements Serializable{
     //Creacion de metodo toString para poder mostrar en la factura 
     @Override
     public String toString() {
-        return "Pedido [promocion=" + promocion + ", nombre=" + nombre + ", direccion=" + direccion + ", metodoPago="
-                + metodoPago + ", cantidadPromocion=" + cantidadPromocion + "]";
+        return "Pedido\n Promocion: " + promocion + "\nDireccion: " + direccion + "\nNombre: " + nombre
+        + "\nMetodoPago: " + metodoPago + "\nCantidad de Promocion: " + cantidadPromocion;
     }
 
     
