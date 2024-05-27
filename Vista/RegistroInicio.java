@@ -24,11 +24,11 @@ public class RegistroInicio extends JFrame implements ActionListener {
     public static JTextField areaNombre;
     public JButton botonEntrar;
 
-    //Atributos para lograr poner imagines a constantes
+    // Atributos para lograr poner imagines a constantes
     private ImageIcon imagen;
     private Icon icono;
 
-    //Constante para insertar el logo de la Pizzeria
+    // Constante para insertar el logo de la Pizzeria
     JLabel logo;
 
     public void setMetodos(Metodos metodos) {
@@ -37,9 +37,8 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
-
+    // Metodo Constructor
     public RegistroInicio() {
-        //Inicializando JPanel
 
         setTitle("Pizza Roma - Regístrate");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -48,10 +47,6 @@ public class RegistroInicio extends JFrame implements ActionListener {
         setContentPane(panelUsuario);
         setLocationRelativeTo(null);
         setLayout(null);
-
-      
-      
-        // Inicializar constantes
 
         // JLabel
 
@@ -93,10 +88,9 @@ public class RegistroInicio extends JFrame implements ActionListener {
 
     }
 
+    // Metoodo para poner imagines a JLabel
 
-    //Metoodo para poner imagines a JLabel
-
-    private void Pintar(JLabel lbl, String ruta) { 
+    private void Pintar(JLabel lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -107,11 +101,10 @@ public class RegistroInicio extends JFrame implements ActionListener {
         this.repaint();
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        if(e.getSource() == botonEntrar){
+
+        if (e.getSource() == botonEntrar) {
 
             metodos.loginAprincipal();
         }

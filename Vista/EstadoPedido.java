@@ -28,8 +28,8 @@ public class EstadoPedido extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
+    // Metodo Constructor
     public EstadoPedido() {
-        // Inicializando JPanel
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Estado de mi Pedido");

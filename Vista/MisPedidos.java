@@ -14,12 +14,11 @@ public class MisPedidos extends JFrame implements ActionListener {
 
     public JPanel panelMisPedidos = new JPanel();
 
-
-    public JButton botonVolver, botonMostrar; //Constantes para regresar al menu y mostrar los pedidos del cliente
-    public JTextArea misPedidos; //JTextArea para mostrar los pedidos del cliente
-    public JScrollPane scrollMisPedidos; //Constante para poder deslizar en el TextArea
+    public JButton botonVolver, botonMostrar; // Constantes para regresar al menu y mostrar los pedidos del cliente
+    public JTextArea misPedidos; // JTextArea para mostrar los pedidos del cliente
+    public JScrollPane scrollMisPedidos; // Constante para poder deslizar en el TextArea
     public JLabel listaPedidosLabel;
-    //Atributos para poner imagines en constantes
+    // Atributos para poner imagines en constantes
     public ImageIcon imagen;
     public Icon icono;
     Font fuente = new Font("Yu Mincho Demibold", Font.BOLD, 14);
@@ -30,11 +29,8 @@ public class MisPedidos extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
-    
-
+    // Metodo Constructor
     public MisPedidos() {
-
-        //Inicializar JPanel
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Mis Pedidos");
@@ -45,11 +41,7 @@ public class MisPedidos extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
 
-     
-       
-
-        //Inicializando constantes 
-
+        // Inicializando constantes
 
         // JButton
         botonVolver = new JButton();
@@ -66,36 +58,35 @@ public class MisPedidos extends JFrame implements ActionListener {
         botonMostrar.addActionListener(this);
         botonMostrar.setBackground(new Color(237, 195, 0));
         this.PintarB(this.botonMostrar, "Imagenes\\mostrar.png");
-         botonMostrar.setBorderPainted(false);
+        botonMostrar.setBorderPainted(false);
         botonMostrar.setOpaque(false);
         botonMostrar.setToolTipText("Mostrar Datos");
 
-        //JLabel
+        // JLabel
         listaPedidosLabel = new JLabel("Lista de Mis Pedidos: ");
         listaPedidosLabel.setBounds(40, 30, 150, 30);
         listaPedidosLabel.setFont(fuente);
 
-        //JScrollPane
+        // JScrollPane
         misPedidos = new JTextArea();
         misPedidos.setEditable(false);
-       scrollMisPedidos = new JScrollPane(misPedidos);
-       scrollMisPedidos.setBounds(40, 70, 400, 200);
-       scrollMisPedidos.setToolTipText("Aquí aparecerán tus pedidos que has ordenado con nosotros");
-       scrollMisPedidos.setBorder(BorderFactory.createCompoundBorder(scrollMisPedidos.getBorder(),
+        scrollMisPedidos = new JScrollPane(misPedidos);
+        scrollMisPedidos.setBounds(40, 70, 400, 200);
+        scrollMisPedidos.setToolTipText("Aquí aparecerán tus pedidos que has ordenado con nosotros");
+        scrollMisPedidos.setBorder(BorderFactory.createCompoundBorder(scrollMisPedidos.getBorder(),
                 BorderFactory.createLineBorder(Color.BLACK, 5)));
 
-        //Agregar Elementos al Panel
+        // Agregar Elementos al Panel
         panelMisPedidos.add(botonVolver);
         panelMisPedidos.add(listaPedidosLabel);
         panelMisPedidos.add(scrollMisPedidos);
         panelMisPedidos.add(botonMostrar);
 
-
     }
 
-    //Metodo para agregar imagines a JButtons
+    // Metodo para agregar imagines a JButtons
 
-    private void PintarB(JButton lbl, String ruta) { 
+    private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -108,10 +99,10 @@ public class MisPedidos extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       if(e.getSource() == botonVolver){
-        metodos.mispedidosAprincipal();
-        
-       }
+        if (e.getSource() == botonVolver) {
+            metodos.mispedidosAprincipal();
+
+        }
     }
 
 }

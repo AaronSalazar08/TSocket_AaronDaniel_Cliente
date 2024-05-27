@@ -9,18 +9,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class RegistroAplicante extends JFrame implements ActionListener{
+public class RegistroAplicante extends JFrame implements ActionListener {
 
     private static final String COCINERO = "Cocinero";
     private static final String REPARTIDOR = "Repartidor";
     public JPanel panelRegistroAplicante = new JPanel();
     public JLabel nombreLabel, cedulaLabel, puestoLabel, correolabel, numeroLabel, residenciaLabel;
-    public JButton botonEnviar, botonVolver;//Botones para poder salir de la ventana y enviar el pedido
+    public JButton botonEnviar, botonVolver;// Botones para poder salir de la ventana y enviar el pedido
 
-    public JTextField nombre_txt, cedula_txt, correo_txt, numero_txt;//Constantes para ingresar los datos del aplicante
-    public JComboBox puestoTrabajo, provincia;//Constante para escoger el puesto de trabajo y la residencia del aplicante
+    public JTextField nombre_txt, cedula_txt, correo_txt, numero_txt;// Constantes para ingresar los datos del aplicante
+    public JComboBox puestoTrabajo, provincia;// Constante para escoger el puesto de trabajo y la residencia del
+                                              // aplicante
 
-    //Atributos para lograr poner imagines a constantes
+    // Atributos para lograr poner imagines a constantes
     public ImageIcon imagen;
     public Icon icono;
 
@@ -30,9 +31,8 @@ public class RegistroAplicante extends JFrame implements ActionListener{
 
     public static Metodos metodos;
 
-
+    // Metodo Constructor
     public RegistroAplicante() {
-        //Inicializando JPanel
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Registrarme como trabajador");
@@ -43,13 +43,7 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setLayout(null);
 
-     
-
-       
-
-        //Inicializando Constantess
-
-        //JButton
+        // JButton
 
         botonVolver = new JButton();
         botonVolver.setBounds(30, 350, 80, 40);
@@ -69,7 +63,7 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         botonEnviar.setOpaque(false);
         botonEnviar.setToolTipText("Enviar solicitud a Pizza Roma");
 
-        //JLabel
+        // JLabel
 
         residenciaLabel = new JLabel("Provincia: ");
         residenciaLabel.setBounds(40, 210, 140, 30);
@@ -79,19 +73,13 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         cedulaLabel.setBounds(40, 30, 140, 30);
         cedulaLabel.setBackground(new Color(0, 0, 0));
 
-        
-
         nombreLabel = new JLabel("Nombre Completo: ");
         nombreLabel.setBounds(40, 60, 140, 30);
         nombreLabel.setBackground(new Color(0, 0, 0));
 
-        
-
         correolabel = new JLabel("Correo electrónico: ");
         correolabel.setBounds(40, 90, 140, 30);
         correolabel.setBackground(new Color(0, 0, 0));
-
-        
 
         numeroLabel = new JLabel("Número Telefónico: ");
         numeroLabel.setBounds(40, 120, 140, 30);
@@ -101,7 +89,7 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         puestoLabel.setBounds(40, 150, 140, 30);
         puestoLabel.setBackground(new Color(0, 0, 0));
 
-        //JTexfield
+        // JTexfield
 
         numero_txt = new JTextField();
         numero_txt.setBounds(165, 128, 100, 20);
@@ -119,16 +107,13 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         correo_txt.setBounds(165, 98, 200, 20);
         correo_txt.setToolTipText("Digite correo electrónico");
 
-        //JComboBox
+        // JComboBox
 
-        
         puestoTrabajo = new JComboBox<>();
         puestoTrabajo.addItem(REPARTIDOR);
         puestoTrabajo.addItem(COCINERO);
         puestoTrabajo.setBounds(165, 158, 120, 20);
         puestoTrabajo.setToolTipText("Seleccione su puesto de preferencia para trabajar con Pizza Roma");
-
-        
 
         provincia = new JComboBox();
         provincia.setBounds(165, 215, 200, 20);
@@ -141,8 +126,7 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         provincia.addItem("Puntarenas");
         provincia.addItem("Limón");
 
-
-        //Agregar elementos al panel
+        // Agregar elementos al panel
 
         panelRegistroAplicante.add(botonVolver);
         panelRegistroAplicante.add(botonEnviar);
@@ -161,11 +145,10 @@ public class RegistroAplicante extends JFrame implements ActionListener{
 
     }
 
+    // Metodo para añadir elementos al JButton
 
-    //Metodo para añadir elementos al JButton
+    private void PintarB(JButton lbl, String ruta) {
 
-    private void PintarB(JButton lbl, String ruta) { 
-                                                     
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -178,14 +161,14 @@ public class RegistroAplicante extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        if(e.getSource() == botonVolver){
+
+        if (e.getSource() == botonVolver) {
 
             metodos.desconectar();
             metodos.solicitudesAprincipal();
         }
 
-        if(e.getSource() == botonEnviar){
+        if (e.getSource() == botonEnviar) {
 
             metodos.EnviarAplicanteServer();
         }

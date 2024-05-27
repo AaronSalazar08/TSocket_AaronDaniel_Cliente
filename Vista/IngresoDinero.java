@@ -19,15 +19,15 @@ import java.awt.event.ActionListener;
 import java.awt.Image;
 import javax.swing.Icon;
 
-public class IngresoDinero extends JFrame implements ActionListener{
+public class IngresoDinero extends JFrame implements ActionListener {
 
     public JPanel panelDinero = new JPanel();
 
-    public JButton botonCancelar, botonAceptar;//JButtons para regresar al menu prinicpal y aceptar acción
+    public JButton botonCancelar, botonAceptar;// JButtons para regresar al menu prinicpal y aceptar acción
     JLabel indicacionDinero, indicacionTarjeta, titulo, colon;
     public JTextField areaDinero; // JTexfield para ingresar el dinero a tener
-    public JTextField areaTarjeta; // JTexfield para ingresar la tarjeta a utilizar 
-    //Atributos para poner imagines a constantes 
+    public JTextField areaTarjeta; // JTexfield para ingresar la tarjeta a utilizar
+    // Atributos para poner imagines a constantes
     private ImageIcon imagen;
     private Icon icono;
 
@@ -37,8 +37,9 @@ public class IngresoDinero extends JFrame implements ActionListener{
 
     public static Metodos metodos;
 
+    // Metodo Constructor
     public IngresoDinero() {
-        //Inicializar JPanel 
+
         setTitle("Pizza Roma - Ingreso de Dinero");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(410, 400);
@@ -46,7 +47,6 @@ public class IngresoDinero extends JFrame implements ActionListener{
         setContentPane(panelDinero);
         setLocationRelativeTo(null);
         setLayout(null);
-     
 
         // JLabel
         titulo = new JLabel("Billetera Digital:");
@@ -114,10 +114,9 @@ public class IngresoDinero extends JFrame implements ActionListener{
 
     }
 
+    // Metodo para poner imagines a JButtons
 
-    //Metodo para poner imagines a JButtons
-
-    private void PintarB(JButton lbl, String ruta) { 
+    private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -128,9 +127,9 @@ public class IngresoDinero extends JFrame implements ActionListener{
         this.repaint();
     }
 
-    //Metodo para poner imagines a JLabel
+    // Metodo para poner imagines a JLabel
 
-    private void Pintar(JLabel lbl, String ruta) { 
+    private void Pintar(JLabel lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -143,8 +142,8 @@ public class IngresoDinero extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        if(e.getSource() == botonCancelar){
+
+        if (e.getSource() == botonCancelar) {
 
             metodos.dineroAprincipal();
         }

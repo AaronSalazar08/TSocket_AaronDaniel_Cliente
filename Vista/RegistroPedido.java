@@ -51,8 +51,8 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
+    // Metodo Constructor
     public RegistroPedido() {
-        // Inicializando el panel
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Registro de Pedido");
@@ -224,7 +224,7 @@ public class RegistroPedido extends JFrame implements ActionListener {
         if (e.getSource() == botonCancelar) {
 
             metodos.pedidosAprincipal();
-           
+
         }
 
         if (e.getSource() == botonEnviar) {

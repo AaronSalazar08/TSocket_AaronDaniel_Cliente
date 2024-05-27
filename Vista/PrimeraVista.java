@@ -17,27 +17,27 @@ import java.awt.event.ActionListener;
 
 public class PrimeraVista extends JFrame implements ActionListener {
 
-        //JButton para seleccionar las funciones del menú
+        // JButton para seleccionar las funciones del menú
 
-        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado, botoonApagar, iconoUsuario, botonMisPedidos, botonNoticias;
-                       
+        public JButton botonBilletera, botonRealizarPedido, botonSoporte, botonEstadoPedido, botonRegistroEmpleado,
+                        botoonApagar, iconoUsuario, botonMisPedidos, botonNoticias;
+
         public JPanel panelOpciones = new JPanel();
         public ImageIcon imagen;
 
-        //Atributos para lograr poner imagenes a constantes 
+        // Atributos para lograr poner imagenes a constantes
         public Icon icono;
         public JLabel logo, usuario;
 
         public void setMetodos(Metodos metodos) {
                 this.metodos = metodos;
-            }
-        
-            public static Metodos metodos;
-        
+        }
 
+        public static Metodos metodos;
+
+        // Metodo Constructor
         public PrimeraVista() {
-                //Inicializando JPanel
-                
+
                 setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                 setTitle("Pizza Roma - Menú Principal");
                 setSize(500, 530);
@@ -47,14 +47,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 setLocationRelativeTo(null);
                 setLayout(null);
 
-            
-
-            
-
-                 // Inicializar constantes
-
-
-                 //JButton
+                // JButton
 
                 botonBilletera = new JButton();
                 botonBilletera.setBounds(390, 10, 60, 40);
@@ -88,7 +81,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 botonMisPedidos.setBackground(new Color(237, 195, 0));
                 ImageIcon iconoMisPedidos = new ImageIcon("Imagenes/carrito-de-compras.png");
                 Image imagenMisPedidos = iconoMisPedidos.getImage();
-                Image  imagenMisPedidosAjustada = imagenMisPedidos.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
+                Image imagenMisPedidosAjustada = imagenMisPedidos.getScaledInstance(30, 20, Image.SCALE_SMOOTH);
                 ImageIcon iconoMisPedidosAjustada = new ImageIcon(imagenMisPedidosAjustada);
                 botonMisPedidos.setIcon(iconoMisPedidosAjustada);
                 botonMisPedidos.addActionListener(this);
@@ -172,7 +165,6 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 panelOpciones.add(botonNoticias);
         }
 
-     
         private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
                                                        // Labels
                 this.imagen = new ImageIcon(ruta);
@@ -184,9 +176,10 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 lbl.setIcon(this.icono);
                 this.repaint();
 
-        //Metodo para poner imagines a JButton
+                // Metodo para poner imagines a JButton
         }
-        private void PintarB(JButton lbl, String ruta) { 
+
+        private void PintarB(JButton lbl, String ruta) {
                 this.imagen = new ImageIcon(ruta);
                 this.icono = new ImageIcon(
                                 this.imagen.getImage().getScaledInstance(
@@ -197,50 +190,48 @@ public class PrimeraVista extends JFrame implements ActionListener {
                 this.repaint();
         }
 
-
         @Override
         public void actionPerformed(ActionEvent e) {
-               if(e.getSource() == botonRealizarPedido){
+                if (e.getSource() == botonRealizarPedido) {
 
-               metodos.conectarObject();
-                metodos.principalApedidos();
-               }
-               if(e.getSource() == botonEstadoPedido){
+                        metodos.conectarObject();
+                        metodos.principalApedidos();
+                }
+                if (e.getSource() == botonEstadoPedido) {
 
-                metodos.principalAEstado();
-               }
-               if(e.getSource() == botonMisPedidos){
+                        metodos.principalAEstado();
+                }
+                if (e.getSource() == botonMisPedidos) {
 
-                
-                metodos.principalAmispedidos();
-               }
-               if(e.getSource() == botonRegistroEmpleado){
+                        metodos.principalAmispedidos();
+                }
+                if (e.getSource() == botonRegistroEmpleado) {
 
-                metodos.conectarObject();
-                metodos.principalAsolicitudes();
-               }
-               if(e.getSource() == botonSoporte){
+                        metodos.conectarObject();
+                        metodos.principalAsolicitudes();
+                }
+                if (e.getSource() == botonSoporte) {
 
-                metodos.conectarData();
-                metodos.principalAbuzon();
-               
-               }
-               if(e.getSource() == botonNoticias){
+                        metodos.conectarData();
+                        metodos.principalAbuzon();
 
-                metodos.principalAnoticias();
-               }
-               if(e.getSource() == botonBilletera){
+                }
+                if (e.getSource() == botonNoticias) {
 
-                metodos.principalAdinero();
-               }
-               if(e.getSource() == botoonApagar){
+                        metodos.principalAnoticias();
+                }
+                if (e.getSource() == botonBilletera) {
 
-                metodos.CerrarPrograma();
-               }
-               if(e.getSource() == iconoUsuario){
+                        metodos.principalAdinero();
+                }
+                if (e.getSource() == botoonApagar) {
 
-                metodos.CerrarSesion();
-               }
+                        metodos.CerrarPrograma();
+                }
+                if (e.getSource() == iconoUsuario) {
+
+                        metodos.CerrarSesion();
+                }
         }
 
 }

@@ -13,9 +13,9 @@ import Controlador.Metodos;
 public class Noticias extends JFrame implements ActionListener {
 
     public JPanel panelNoticias = new JPanel();
-    public JButton botonVolver;//JButton para regresar al menú principal
-    public JTextArea noticias; //JTextArea para mostrar las noticias dadas por el servidor 
-    public JScrollPane scrollNoticias; //Scroll para poder deslizarse por el TextArea
+    public JButton botonVolver;// JButton para regresar al menú principal
+    public JTextArea noticias; // JTextArea para mostrar las noticias dadas por el servidor
+    public JScrollPane scrollNoticias; // Scroll para poder deslizarse por el TextArea
     public JLabel noticiasLabel;
     public ImageIcon imagen;
     public Icon icono;
@@ -27,11 +27,8 @@ public class Noticias extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
-    
-
-    public Noticias () {
-        //Inicializando JPanel
-
+    // Metodo Constructor
+    public Noticias() {
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setTitle("Pizza Roma - Noticias");
@@ -41,11 +38,6 @@ public class Noticias extends JFrame implements ActionListener {
         panelNoticias.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
         setLocationRelativeTo(null);
         setLayout(null);
-
-     
-      
-
-        //Inicializando constantes 
 
         // JButton
         botonVolver = new JButton();
@@ -57,12 +49,12 @@ public class Noticias extends JFrame implements ActionListener {
         botonVolver.setOpaque(false);
         botonVolver.setToolTipText("Volver al menú principal");
 
-        //JLabel
-        noticiasLabel = new JLabel("Noticias Pizza Roma" );
+        // JLabel
+        noticiasLabel = new JLabel("Noticias Pizza Roma");
         noticiasLabel.setBounds(40, 30, 150, 30);
         noticiasLabel.setFont(fuente);
 
-        //JScrollPane
+        // JScrollPane
         noticias = new JTextArea();
         noticias.setEditable(false);
         JScrollPane scrollNoticias = new JScrollPane(noticias);
@@ -71,17 +63,16 @@ public class Noticias extends JFrame implements ActionListener {
         scrollNoticias.setBorder(BorderFactory.createCompoundBorder(noticias.getBorder(),
                 BorderFactory.createLineBorder(Color.BLACK, 5)));
 
-        //Agregar Elementos al Panel
+        // Agregar Elementos al Panel
         panelNoticias.add(botonVolver);
         panelNoticias.add(noticiasLabel);
         panelNoticias.add(scrollNoticias);
 
-
     }
 
-    //Metodo para poner imagenes a JButtons
+    // Metodo para poner imagenes a JButtons
 
-    private void PintarB(JButton lbl, String ruta) { 
+    private void PintarB(JButton lbl, String ruta) {
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -94,13 +85,11 @@ public class Noticias extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        if(e.getSource() == botonVolver){
+
+        if (e.getSource() == botonVolver) {
 
             metodos.noticiasAprincipal();
         }
     }
-
-
 
 }
