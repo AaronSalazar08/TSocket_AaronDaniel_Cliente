@@ -35,14 +35,9 @@ public class RegistroPedido extends JFrame implements ActionListener {
     private static final String PIZZA_CLÁSICA_ITALIANA_₡9_500 = "Pizza Clásica Italiana - ₡9 500";
 
     public JTextField areaNombre, areaDireccion;
-
-    public JComboBox tipoPago, cantidadPromo; // ComboBox para seleccionar el tipo de pago y la cantidad de comprar de
-                                              // la promoción
-
-    public JButton botonEnviar, botonCancelar;// Botones para poder salir de la ventana y enviar el pedido
-
-    public JRadioButton SuperRoma, JamonQueso, margarita;// Constantes para poder seleccionar el tipo de promoción
-
+    public JComboBox tipoPago, tipoPromocion, cantidadPromo;
+    public JButton botonEnviar, botonCancelar;
+    public JRadioButton SuperRoma, JamonQueso, margarita;
     public JLabel labelNombre, labelDireccion, labelPago, labelPromo, labelCantidad, imagenRoma, imagenJamon,
             imagenMargarita;
     private ImageIcon imagen;
@@ -56,7 +51,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     public static Metodos metodos;
 
-
     public RegistroPedido() {
         // Inicializando el panel
 
@@ -68,9 +62,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
         panelPedido.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0), 4));
         setLocationRelativeTo(null);
         setLayout(null);
-
-    
-      
 
         // JRadioButton
         SuperRoma = new JRadioButton(PIZZA_SUPER_ROMA_₡12_500);
@@ -203,7 +194,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     }
 
-    
     private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
         // Labels
         this.imagen = new ImageIcon(ruta);
@@ -214,10 +204,10 @@ public class RegistroPedido extends JFrame implements ActionListener {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
-    }
+    }// Fin del meto
 
-    // Metodo para poner imagenes a JLabel
-    private void Pintar(JLabel lbl, String ruta) {
+    private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
+        // Labels
         this.imagen = new ImageIcon(ruta);
         this.icono = new ImageIcon(
                 this.imagen.getImage().getScaledInstance(
@@ -226,18 +216,18 @@ public class RegistroPedido extends JFrame implements ActionListener {
                         Image.SCALE_DEFAULT));
         lbl.setIcon(this.icono);
         this.repaint();
-    }
-
+    }// Fin del metodo Pintar
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        if(e.getSource() == botonCancelar){
+
+        if (e.getSource() == botonCancelar) {
 
             metodos.pedidosAprincipal();
+            metodos.desconectar();
         }
 
-        if(e.getSource() == botonEnviar){
+        if (e.getSource() == botonEnviar) {
 
             metodos.EnviarPedidoServer();
         }

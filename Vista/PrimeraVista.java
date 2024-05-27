@@ -202,6 +202,7 @@ public class PrimeraVista extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent e) {
                if(e.getSource() == botonRealizarPedido){
 
+               metodos.conectarObject();
                 metodos.principalApedidos();
                }
                if(e.getSource() == botonEstadoPedido){
@@ -210,15 +211,17 @@ public class PrimeraVista extends JFrame implements ActionListener {
                }
                if(e.getSource() == botonMisPedidos){
 
+                
                 metodos.principalAmispedidos();
                }
                if(e.getSource() == botonRegistroEmpleado){
 
+                metodos.conectarObject();
                 metodos.principalAsolicitudes();
                }
                if(e.getSource() == botonSoporte){
 
-                metodos.conectar();
+                metodos.conectarData();
                 metodos.principalAbuzon();
                
                }
