@@ -36,7 +36,8 @@ public class RegistroPedido extends JFrame implements ActionListener {
     public JComboBox tipoPago, tipoPromocion, cantidadPromo;
     public JButton botonEnviar, botonCancelar;
     public JRadioButton SuperRoma, JamonQueso, margarita;
-    public JLabel labelNombre, labelDireccion, labelPago, labelPromo, labelCantidad, imagenRoma, imagenJamon,imagenMargarita;
+    public JLabel labelNombre, labelDireccion, labelPago, labelPromo, labelCantidad, imagenRoma, imagenJamon,
+            imagenMargarita;
     private ImageIcon imagen;
     private Icon icono;
 
@@ -47,7 +48,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
     }
 
     public static Metodos metodos;
-
 
     public RegistroPedido() {
 
@@ -60,25 +60,24 @@ public class RegistroPedido extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setLayout(null);
 
-    
-      
-
         // JRadioButton
         SuperRoma = new JRadioButton(PIZZA_SUPER_ROMA_₡12_500);
         SuperRoma.setBackground(new Color(255, 255, 255));
         SuperRoma.setBounds(30, 70, 230, 40);
-        SuperRoma.setToolTipText("Deliciosa Pizza Grande a la Roma de 16 pedazos acompañada con: \n" + "-2 Refrescos \n" +  "-Porcion de pan de ajo (4 rebanadas) ");
-        
+        SuperRoma.setToolTipText("Deliciosa Pizza Grande a la Roma de 16 pedazos acompañada con: \n" + "-2 Refrescos \n"
+                + "-Porcion de pan de ajo (4 rebanadas) ");
 
         JamonQueso = new JRadioButton(PIZZA_CLÁSICA_ITALIANA_₡9_500);
         JamonQueso.setBackground(new Color(255, 255, 255));
         JamonQueso.setBounds(30, 160, 230, 40);
-        JamonQueso.setToolTipText("Pizza Clásica Pequeña de jamón y queso de 8 pedazos acompañada por: -2 Refrescos -Spagetti con albónigas  ");
+        JamonQueso.setToolTipText(
+                "Pizza Clásica Pequeña de jamón y queso de 8 pedazos acompañada por: -2 Refrescos -Spagetti con albónigas  ");
 
         margarita = new JRadioButton(MARGARITA_POR_VENECIA_₡15_000);
         margarita.setBounds(30, 250, 230, 40);
         margarita.setBackground(new Color(255, 255, 255));
-        margarita.setToolTipText("Exquisita Pizza Margartita Mediana con 12 pedazos acompañada por: -2 Margaritas -Postre según la cocina del Chef ");
+        margarita.setToolTipText(
+                "Exquisita Pizza Margartita Mediana con 12 pedazos acompañada por: -2 Margaritas -Postre según la cocina del Chef ");
 
         ButtonGroup grupoRadio = new ButtonGroup();
         grupoRadio.add(SuperRoma);
@@ -102,39 +101,32 @@ public class RegistroPedido extends JFrame implements ActionListener {
         imagenRoma = new JLabel();
         imagenRoma.setBounds(260, 45, 80, 80);
         this.Pintar(this.imagenRoma, "Imagenes\\PizzaRomaPromo1.png");
-       
 
         imagenJamon = new JLabel();
-        imagenJamon.setBounds(260,130, 80, 80);
+        imagenJamon.setBounds(260, 130, 80, 80);
         this.Pintar(this.imagenJamon, "Imagenes\\ClasicaItalianaPromo2.png");
-        
 
         imagenMargarita = new JLabel();
-        imagenMargarita.setBounds(260,220, 80, 80);
+        imagenMargarita.setBounds(260, 220, 80, 80);
         this.Pintar(this.imagenMargarita, "Imagenes\\MargaritaPorVeneciaPromo3.png");
-        
-
 
         labelCantidad = new JLabel("Cantidad de promoción:");
         labelCantidad.setBounds(30, 300, 170, 70);
         Font fuente6 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         labelCantidad.setFont(fuente6);
-        labelCantidad.setForeground(new Color(237, 195,0));
+        labelCantidad.setForeground(new Color(237, 195, 0));
 
         labelPago = new JLabel("Metodo de pago:");
         labelPago.setBounds(405, 215, 150, 70);
         Font fuente7 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         labelPago.setFont(fuente7);
-        labelPago.setForeground(new Color(237, 195,0));
-
-
-
+        labelPago.setForeground(new Color(237, 195, 0));
 
         labelPromo = new JLabel("Promociones:");
         labelPromo.setBounds(30, 0, 100, 70);
         Font fuente1 = new Font("Yu Mincho Demibold", Font.BOLD, 14);
         labelPromo.setFont(fuente1);
-        labelPromo.setForeground(new Color(237, 195,0));
+        labelPromo.setForeground(new Color(237, 195, 0));
 
         labelNombre = new JLabel("Nombre:");
         labelNombre.setBounds(405, 15, 100, 70);
@@ -148,8 +140,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
         labelDireccion.setFont(fuente3);
         labelDireccion.setForeground(new Color(237, 195, 0));
 
-        
-
         // JTexfield
         areaNombre = new JTextField();
         areaNombre.setBounds(405, 75, 90, 20);
@@ -159,7 +149,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
         areaDireccion.setBounds(405, 180, 170, 20);
         areaDireccion.setToolTipText("Dános tu dirección para entregarte tu pedido a la puerta de tu casa");
 
-        
         // JButton
 
         botonCancelar = new JButton("cancelar");
@@ -170,7 +159,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
         botonCancelar.setBorderPainted(false);
         botonCancelar.setOpaque(false);
 
-
         botonEnviar = new JButton("enviar");
         botonEnviar.setBounds(475, 490, 80, 30);
         botonEnviar.addActionListener(this);
@@ -179,13 +167,11 @@ public class RegistroPedido extends JFrame implements ActionListener {
         botonEnviar.setBorderPainted(false);
         botonEnviar.setOpaque(false);
 
-        
-
         // Agregar elementos al panel
 
         panelPedido.add(botonEnviar);
-         panelPedido.add(labelNombre);
-         panelPedido.add(areaNombre);
+        panelPedido.add(labelNombre);
+        panelPedido.add(areaNombre);
         panelPedido.add(labelDireccion);
         panelPedido.add(SuperRoma);
         panelPedido.add(JamonQueso);
@@ -203,7 +189,6 @@ public class RegistroPedido extends JFrame implements ActionListener {
 
     }
 
-    
     private void PintarB(JButton lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
         // Labels
         this.imagen = new ImageIcon(ruta);
@@ -215,28 +200,29 @@ public class RegistroPedido extends JFrame implements ActionListener {
         lbl.setIcon(this.icono);
         this.repaint();
     }// Fin del meto
+
     private void Pintar(JLabel lbl, String ruta) { // Este metodo se utiliza para ponerle imagenes de fondo a los
         // Labels
-this.imagen = new ImageIcon(ruta);
-this.icono = new ImageIcon(
-this.imagen.getImage().getScaledInstance(
- lbl.getWidth(),
- lbl.getHeight(),
- Image.SCALE_DEFAULT));
-lbl.setIcon(this.icono);
-this.repaint();
-}// Fin del metodo Pintar
-
+        this.imagen = new ImageIcon(ruta);
+        this.icono = new ImageIcon(
+                this.imagen.getImage().getScaledInstance(
+                        lbl.getWidth(),
+                        lbl.getHeight(),
+                        Image.SCALE_DEFAULT));
+        lbl.setIcon(this.icono);
+        this.repaint();
+    }// Fin del metodo Pintar
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
-        if(e.getSource() == botonCancelar){
+
+        if (e.getSource() == botonCancelar) {
 
             metodos.pedidosAprincipal();
+            metodos.desconectar();
         }
 
-        if(e.getSource() == botonEnviar){
+        if (e.getSource() == botonEnviar) {
 
             metodos.EnviarPedidoServer();
         }

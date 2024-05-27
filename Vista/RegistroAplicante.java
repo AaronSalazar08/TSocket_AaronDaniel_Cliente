@@ -152,6 +152,7 @@ public class RegistroAplicante extends JFrame implements ActionListener{
         
         if(e.getSource() == botonVolver){
 
+            metodos.desconectar();
             metodos.solicitudesAprincipal();
         }
 
