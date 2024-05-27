@@ -36,16 +36,17 @@ import Vista.VistaSoporte;
 
 public class Metodos{
 
-    public final String HOST = "192.168.86.55";
+    public final String HOST = "192.168.86.55"; //Aqui se crea una constante donde se recibe la IP del servidor con el que se trabajara
 
-    public final int PUERTO = 5000;
-    DataInputStream in;
-    DataOutputStream out;
-    private Socket socket;
+    public final int PUERTO = 5000; //Se asigna un numero de puerto para lograr la conexion via socket
+    DataInputStream in;//Declaracion de variable para recibir datos del cliente
+    DataOutputStream out;//Declaracion de variable para enviar datos al cliente
+    private Socket socket;//Declaracion de variable tipo Socket para controlar la conexion del Cliente al servidor
 
-    ObjectOutputStream outObjeto;
-    ObjectInputStream inObjeto;
+    ObjectOutputStream outObjeto;//Declaracion de variable para enviar Objetos del cliente
+    ObjectInputStream inObjeto;//Declaracion de variable para recibir Objetos del cliente
 
+    //Declaracion de clases JFrame
     private RegistroPedido enlacePedido;
     private RegistroInicio enlanceLogin;
     private PrimeraVista enlaceVista;
@@ -56,6 +57,7 @@ public class Metodos{
     private Noticias enlaceNoticias;
     private VistaSoporte enlaceSoporte;
 
+    //Contructor de respectivas clases 
     public Metodos(RegistroPedido enlacePedido, RegistroInicio enlanceLogin, PrimeraVista enlaceVista,
             RegistroAplicante enlaceAplicante, EstadoPedido enlaceEstadoPedido, MisPedidos enlaceMisPedidos,
             IngresoDinero enlaceDinero, Noticias enlaceNoticias, VistaSoporte enlaceSoporte) {
@@ -70,6 +72,7 @@ public class Metodos{
         this.enlaceSoporte = enlaceSoporte;
     }
 
+    // Metodos para pasar de ventana JFrame a otra
     public void principalApedidos() {
 
         enlacePedido.setVisible(true);
@@ -155,6 +158,8 @@ public class Metodos{
         enlaceVista.setVisible(true);
     }
 
+
+     //Metodo que le lanzara una pregunta al usuario, dependiendo de su respuesta, el programa terminara su ejecucion o permanecera en la misma
     public void CerrarPrograma() {
 
         int confirmacion = JOptionPane.showConfirmDialog(null,
@@ -169,6 +174,7 @@ public class Metodos{
         }
     }
 
+    //Mediante este metodo se registra el usuario
     public void loginAprincipal() {
 
         String nombre = enlanceLogin.areaNombre.getText().trim();
@@ -188,6 +194,7 @@ public class Metodos{
 
     }
 
+    //Metodo para cerrar sesion del usuario
     public void CerrarSesion() {
 
         int confirmacion = JOptionPane.showConfirmDialog(null,
@@ -202,6 +209,7 @@ public class Metodos{
         }
     }
 
+    //Metodo para enviar pedido al servidor en donde se llama el metodo de EnviarPedido (mas adelante se detalla)
     public void EnviarPedidoServer() {
 
         boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
@@ -264,6 +272,7 @@ public class Metodos{
         }
     }
 
+    //Metodo para enviar solicitud al servidor en donde se llama el metodo de EnviarAplicante (mas adelante se detalla)
     public void EnviarAplicanteServer() {
 
         String entradaNombre = enlaceAplicante.nombre_txt.getText().trim();
@@ -301,19 +310,21 @@ public class Metodos{
         }
     }
 
-    // MetodoS para guardar elementos al arrayList
+    // Metodo para guardar elementos de los aplicantes al arrayList
     public void GuardarAplicante(String cedula, String nombre, String correo, String postulacion, String provincia,
             int numero) {
 
         Main.listaAplicantes.add(new Aplicante(cedula, nombre, correo, postulacion, provincia, numero));
     }
 
+    //Metodo para guardar elementos de los pedidos al arrayList
     public void GuardarPedido(String promocion, String nombre, String direccion, String metodoPago,
             String cantidadSeleccionda) {
 
         Main.listaPedidos.add(new Pedido(promocion, nombre, direccion, metodoPago, cantidadSeleccionda));
     }
 
+    //Metodo para mostrar el arrayList de pedidos en un JTextArea
     public void MostrarPedidos() {
 
         for (int contador = 0; contador < Main.listaPedidos.size(); contador++) {
@@ -330,6 +341,7 @@ public class Metodos{
         }
     }
 
+    //Metodo para enviar pedido; se estima que al llamar este metodo, ya haya una conexion del socket con el servidor (mas adelante se detalla)
     public void EnviarPedido() {
         try {
 
@@ -341,7 +353,7 @@ public class Metodos{
             Object objetoRecibido = inObjeto.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
-                // Muestra un JOptionPane con el contenido del ArrayList
+                
                 ArrayList<Pedido> listaPedidosRecibidos = (ArrayList<Pedido>) objetoRecibido;
                 StringBuilder mensaje = new StringBuilder("Pedidos recibidos:\n");
                 for (Pedido pedido : listaPedidosRecibidos) {
@@ -372,6 +384,7 @@ public class Metodos{
         }
     }
 
+//Metodo para enviar solicitud para aplicar a trabajar en Pizza Roma; se estima que al llamar este metodo, ya haya una conexion del socket con el servidor (mas adelante se detalla)
     public void EnviarAplicante() {
 
         try {
@@ -384,7 +397,7 @@ public class Metodos{
             Object objetoRecibido = inObjeto.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
-                // Muestra un JOptionPane con el contenido del ArrayList
+                
                 ArrayList<Aplicante> listaAplicantes = (ArrayList<Aplicante>) objetoRecibido;
                 StringBuilder mensaje = new StringBuilder("Aplicante recibidos:\n");
                 for (Aplicante aplicante : listaAplicantes) {
@@ -416,6 +429,7 @@ public class Metodos{
 
     }
 
+    //Metodo para enviar un mensaje al servidor; se estima que al llamar este metodo, ya haya una conexion del socket con el servidor (mas adelante se detalla)
     public void enviarMensaje() {
         try {
             if (socket != null && !socket.isClosed()) {
@@ -432,6 +446,9 @@ public class Metodos{
         }
     }
 
+    //Metodo para recibir un mensaje del servidor
+    //En este metodo se obtuvieron latencias ya que no se recibe el mensaje, por razones de que el servidor no logro enviar el mensaje correctamente; 
+    //se estima que al llamar este metodo, ya haya una conexion del socket con el servidor (mas adelante se detalla)
     public void recibirMensaje() {
         try {
             if (socket != null && !socket.isClosed()) {
@@ -447,6 +464,9 @@ public class Metodos{
         }
     }
 
+    //Este metodo es el encargado de establecer la conexion de el Cliente al Servidor. Esto se controla llamando primero a este metodo y secuencialmente a los anteriores que dependan 
+    //de una apertura de socket. 
+    //Aqui se establece una conexion socket para el flujo de datos
     public void conectarData() {
         if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
             try {
@@ -465,6 +485,9 @@ public class Metodos{
         }
     }
 
+    //Este metodo es el encargado de establecer la conexion de el Cliente al Servidor. Esto se controla llamando primero a este metodo y secuencialmente a los anteriores que dependan 
+    //de una apertura de socket. 
+    //Aqui se establece una conexion socket para el flujo de objetos
     public void conectarObject() {
         if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
             try {
@@ -483,6 +506,8 @@ public class Metodos{
         }
     }
 
+    //Este metodo desconecta la conexion del socket si este no es nulo y no ha sido cerrado
+    //De igual forma se debera llamar a este metodo de manera ordenada, despues que el flujo de datos/objetos entre el cliente y el servidor hayan concluido exitosamente
     public void desconectar() {
         try {
             if (socket != null && !socket.isClosed()) {

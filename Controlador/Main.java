@@ -24,6 +24,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Se crea una instancia de las respectivas clases que han sido heredadas con JFrame implementando la 
+        //libreria javax.swing.*;
         RegistroInicio registroInicio = new RegistroInicio();
         PrimeraVista primeraVista = new PrimeraVista();
         RegistroPedido registroPedido = new RegistroPedido();
@@ -34,8 +36,10 @@ public class Main {
         VistaSoporte vistaSoporte = new VistaSoporte();
         IngresoDinero ingresoDinero = new IngresoDinero();
 
+        //Se crea una instancia de la Clase Metdos en donde se le pasan como paramatreos las instancias de las clases anteriormente mencionadas
         Metodos metodos = new Metodos(registroPedido, registroInicio, primeraVista, registroAplicante, estadoPedido, misPedidos, ingresoDinero, noticias, vistaSoporte);
 
+         //Para cada instancia se le incova el metodo se "setMetodos", el cual es un metodo constructor para poder trabajar con la clase metodos en todas las clases instanciadas anteriormente
         registroInicio.setMetodos(metodos);
         primeraVista.setMetodos(metodos);
         registroPedido.setMetodos(metodos);
@@ -46,6 +50,7 @@ public class Main {
         vistaSoporte.setMetodos(metodos);
         ingresoDinero.setMetodos(metodos);
 
+        //Se hace visible la clase registroInicio que es donde el usuario se registra en la aplicacion
         registroInicio.setVisible(true);
        
 
