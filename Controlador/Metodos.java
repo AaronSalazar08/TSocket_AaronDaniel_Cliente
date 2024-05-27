@@ -36,15 +36,15 @@ import Vista.VistaSoporte;
 
 public class Metodos{
 
-    public final String HOST = "192.168.86.55";
+    public final String HOST = "192.168.86.74";
 
     public final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
     private Socket socket;
 
-    ObjectOutputStream outObjeto;
-    ObjectInputStream inObjeto;
+    ObjectOutputStream objectOutputStream;
+    ObjectInputStream objectInputStream;
 
     private RegistroPedido enlacePedido;
     private RegistroInicio enlanceLogin;
@@ -203,50 +203,66 @@ public class Metodos{
     }
 
     public void EnviarPedidoServer() {
-        try {
-            boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
-            boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
-            boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
-            String entradaNombre = enlacePedido.areaNombre.getText().trim();
-            String entradaDireccion = enlacePedido.areaDireccion.getText().trim();
-            String cantidadSeleccionda = String.valueOf(enlacePedido.cantidadPromo.getSelectedItem());
-            String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
-    
-            if (entradaNombre.isEmpty() || entradaDireccion.isEmpty()) {
-                JOptionPane.showMessageDialog(null,
-                        "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
-                return;
+
+        boolean entradaPromocion1 = enlacePedido.SuperRoma.isSelected();
+        boolean entradaPromocion2 = enlacePedido.JamonQueso.isSelected();
+        boolean entradaPromocion3 = enlacePedido.margarita.isSelected();
+        String entradaNombre = enlacePedido.areaNombre.getText().trim();
+        String entradaDireccion = enlacePedido.areaDireccion.getText().trim();
+        String cantidadSeleccionda = String.valueOf(enlacePedido.cantidadPromo.getSelectedItem());
+        String metodoPagoSeleccionado = (String) enlacePedido.tipoPago.getSelectedItem();
+
+        if (entradaNombre.isEmpty() && entradaDireccion.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null,
+                    "Por favor, especifíca tu nombre y dirección para darnos nuestra mejor atención");
+        } else if (!entradaNombre.isEmpty() && !entradaDireccion.isEmpty()) {
+
+            try {
+
+                if (entradaPromocion1) {
+                    String promocion1 = "Pizza Super Roma - ₡12 500";
+                    GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                            cantidadSeleccionda);
+                    EnviarPedido();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                   
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
+
+                }
+
+                // Puedes añadir más condiciones para las otras promociones
+                if (entradaPromocion2) {
+                    String promocion2 = "Pizza Clásica Italiana - ₡9 500"; // Ejemplo de otra promoción
+                    GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                            cantidadSeleccionda);
+                    EnviarPedido();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
+                    
+
+                }
+
+                if (entradaPromocion3) {
+                    String promocion3 = "Margarita por Venecia - ₡15 000"; // Ejemplo de otra promoción
+                    GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
+                            cantidadSeleccionda);
+                    EnviarPedido();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
+
+                    enlaceVista.setVisible(true);
+                    enlacePedido.setVisible(false);
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
             }
-    
-            if (entradaPromocion1) {
-                String promocion1 = "Pizza Super Roma - ₡12 500";
-                GuardarPedido(promocion1, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
-                        cantidadSeleccionda);
-            } else if (entradaPromocion2) {
-                String promocion2 = "Pizza Clásica Italiana - ₡9 500";
-                GuardarPedido(promocion2, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
-                        cantidadSeleccionda);
-            } else if (entradaPromocion3) {
-                String promocion3 = "Margarita por Venecia - ₡15 000";
-                GuardarPedido(promocion3, entradaNombre, entradaDireccion, metodoPagoSeleccionado,
-                        cantidadSeleccionda);
-            } else {
-                JOptionPane.showMessageDialog(null, "Por favor, selecciona una promoción.");
-                return;
-            }
-    
-            EnviarPedido();
-            JOptionPane.showMessageDialog(null, "Pedido realizado con éxito");
-            enlaceVista.setVisible(true);
-            enlacePedido.setVisible(false);
-    
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al realizar el pedido: " + ex.getMessage(), "Error",
-                    JOptionPane.ERROR_MESSAGE);
+
         }
     }
-    
 
     public void EnviarAplicanteServer() {
 
@@ -315,14 +331,16 @@ public class Metodos{
     }
 
     public void EnviarPedido() {
-        try  {
+        try (Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
 
             // Enviar el objeto
-            outObjeto.writeObject(Main.listaPedidos);
-            outObjeto.flush();
+            outputStream.writeObject(Main.listaPedidos);
+            outputStream.flush();
 
             // Recibir el objeto de respuesta
-            Object objetoRecibido = inObjeto.readObject();
+            Object objetoRecibido = inputStream.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
@@ -358,14 +376,16 @@ public class Metodos{
 
     public void EnviarAplicante() {
 
-        try  {
+        try (Socket socket = new Socket(HOST, PUERTO);
+                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
 
             // Enviar el objeto
-            outObjeto.writeObject(Main.listaAplicantes);
-            outObjeto.flush();
+            outputStream.writeObject(Main.listaAplicantes);
+            outputStream.flush();
 
             // Recibir el objeto de respuesta
-            Object objetoRecibido = inObjeto.readObject();
+            Object objetoRecibido = inputStream.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
@@ -431,34 +451,12 @@ public class Metodos{
         }
     }
 
-    public void conectarData() {
+    public void conectar() {
         if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
             try {
                 socket = new Socket(HOST, PUERTO);
                 out = new DataOutputStream(socket.getOutputStream());
                 in = new DataInputStream(socket.getInputStream());
-                
-
-                JOptionPane.showMessageDialog(null, "Cliente conectado con el Servidor");
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El cliente ya está conectado con el servidor.", "Advertencia",
-                    JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    public void conectarObject() {
-        if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
-            try {
-                socket = new Socket(HOST, PUERTO);
-                outObjeto = new ObjectOutputStream(socket.getOutputStream());
-                inObjeto = new ObjectInputStream(socket.getInputStream());
-                
-
                 JOptionPane.showMessageDialog(null, "Cliente conectado con el Servidor");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error",
