@@ -224,12 +224,13 @@ public class RegistroPedido extends JFrame implements ActionListener {
         if (e.getSource() == botonCancelar) {
 
             metodos.pedidosAprincipal();
-            metodos.desconectar();
+           
         }
 
         if (e.getSource() == botonEnviar) {
 
             metodos.EnviarPedidoServer();
+            metodos.desconectar();
         }
     }
 

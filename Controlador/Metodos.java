@@ -36,15 +36,15 @@ import Vista.VistaSoporte;
 
 public class Metodos{
 
-    public final String HOST = "192.168.86.74";
+    public final String HOST = "192.168.86.55";
 
     public final int PUERTO = 5000;
     DataInputStream in;
     DataOutputStream out;
     private Socket socket;
 
-    ObjectOutputStream objectOutputStream;
-    ObjectInputStream objectInputStream;
+    ObjectOutputStream outObjeto;
+    ObjectInputStream inObjeto;
 
     private RegistroPedido enlacePedido;
     private RegistroInicio enlanceLogin;
@@ -331,16 +331,14 @@ public class Metodos{
     }
 
     public void EnviarPedido() {
-        try (Socket socket = new Socket(HOST, PUERTO);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
+        try {
 
             // Enviar el objeto
-            outputStream.writeObject(Main.listaPedidos);
-            outputStream.flush();
+            outObjeto.writeObject(Main.listaPedidos);
+            outObjeto.flush();
 
             // Recibir el objeto de respuesta
-            Object objetoRecibido = inputStream.readObject();
+            Object objetoRecibido = inObjeto.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
@@ -376,16 +374,14 @@ public class Metodos{
 
     public void EnviarAplicante() {
 
-        try (Socket socket = new Socket(HOST, PUERTO);
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
+        try {
 
             // Enviar el objeto
-            outputStream.writeObject(Main.listaAplicantes);
-            outputStream.flush();
+            outObjeto.writeObject(Main.listaAplicantes);
+            outObjeto.flush();
 
             // Recibir el objeto de respuesta
-            Object objetoRecibido = inputStream.readObject();
+            Object objetoRecibido = inObjeto.readObject();
 
             if (objetoRecibido instanceof ArrayList<?>) {
                 // Muestra un JOptionPane con el contenido del ArrayList
@@ -451,12 +447,30 @@ public class Metodos{
         }
     }
 
-    public void conectar() {
+    public void conectarData() {
         if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
             try {
                 socket = new Socket(HOST, PUERTO);
                 out = new DataOutputStream(socket.getOutputStream());
                 in = new DataInputStream(socket.getInputStream());
+                JOptionPane.showMessageDialog(null, "Cliente conectado con el Servidor");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El cliente ya está conectado con el servidor.", "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void conectarObject() {
+        if (socket == null || socket.isClosed()) { // Verificar si el socket no existe o está cerrado
+            try {
+                socket = new Socket(HOST, PUERTO);
+                outObjeto = new ObjectOutputStream(socket.getOutputStream());
+                inObjeto = new ObjectInputStream(socket.getInputStream());
                 JOptionPane.showMessageDialog(null, "Cliente conectado con el Servidor");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null, "Error de conexión: " + e.getMessage(), "Error",
