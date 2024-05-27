@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Aplicante implements Serializable{
 
-    private static final long serialVersionUID = 8799656478674716631L;
+    private static final long serialVersionUID = 8799656478674716631L;//Con esta creacion de la variable long, se asegura la conexion serializable Cliente Servidor para esta clase especifica
 
+    //Atributos de Aplicante
     protected String cedula, nombre, correo, postulacion, provincia;
     protected int numero;
 
@@ -82,7 +83,7 @@ public class Aplicante implements Serializable{
         this.numero = numero;
     }
 
-
+//Creacion de metodo toString para poder mostrar atributos de Aplicante
     @Override
     public String toString() {
         return "Aplicante: \nCedula: " + cedula + "\nNombre: " + nombre + "\nCorreo: " + correo + "\nPostula: "

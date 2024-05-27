@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Pedido implements Serializable{
 
-    private static final long serialVersionUID =  8799656478674716632L;
+    private static final long serialVersionUID =  8799656478674716632L; //Con esta creacion de la variable long, se asegura la conexion serializable Cliente Servidor para esta clase especifica
 
+    //Atributos de Pedido
     protected String promocion, nombre, direccion, metodoPago, cantidadPromocion;
     
 
